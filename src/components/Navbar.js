@@ -59,7 +59,7 @@ const Navbar = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
+            <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
               <Image 
                 src="/logo.jpeg" 
                 alt="Rasi Foundation Logo" 
@@ -67,7 +67,7 @@ const Navbar = () => {
                 height={50}
                 className="group-hover:scale-105 transition-transform"
               />
-              <div>
+              <div className="whitespace-nowrap">
                 <h1 className="text-2xl md:text-3xl font-bold">
                   <span className="text-red-600">RASI</span>
                   <span className="text-green-700 ml-2 font-normal">FOUNDATION</span>
