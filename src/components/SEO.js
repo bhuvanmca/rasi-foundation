@@ -27,7 +27,7 @@ const SEO = ({
     '@type': 'EducationalOrganization',
     name: 'Rasi Foundation',
     url: siteUrl,
-    logo: `${siteUrl}/logo.png`,
+    logo: `${siteUrl}/logo.jpeg`,
     description: 'Career Guidance & Education Consultancy helping students achieve their educational dreams',
     address: {
       '@type': 'PostalAddress',
@@ -140,10 +140,10 @@ const SEO = ({
       <link rel="alternate" hrefLang="en-IN" href={canonicalUrl} />
       
       {/* Favicon */}
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+      <link rel="icon" href="/logo.jpeg" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/logo.jpeg" />
+      <link rel="icon" type="image/jpeg" sizes="32x32" href="/logo.jpeg" />
+      <link rel="icon" type="image/jpeg" sizes="16x16" href="/logo.jpeg" />
       
       {/* Structured Data - Organization */}
       <script

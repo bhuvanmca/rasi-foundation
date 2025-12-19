@@ -77,12 +77,12 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation - Centered with flex-1 */}
-            <div className="hidden lg:flex items-center justify-center flex-1 gap-1 xl:gap-2 mx-4">
+            <div className="hidden md:flex items-center justify-end flex-1 gap-1 lg:gap-2 ml-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   href={link.path}
-                  className={`px-3 xl:px-4 py-2 rounded-lg text-sm xl:text-base font-medium transition-all duration-300 whitespace-nowrap ${
+                  className={`px-2 lg:px-3 xl:px-4 py-2 rounded-lg text-xs lg:text-sm xl:text-base font-medium transition-all duration-300 whitespace-nowrap ${
                     isActive(link.path)
                       ? 'bg-red-600 text-white shadow-md'
                       : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
@@ -94,7 +94,7 @@ const Navbar = () => {
             </div>
 
             {/* CTA Button */}
-            <div className="hidden lg:block flex-shrink-0">
+            <div className="hidden xl:block flex-shrink-0 ml-2">
               <Link href="/contact" className="btn-secondary text-sm whitespace-nowrap">
                 Get Free Counseling
               </Link>
@@ -102,7 +102,7 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden text-2xl text-gray-700 hover:text-red-600 transition-colors"
+              className="md:hidden text-2xl text-gray-700 hover:text-red-600 transition-colors ml-auto"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <FaTimes /> : <FaBars />}
@@ -111,7 +111,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
+        <div className={`md:hidden transition-all duration-300 overflow-hidden ${
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}>
           <div className="container mx-auto px-4 py-4 bg-gray-50 border-t">
