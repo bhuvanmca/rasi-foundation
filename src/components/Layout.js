@@ -1,17 +1,28 @@
-import Head from 'next/head';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import SEO from './SEO';
 
-const Layout = ({ children, title = 'Rasi Foundation', description = 'Empowering minds! Igniting future! - Career Guidance & Education Consultancy' }) => {
+const Layout = ({ 
+  children, 
+  title = 'Rasi Foundation', 
+  description = 'Empowering minds! Igniting future! - Career Guidance & Education Consultancy in Tamil Nadu. Expert guidance for MBBS, Engineering, MBA, Law admissions.',
+  keywords = '',
+  ogImage = '/og-image.jpg',
+  ogType = 'website',
+  noIndex = false,
+  structuredData = null
+}) => {
   return (
     <>
-      <Head>
-        <title>{title} | Rasi Foundation</title>
-        <meta name="description" content={description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="keywords" content="career guidance, education consultancy, MBBS, engineering, MBA, law, Tamil Nadu, Rasipuram" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <SEO 
+        title={title}
+        description={description}
+        keywords={keywords}
+        ogImage={ogImage}
+        ogType={ogType}
+        noIndex={noIndex}
+        structuredData={structuredData}
+      />
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-grow">{children}</main>

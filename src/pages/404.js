@@ -4,7 +4,11 @@ import { FaHome, FaSearch, FaArrowLeft } from 'react-icons/fa';
 
 export default function Custom404() {
   return (
-    <Layout title="Page Not Found" description="The page you're looking for doesn't exist.">
+    <Layout 
+      title="Page Not Found" 
+      description="The page you're looking for doesn't exist or has been moved."
+      noIndex={true}
+    >
       <section className="min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-red-50 via-white to-green-50">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto">

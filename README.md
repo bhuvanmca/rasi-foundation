@@ -63,4 +63,3 @@ src/
 ---
 
 **Empowering minds! Igniting future!**
-# rasi-foundation

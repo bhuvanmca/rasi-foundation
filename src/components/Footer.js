@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   FaPhone, 
   FaEnvelope, 
@@ -8,7 +9,6 @@ import {
   FaInstagram, 
   FaLinkedin,
   FaYoutube,
-  FaGraduationCap,
   FaArrowRight
 } from 'react-icons/fa';
 
@@ -39,7 +39,12 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-6">
-              <FaGraduationCap className="text-4xl text-red-500" />
+              <Image 
+                src="/logo.jpeg" 
+                alt="Rasi Foundation Logo" 
+                width={45} 
+                height={45}
+              />
               <div>
                 <h3 className="text-2xl font-bold">
                   <span className="text-red-500">RASI</span>

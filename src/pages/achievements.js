@@ -150,7 +150,11 @@ export default function Achievements() {
   ];
 
   return (
-    <Layout title="Achievements" description="Discover the success stories and milestones of Rasi Foundation. See how we have helped thousands of students achieve their dreams.">
+    <Layout 
+      title="Achievements" 
+      description="Rasi Foundation achievements: 5000+ students guided, 100+ partner colleges, 15+ years excellence. Read success stories of students placed in top Medical, Engineering & Management colleges."
+      keywords="student success stories, education consultancy achievements, MBBS admission success, engineering placement stories, career guidance testimonials"
+    >
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-amber-50 via-white to-red-50 py-20">
         <div className="container mx-auto px-4">

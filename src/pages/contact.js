@@ -17,6 +17,23 @@ import {
 } from 'react-icons/fa';
 
 export default function Contact() {
+  // Page SEO structured data for local business
+  const contactStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Rasi Foundation',
+    description: 'Career Guidance & Education Consultancy',
+    telephone: '+91-9789446100',
+    email: 'rasifoundation@gmail.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Rasipuram',
+      addressRegion: 'Tamil Nadu',
+      addressCountry: 'IN'
+    },
+    openingHours: 'Mo-Sa 09:00-18:00'
+  };
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   
@@ -88,7 +105,12 @@ export default function Contact() {
   };
 
   return (
-    <Layout title="Contact Us" description="Get in touch with Rasi Foundation for career guidance and education consultancy. We're here to help you achieve your dreams.">
+    <Layout 
+      title="Contact Us" 
+      description="Contact Rasi Foundation for career guidance & education consultancy. Call +91-9789446100 for MBBS, Engineering, MBA admission counseling. Visit us in Rasipuram, Tamil Nadu."
+      keywords="contact Rasi Foundation, career counselor phone number, education consultant Rasipuram, admission helpline Tamil Nadu"
+      structuredData={contactStructuredData}
+    >
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-white to-green-50 py-20">
         <div className="container mx-auto px-4">

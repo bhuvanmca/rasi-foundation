@@ -68,7 +68,11 @@ export default function Home() {
   };
 
   return (
-    <Layout title="Home" description="Rasi Foundation - Your trusted partner in career guidance and education consultancy. Empowering minds, Igniting future!">
+    <Layout 
+      title="Home" 
+      description="Rasi Foundation - Premier career guidance & education consultancy in Tamil Nadu. Expert counseling for MBBS, Engineering, MBA, Law admissions. 5000+ students guided, 100+ partner colleges."
+      keywords="NEET counseling, medical college admission Tamil Nadu, engineering admission guidance, MBA admission consultant, career counselor Rasipuram, Namakkal education consultancy"
+    >
       {/* Hero Section */}
       <section className="relative min-h-[90vh] bg-gradient-hero overflow-hidden">
         {/* Background Pattern */}

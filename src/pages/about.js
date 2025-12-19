@@ -50,7 +50,11 @@ export default function About() {
   ];
 
   return (
-    <Layout title="About Us" description="Learn about Rasi Foundation - Your trusted partner in career guidance and education consultancy since its establishment.">
+    <Layout 
+      title="About Us" 
+      description="Learn about Rasi Foundation - 15+ years of excellence in career guidance. Founded by Prof. P. Gunasekaran, we've helped 5000+ students achieve their educational dreams in Medical, Engineering, MBA & Law."
+      keywords="about Rasi Foundation, career guidance Rasipuram, education consultant history, Prof Gunasekaran, career counselor Tamil Nadu"
+    >
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-red-50 via-white to-green-50 py-20">
         <div className="container mx-auto px-4">

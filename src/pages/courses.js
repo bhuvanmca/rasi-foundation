@@ -297,7 +297,11 @@ export default function Courses() {
   };
 
   return (
-    <Layout title="Courses" description="Explore our wide range of courses including MBBS, Engineering, MBA, Law, Education, and more. Get expert guidance for admissions.">
+    <Layout 
+      title="Courses" 
+      description="Explore 50+ courses: MBBS, BDS, B.Tech, MBA, LLB, B.Ed & more. Rasi Foundation provides expert admission guidance for Medical, Engineering, Management, Law courses in Tamil Nadu."
+      keywords="MBBS course admission, engineering courses Tamil Nadu, MBA admission guidance, law courses India, B.Ed admission, NEET coaching, medical courses, polytechnic admission"
+    >
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-green-50 via-white to-amber-50 py-20">
         <div className="container mx-auto px-4">

@@ -1,7 +1,8 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { FaPhone, FaEnvelope, FaBars, FaTimes, FaGraduationCap } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaBars, FaTimes } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,6 +24,7 @@ const Navbar = () => {
     { name: 'Question Corner', path: '/questions' },
     { name: 'Achievements', path: '/achievements' },
     { name: 'Contact Us', path: '/contact' },
+    { name: 'Payment', path: '/payment' },
   ];
 
   const isActive = (path) => router.pathname === path;
@@ -58,10 +60,13 @@ const Navbar = () => {
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative">
-                <FaGraduationCap className="text-4xl md:text-5xl text-red-600 group-hover:text-red-700 transition-colors" />
-                <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full"></div>
-              </div>
+              <Image 
+                src="/logo.jpeg" 
+                alt="Rasi Foundation Logo" 
+                width={50} 
+                height={50}
+                className="group-hover:scale-105 transition-transform"
+              />
               <div>
                 <h1 className="text-2xl md:text-3xl font-bold">
                   <span className="text-red-600">RASI</span>

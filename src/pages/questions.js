@@ -166,8 +166,27 @@ export default function Questions() {
     }
   };
 
+  // FAQ structured data for SEO
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.slice(0, 10).map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
+  };
+
   return (
-    <Layout title="Question Corner" description="Get answers to your questions about admissions, courses, and career guidance. Ask our experts at Rasi Foundation.">
+    <Layout 
+      title="FAQ & Question Corner" 
+      description="Get answers to frequently asked questions about MBBS admission, NEET counseling, engineering courses, MBA admission process. Ask our career guidance experts."
+      keywords="MBBS admission FAQ, NEET counseling questions, engineering admission queries, MBA admission process, career guidance questions"
+      structuredData={faqStructuredData}
+    >
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-purple-50 via-white to-pink-50 py-20">
         <div className="container mx-auto px-4">
