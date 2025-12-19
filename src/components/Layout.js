@@ -1,6 +1,7 @@
 import Navbar from './Navbar';
 import Footer from './Footer';
 import SEO from './SEO';
+import FloatingButtons from './FloatingButtons';
 
 const Layout = ({ 
   children, 
@@ -27,6 +28,7 @@ const Layout = ({
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />
+        <FloatingButtons />
       </div>
     </>
   );
