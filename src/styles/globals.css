@@ -36,10 +36,17 @@ body {
   scroll-behavior: smooth;
 }
 
-body {
   font-family: 'Inter', system-ui, sans-serif;
-  background: linear-gradient(135deg, #fefefe 0%, #f8fafc 100%);
+  background: linear-gradient(120deg, #f8fafc 0%, #f1f5f9 50%, #e0e7ef 100%);
   color: #1f2937;
+}
+
+.premium-section {
+  @apply bg-white/90 rounded-2xl shadow-xl p-6 md:p-10 mb-10 border border-gray-100;
+}
+
+.premium-divider {
+  @apply border-t border-gray-200 my-8;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -47,38 +54,38 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @layer components {
+
   .btn-primary {
-    @apply bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-3 rounded-lg font-semibold 
-           hover:from-red-700 hover:to-red-800 transform hover:scale-105 transition-all duration-300 
-           shadow-lg hover:shadow-xl;
+    @apply bg-gradient-to-r from-red-600 to-red-700 text-white px-7 py-3 rounded-xl font-semibold tracking-wide shadow-xl hover:from-red-700 hover:to-red-800 hover:scale-105 transition-all duration-300 hover:shadow-2xl border-0;
   }
+
 
   .btn-secondary {
-    @apply bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-lg font-semibold 
-           hover:from-green-700 hover:to-green-800 transform hover:scale-105 transition-all duration-300 
-           shadow-lg hover:shadow-xl;
+    @apply bg-gradient-to-r from-green-600 to-green-700 text-white px-7 py-3 rounded-xl font-semibold tracking-wide shadow-xl hover:from-green-700 hover:to-green-800 hover:scale-105 transition-all duration-300 hover:shadow-2xl border-0;
   }
+
 
   .btn-outline {
-    @apply border-2 border-red-600 text-red-600 px-6 py-3 rounded-lg font-semibold 
-           hover:bg-red-600 hover:text-white transform hover:scale-105 transition-all duration-300;
+    @apply border-2 border-red-600 text-red-600 px-7 py-3 rounded-xl font-semibold tracking-wide bg-white hover:bg-red-600 hover:text-white hover:scale-105 transition-all duration-300 shadow hover:shadow-xl;
   }
 
+
   .card {
-    @apply bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 
-           border border-gray-100 overflow-hidden;
+    @apply bg-white/95 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-300 border border-gray-100 overflow-hidden p-6 md:p-8;
   }
 
   .card-hover {
     @apply transform hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300;
   }
 
+
   .section-title {
-    @apply text-4xl md:text-5xl font-bold text-gray-800 mb-4;
+    @apply text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 tracking-tight drop-shadow-sm;
   }
 
+
   .section-subtitle {
-    @apply text-lg md:text-xl text-gray-600 max-w-2xl mx-auto;
+    @apply text-lg md:text-xl text-gray-600 max-w-2xl mx-auto font-medium;
   }
 
   .gradient-text {
