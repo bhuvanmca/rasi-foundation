@@ -57,32 +57,32 @@ const Navbar = () => {
           : 'bg-white shadow-md'
       }`}>
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex items-center py-3">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
+            <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
               <Image 
                 src="/logo.jpeg" 
                 alt="Rasi Foundation Logo" 
-                width={50} 
-                height={50}
+                width={45} 
+                height={45}
                 className="group-hover:scale-105 transition-transform"
               />
               <div className="whitespace-nowrap">
-                <h1 className="text-2xl md:text-3xl font-bold">
+                <h1 className="text-xl lg:text-2xl font-bold">
                   <span className="text-red-600">RASI</span>
-                  <span className="text-green-700 ml-2 font-normal">FOUNDATION</span>
+                  <span className="text-green-700 ml-1 font-normal">FOUNDATION</span>
                 </h1>
-                <p className="text-xs text-gray-500 hidden sm:block">Career Guidance & Education Consultancy</p>
+                <p className="text-[10px] text-gray-500 hidden sm:block">Career Guidance & Education Consultancy</p>
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
+            {/* Desktop Navigation - Centered with flex-1 */}
+            <div className="hidden lg:flex items-center justify-center flex-1 gap-1 xl:gap-2 mx-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   href={link.path}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                  className={`px-3 xl:px-4 py-2 rounded-lg text-sm xl:text-base font-medium transition-all duration-300 whitespace-nowrap ${
                     isActive(link.path)
                       ? 'bg-red-600 text-white shadow-md'
                       : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
@@ -94,8 +94,8 @@ const Navbar = () => {
             </div>
 
             {/* CTA Button */}
-            <div className="hidden lg:block">
-              <Link href="/contact" className="btn-secondary text-sm">
+            <div className="hidden lg:block flex-shrink-0">
+              <Link href="/contact" className="btn-secondary text-sm whitespace-nowrap">
                 Get Free Counseling
               </Link>
             </div>
