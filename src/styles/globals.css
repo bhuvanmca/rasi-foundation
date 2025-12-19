@@ -10,10 +10,10 @@
   --accent-gold: #f59e0b;
   --dark: #1f2937;
   --light: #f9fafb;
-}
-
-* {
-  box-sizing: border-box;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: linear-gradient(120deg, #f8fafc 0%, #f1f5f9 50%, #e0e7ef 100%);
+    color: #1f2937;
+    /* removed extra closing brace here */
   padding: 0;
   margin: 0;
 }
