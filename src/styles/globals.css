@@ -18,7 +18,14 @@
   margin: 0;
 }
 
-html,
+
+html {
+  font-size: 90%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
 body {
   max-width: 100vw;
   overflow-x: hidden;
