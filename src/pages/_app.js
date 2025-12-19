@@ -35,6 +35,18 @@ export default function App({ Component, pageProps }) {
     };
   }, [router]);
 
+  // Add a class to html for all pages except home
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const html = document.documentElement;
+      if (router.pathname !== '/') {
+        html.classList.add('font-reduce');
+      } else {
+        html.classList.remove('font-reduce');
+      }
+    }
+  }, [router.pathname]);
+
   return (
     <>
       {loading && <LoadingScreen />}
