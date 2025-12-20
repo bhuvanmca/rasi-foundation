@@ -5,7 +5,7 @@ import FloatingButtons from './FloatingButtons';
 
 const Layout = ({ 
   children, 
-  title = 'Rasi Foundation', 
+  title = 'RASI FOUNDATION', 
   description = 'Empowering minds! Igniting future! - Career Guidance & Education Consultancy in Tamil Nadu. Expert guidance for MBBS, Engineering, MBA, Law admissions.',
   keywords = '',
   ogImage = '/og-image.jpg',

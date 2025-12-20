@@ -20,14 +20,14 @@ export default function Document() {
         <link rel="manifest" href="/site.webmanifest" />
         
         {/* Base SEO */}
-        <meta name="author" content="Rasi Foundation" />
-        <meta name="publisher" content="Rasi Foundation" />
+        <meta name="author" content="RASI FOUNDATION" />
+        <meta name="publisher" content="RASI FOUNDATION" />
         <meta name="robots" content="index, follow" />
         <meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
         
         {/* Open Graph Base */}
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Rasi Foundation" />
+        <meta property="og:site_name" content="RASI FOUNDATION" />
         <meta property="og:locale" content="en_IN" />
         
         {/* Verification tags - Add your verification codes here */}

@@ -69,19 +69,11 @@ const Navbar = () => {
                 className="group-hover:scale-105 transition-transform"
               />
               <div className="whitespace-nowrap">
-                <h1 className="text-xl lg:text-2xl font-bold font-serif">
-                  <span className="relative inline-block">
-                    <span className="text-red-600 font-bold" style={{ fontFamily: 'Georgia, serif' }}>
-                      <span className="relative">
-                        R
-                        <span className="absolute -top-2 left-0 text-[10px] lg:text-xs">🎓</span>
-                      </span>
-                      ASI
-                    </span>
-                  </span>
-                  <span className="text-green-700 ml-1 font-semibold tracking-wide" style={{ fontFamily: 'Georgia, serif' }}>FOUNDATION</span>
+                <h1 className="text-xl lg:text-2xl font-bold">
+                  <span className="text-red-600 font-bold tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>RASI</span>
+                  <span className="text-green-700 ml-1 font-bold tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>FOUNDATION</span>
                 </h1>
-                <p className="text-[10px] text-gray-500 hidden sm:block">Career Guidance & Education Consultancy</p>
+                <p className="text-[10px] text-gray-500 italic hidden sm:block">Career Guidance & Education Consultancy</p>
               </div>
             </Link>
 

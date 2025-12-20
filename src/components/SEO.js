@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 const SEO = ({
-  title = 'Rasi Foundation',
+  title = 'RASI FOUNDATION',
   description = 'Empowering minds! Igniting future! - Career Guidance & Education Consultancy in Tamil Nadu. Expert guidance for MBBS, Engineering, MBA, Law admissions.',
   keywords = '',
   ogImage = '/og-image.jpg',
@@ -15,8 +15,8 @@ const SEO = ({
   const canonicalUrl = `${siteUrl}${router.asPath.split('?')[0]}`;
   
   const fullTitle = title === 'Home' 
-    ? 'Rasi Foundation - Career Guidance & Education Consultancy' 
-    : `${title} | Rasi Foundation`;
+    ? 'RASI FOUNDATION - Career Guidance & Education Consultancy' 
+    : `${title} | RASI FOUNDATION`;
 
   const defaultKeywords = 'career guidance, education consultancy, college admission, MBBS admission, engineering admission, MBA admission, law admission, NEET counseling, career counselor, Rasipuram, Tamil Nadu, Namakkal, India, medical college admission, engineering college admission';
   const allKeywords = keywords ? `${keywords}, ${defaultKeywords}` : defaultKeywords;
@@ -25,7 +25,7 @@ const SEO = ({
   const organizationSchema = {
     '@context': 'https://schema.org',
     '@type': 'EducationalOrganization',
-    name: 'Rasi Foundation',
+    name: 'RASI FOUNDATION',
     url: siteUrl,
     logo: `${siteUrl}/logo.jpeg`,
     description: 'Career Guidance & Education Consultancy helping students achieve their educational dreams',
