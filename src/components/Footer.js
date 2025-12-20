@@ -41,7 +41,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-6">
               <Image 
-                src="/logo.jpeg" 
+                src="/logo.png" 
                 alt="Rasi Foundation Logo" 
                 width={45} 
                 height={45}

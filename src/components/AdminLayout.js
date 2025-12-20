@@ -79,7 +79,7 @@ export default function AdminLayout({ children, title = 'Dashboard' }) {
           <div className="h-16 flex items-center justify-between px-4 border-b border-gray-800">
             <Link href="/admin" className="flex items-center gap-3">
               <Image 
-                src="/logo.jpeg" 
+                src="/logo.png" 
                 alt="Rasi Foundation" 
                 width={36} 
                 height={36}
