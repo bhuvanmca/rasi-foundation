@@ -70,10 +70,10 @@ const Navbar = () => {
               />
               <div className="whitespace-nowrap">
                 <h1 className="text-xl lg:text-2xl font-bold">
-                  <span className="text-red-600 font-bold tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>RASI</span>
-                  <span className="text-green-700 ml-1 font-bold tracking-tight" style={{ fontFamily: 'Georgia, serif' }}>FOUNDATION</span>
+                  <span className="text-red-600 font-bold" style={{ fontFamily: 'Georgia, serif' }}>RASI</span>
+                  <span className="text-green-800 ml-1 font-bold" style={{ fontFamily: 'Georgia, serif' }}>FOUNDATION</span>
                 </h1>
-                <p className="text-[10px] text-gray-500 italic hidden sm:block">Career Guidance & Education Consultancy</p>
+                <p className="text-[10px] lg:text-xs text-gray-500 italic hidden sm:block" style={{ fontFamily: 'Georgia, serif' }}>Career Guidance & Education Consultancy</p>
               </div>
             </Link>
 

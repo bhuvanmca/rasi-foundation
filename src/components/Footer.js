@@ -47,9 +47,10 @@ const Footer = () => {
               />
               <div>
                 <h3 className="text-2xl font-bold">
-                  <span className="text-red-500">RASI</span>
-                  <span className="text-green-400 ml-2">FOUNDATION</span>
+                  <span className="text-red-500" style={{ fontFamily: 'Georgia, serif' }}>RASI</span>
+                  <span className="text-green-400 ml-1" style={{ fontFamily: 'Georgia, serif' }}>FOUNDATION</span>
                 </h3>
+                <p className="text-xs text-gray-400 italic" style={{ fontFamily: 'Georgia, serif' }}>Career Guidance & Education Consultancy</p>
               </div>
             </Link>
             <p className="text-gray-400 mb-6 leading-relaxed">
