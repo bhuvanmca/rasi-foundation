@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { FaPhone, FaEnvelope, FaBars, FaTimes } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaBars, FaTimes, FaGraduationCap } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,9 +69,13 @@ const Navbar = () => {
                 className="group-hover:scale-105 transition-transform"
               />
               <div className="whitespace-nowrap">
-                <h1 className="text-xl lg:text-2xl font-bold">
-                  <span className="text-red-600 font-bold" style={{ fontFamily: 'Georgia, serif' }}>RASI</span>
-                  <span className="text-green-800 ml-1 font-bold" style={{ fontFamily: 'Georgia, serif' }}>FOUNDATION</span>
+                <h1 className="text-xl lg:text-2xl font-bold flex items-baseline">
+                  <span className="text-red-600 font-bold relative" style={{ fontFamily: 'Georgia, serif' }}>
+                    <FaGraduationCap className="absolute -top-3 -left-1 text-gray-800 text-sm lg:text-base" />
+                    R
+                  </span>
+                  <span className="text-red-600 font-bold" style={{ fontFamily: 'Georgia, serif' }}>ASI</span>
+                  <span className="text-green-700 ml-1 font-bold" style={{ fontFamily: 'Georgia, serif' }}>FOUNDATION</span>
                 </h1>
                 <p className="text-[10px] lg:text-xs text-gray-500 italic hidden sm:block" style={{ fontFamily: 'Georgia, serif' }}>Career Guidance & Education Consultancy</p>
               </div>

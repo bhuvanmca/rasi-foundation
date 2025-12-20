@@ -9,7 +9,8 @@ import {
   FaInstagram, 
   FaLinkedin,
   FaYoutube,
-  FaArrowRight
+  FaArrowRight,
+  FaGraduationCap
 } from 'react-icons/fa';
 
 const Footer = () => {
@@ -46,8 +47,12 @@ const Footer = () => {
                 height={45}
               />
               <div>
-                <h3 className="text-2xl font-bold">
-                  <span className="text-red-500" style={{ fontFamily: 'Georgia, serif' }}>RASI</span>
+                <h3 className="text-2xl font-bold flex items-baseline">
+                  <span className="text-red-500 relative" style={{ fontFamily: 'Georgia, serif' }}>
+                    <FaGraduationCap className="absolute -top-3 -left-1 text-gray-300 text-base" />
+                    R
+                  </span>
+                  <span className="text-red-500" style={{ fontFamily: 'Georgia, serif' }}>ASI</span>
                   <span className="text-green-400 ml-1" style={{ fontFamily: 'Georgia, serif' }}>FOUNDATION</span>
                 </h3>
                 <p className="text-xs text-gray-400 italic" style={{ fontFamily: 'Georgia, serif' }}>Career Guidance & Education Consultancy</p>
