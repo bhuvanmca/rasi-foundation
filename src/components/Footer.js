@@ -9,8 +9,7 @@ import {
   FaInstagram, 
   FaLinkedin,
   FaYoutube,
-  FaArrowRight,
-  FaGraduationCap
+  FaArrowRight
 } from 'react-icons/fa';
 
 const Footer = () => {
@@ -39,24 +38,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-6">
+            <Link href="/" className="inline-block mb-6">
               <Image 
                 src="/logo.png" 
-                alt="Rasi Foundation Logo" 
-                width={45} 
-                height={45}
+                alt="RASI FOUNDATION - Career Guidance & Education Consultancy" 
+                width={250} 
+                height={55}
+                className="h-14 w-auto brightness-0 invert"
               />
-              <div>
-                <h3 className="text-2xl font-bold flex items-baseline">
-                  <span className="text-red-500 relative" style={{ fontFamily: 'Georgia, serif' }}>
-                    <FaGraduationCap className="absolute -top-3 -left-1 text-gray-300 text-base" />
-                    R
-                  </span>
-                  <span className="text-red-500" style={{ fontFamily: 'Georgia, serif' }}>ASI</span>
-                  <span className="text-green-400 ml-1" style={{ fontFamily: 'Georgia, serif' }}>FOUNDATION</span>
-                </h3>
-                <p className="text-xs text-gray-400 italic" style={{ fontFamily: 'Georgia, serif' }}>Career Guidance & Education Consultancy</p>
-              </div>
             </Link>
             <p className="text-gray-400 mb-6 leading-relaxed">
               Empowering students with the right career guidance and helping them achieve their dreams 
