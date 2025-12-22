@@ -1,7 +1,13 @@
+import dynamic from 'next/dynamic';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import SEO from './SEO';
-import FloatingButtons from './FloatingButtons';
+
+// Lazy load FloatingButtons as it's not critical for initial render
+const FloatingButtons = dynamic(() => import('./FloatingButtons'), {
+  ssr: false,
+  loading: () => null,
+});
 
 const Layout = ({ 
   children, 

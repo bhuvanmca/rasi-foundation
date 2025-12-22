@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  
+  // Enable compression
+  compress: true,
+  
+  // Optimize images
   images: {
     remotePatterns: [
       {
@@ -8,6 +13,40 @@ const nextConfig = {
         hostname: 'localhost',
       },
     ],
+    // Reduce image quality slightly for faster loading
+    deviceSizes: [640, 750, 828, 1080, 1200],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    formats: ['image/webp'],
+  },
+  
+  // Enable SWC minification (faster than Terser)
+  swcMinify: true,
+  
+  // Optimize production builds
+  compiler: {
+    // Remove console.log in production
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
+  // Experimental optimizations
+  experimental: {
+    // Optimize CSS loading
+    optimizeCss: true,
+  },
+  
+  // Cache headers for static assets
+  async headers() {
+    return [
+      {
+        source: '/:all*(svg|jpg|jpeg|png|webp|gif|ico|woff|woff2)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
   },
 }
 

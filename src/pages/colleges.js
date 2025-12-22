@@ -44,7 +44,8 @@ const districtColors = {
   'Coimbatore Zone': 'from-purple-500 to-purple-600',
 };
 
-export async function getServerSideProps() {
+// Use Static Site Generation with Incremental Static Regeneration for faster loading
+export async function getStaticProps() {
   try {
     await dbConnect();
     
@@ -78,6 +79,8 @@ export async function getServerSideProps() {
       props: {
         collegesData: collegesData.length > 0 ? collegesData : fallbackData,
       },
+      // Revalidate every 60 seconds (ISR)
+      revalidate: 60,
     };
   } catch (error) {
     console.error('Error fetching colleges:', error);
@@ -85,6 +88,7 @@ export async function getServerSideProps() {
       props: {
         collegesData: fallbackData,
       },
+      revalidate: 60,
     };
   }
 }
