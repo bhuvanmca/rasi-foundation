@@ -5,6 +5,7 @@ import {
   FaEnvelope, 
   FaUserGraduate, 
   FaQuestionCircle,
+  FaUniversity,
   FaArrowRight,
   FaSpinner,
   FaClock,
@@ -64,6 +65,15 @@ export default function AdminDashboard() {
       icon: FaQuestionCircle,
       color: 'purple',
       href: '/admin/questions'
+    },
+    {
+      title: 'Partner Colleges',
+      value: stats?.colleges?.total || 0,
+      new: stats?.colleges?.active || 0,
+      newLabel: 'active',
+      icon: FaUniversity,
+      color: 'orange',
+      href: '/admin/colleges'
     }
   ];
 
@@ -85,6 +95,12 @@ export default function AdminDashboard() {
       icon: 'bg-purple-500',
       text: 'text-purple-600',
       badge: 'bg-purple-100 text-purple-700'
+    },
+    orange: {
+      bg: 'bg-orange-50',
+      icon: 'bg-orange-500',
+      text: 'text-orange-600',
+      badge: 'bg-orange-100 text-orange-700'
     }
   };
 
@@ -103,11 +119,11 @@ export default function AdminDashboard() {
       {/* Welcome Banner */}
       <div className="bg-gradient-to-r from-red-600 to-red-700 rounded-2xl p-6 mb-6 text-white">
         <h2 className="text-2xl font-bold mb-2">Welcome to Admin Dashboard</h2>
-        <p className="text-red-100">Manage contacts, enquiries, and questions from students.</p>
+        <p className="text-red-100">Manage contacts, enquiries, questions and colleges.</p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {statCards.map((stat) => (
           <Link key={stat.title} href={stat.href}>
             <div className={`${colorClasses[stat.color].bg} rounded-xl p-6 hover:shadow-lg transition-all cursor-pointer`}>
@@ -117,8 +133,8 @@ export default function AdminDashboard() {
                   <p className="text-3xl font-bold text-gray-800 mt-2">{stat.value}</p>
                   {stat.new > 0 && (
                     <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full mt-2 ${colorClasses[stat.color].badge}`}>
-                      <FaExclamationCircle />
-                      {stat.new} new
+                      <FaCheckCircle />
+                      {stat.new} {stat.newLabel || 'new'}
                     </span>
                   )}
                 </div>

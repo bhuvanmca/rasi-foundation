@@ -58,14 +58,14 @@ const Navbar = () => {
           : 'bg-white shadow-md'
       }`}>
         <div className="container mx-auto px-4">
-          <div className="flex items-center py-2">
+          <div className="flex items-center py-1">
             {/* Logo */}
             <Link href="/" className="flex items-center group flex-shrink-0">
               <Image 
                 src="/logo.png" 
                 alt="RASI FOUNDATION - Career Guidance & Education Consultancy" 
-                width={320} 
-                height={70}
+                width={400} 
+                height={80}
                 className="group-hover:scale-105 transition-transform h-14 md:h-16 lg:h-[70px] w-auto"
                 priority
               />

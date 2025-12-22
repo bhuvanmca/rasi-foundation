@@ -3,6 +3,7 @@ import { withAuth } from '@/lib/auth';
 import Contact from '@/models/Contact';
 import Enquiry from '@/models/Enquiry';
 import Question from '@/models/Question';
+import College from '@/models/College';
 
 async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -19,14 +20,18 @@ async function handler(req, res) {
       totalEnquiries,
       pendingEnquiries,
       totalQuestions,
-      unansweredQuestions
+      unansweredQuestions,
+      totalColleges,
+      activeColleges
     ] = await Promise.all([
       Contact.countDocuments(),
       Contact.countDocuments({ status: 'new' }),
       Enquiry.countDocuments(),
       Enquiry.countDocuments({ status: 'pending' }),
       Question.countDocuments(),
-      Question.countDocuments({ isAnswered: false })
+      Question.countDocuments({ isAnswered: false }),
+      College.countDocuments(),
+      College.countDocuments({ isActive: true })
     ]);
 
     // Get recent items
@@ -39,7 +44,8 @@ async function handler(req, res) {
       stats: {
         contacts: { total: totalContacts, new: newContacts },
         enquiries: { total: totalEnquiries, pending: pendingEnquiries },
-        questions: { total: totalQuestions, unanswered: unansweredQuestions }
+        questions: { total: totalQuestions, unanswered: unansweredQuestions },
+        colleges: { total: totalColleges, active: activeColleges }
       },
       recent: {
         contacts: recentContacts,

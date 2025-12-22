@@ -8,6 +8,7 @@ import {
   FaEnvelope, 
   FaQuestionCircle, 
   FaUserGraduate,
+  FaUniversity,
   FaSignOutAlt,
   FaBars,
   FaTimes,
@@ -45,6 +46,7 @@ export default function AdminLayout({ children, title = 'Dashboard' }) {
     { name: 'Contacts', href: '/admin/contacts', icon: FaEnvelope },
     { name: 'Enquiries', href: '/admin/enquiries', icon: FaUserGraduate },
     { name: 'Questions', href: '/admin/questions', icon: FaQuestionCircle },
+    { name: 'Colleges', href: '/admin/colleges', icon: FaUniversity },
     { name: 'Payments', href: '/admin/payments', icon: FaCreditCard },
   ];
 
