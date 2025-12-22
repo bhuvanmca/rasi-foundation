@@ -2,10 +2,10 @@ import dbConnect from '@/lib/mongodb';
 import College from '@/models/College';
 
 export default async function handler(req, res) {
-  await dbConnect();
-
   if (req.method === 'GET') {
     try {
+      await dbConnect();
+      
       const colleges = await College.find({ isActive: true })
         .sort({ district: 1, order: 1, name: 1 })
         .lean();
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       res.status(200).json(result);
     } catch (error) {
       console.error('Error fetching colleges:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({ message: 'Internal server error', error: error.message });
     }
   } else {
     res.status(405).json({ message: 'Method not allowed' });
