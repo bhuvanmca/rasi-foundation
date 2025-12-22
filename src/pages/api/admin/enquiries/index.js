@@ -1,6 +1,6 @@
-import dbConnect from '@/lib/mongodb';
-import { withAuth } from '@/lib/auth';
-import Enquiry from '@/models/Enquiry';
+import dbConnect from '@/backend/lib/mongodb';
+import { withAuth } from '@/backend/lib/auth';
+import Enquiry from '@/backend/models/Enquiry';
 
 async function handler(req, res) {
   await dbConnect();

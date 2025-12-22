@@ -1,9 +1,9 @@
-import dbConnect from '@/lib/mongodb';
-import { withAuth } from '@/lib/auth';
-import Contact from '@/models/Contact';
-import Enquiry from '@/models/Enquiry';
-import Question from '@/models/Question';
-import College from '@/models/College';
+import dbConnect from '@/backend/lib/mongodb';
+import { withAuth } from '@/backend/lib/auth';
+import Contact from '@/backend/models/Contact';
+import Enquiry from '@/backend/models/Enquiry';
+import Question from '@/backend/models/Question';
+import College from '@/backend/models/College';
 
 async function handler(req, res) {
   if (req.method !== 'GET') {

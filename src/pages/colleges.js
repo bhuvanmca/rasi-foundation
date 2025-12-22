@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import Layout from '../components/Layout';
 import { FaMapMarkerAlt, FaUniversity, FaCode, FaGraduationCap, FaSpinner } from 'react-icons/fa';
-import dbConnect from '@/lib/mongodb';
-import College from '@/models/College';
+import dbConnect from '@/backend/lib/mongodb';
+import College from '@/backend/models/College';
 
 // Fallback static data in case database is empty
 const fallbackData = [

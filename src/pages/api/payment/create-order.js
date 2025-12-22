@@ -1,6 +1,6 @@
 import Razorpay from 'razorpay';
-import dbConnect from '@/lib/mongodb';
-import Payment from '@/models/Payment';
+import dbConnect from '@/backend/lib/mongodb';
+import Payment from '@/backend/models/Payment';
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID || 'rzp_test_xxxxx',

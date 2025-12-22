@@ -1,4 +1,4 @@
-import '@/styles/globals.css';
+import '@/frontend/styles/globals.css';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 

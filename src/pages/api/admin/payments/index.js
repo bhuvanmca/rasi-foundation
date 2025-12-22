@@ -1,6 +1,6 @@
-import dbConnect from '@/lib/mongodb';
-import { withAuth } from '@/lib/auth';
-import Payment from '@/models/Payment';
+import dbConnect from '@/backend/lib/mongodb';
+import { withAuth } from '@/backend/lib/auth';
+import Payment from '@/backend/models/Payment';
 
 async function handler(req, res) {
   if (req.method !== 'GET') {

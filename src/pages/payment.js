@@ -1,4 +1,4 @@
-import Layout from '@/components/Layout';
+import Layout from '@/frontend/components/Layout';
 import { useState } from 'react';
 import { 
   FaCreditCard,

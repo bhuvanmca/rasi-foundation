@@ -1,5 +1,5 @@
-import dbConnect from '@/lib/mongodb';
-import College from '@/models/College';
+import dbConnect from '@/backend/lib/mongodb';
+import College from '@/backend/models/College';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {

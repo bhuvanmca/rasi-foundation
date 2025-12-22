@@ -1,6 +1,6 @@
-import dbConnect from '@/lib/mongodb';
-import { withAuth } from '@/lib/auth';
-import Contact from '@/models/Contact';
+import dbConnect from '@/backend/lib/mongodb';
+import { withAuth } from '@/backend/lib/auth';
+import Contact from '@/backend/models/Contact';
 
 async function handler(req, res) {
   const { id } = req.query;

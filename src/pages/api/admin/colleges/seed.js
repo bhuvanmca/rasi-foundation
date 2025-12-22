@@ -1,6 +1,6 @@
-import dbConnect from '@/lib/mongodb';
-import { withAuth } from '@/lib/auth';
-import College from '@/models/College';
+import dbConnect from '@/backend/lib/mongodb';
+import { withAuth } from '@/backend/lib/auth';
+import College from '@/backend/models/College';
 
 // Initial seed data
 const initialColleges = [

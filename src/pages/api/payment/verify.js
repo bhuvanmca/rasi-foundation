@@ -1,6 +1,6 @@
 import crypto from 'crypto';
-import dbConnect from '@/lib/mongodb';
-import Payment from '@/models/Payment';
+import dbConnect from '@/backend/lib/mongodb';
+import Payment from '@/backend/models/Payment';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
