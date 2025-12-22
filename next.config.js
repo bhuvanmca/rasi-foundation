@@ -36,12 +36,6 @@ const nextConfig = {
   // Powered by header removal for security
   poweredByHeader: false,
   
-  // Experimental optimizations
-  experimental: {
-    // Optimize CSS loading
-    optimizeCss: true,
-  },
-  
   // Cache headers for static assets
   async headers() {
     return [

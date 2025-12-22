@@ -1,9 +1,6 @@
-import dynamic from 'next/dynamic';
 import { FaWhatsapp, FaPhone } from 'react-icons/fa';
-import { memo } from 'react';
 
-// Memoize to prevent unnecessary re-renders
-const FloatingButtons = memo(function FloatingButtons() {
+export default function FloatingButtons() {
   const phoneNumber = '+919789446100';
   const whatsappNumber = '919789446100';
   const whatsappMessage = 'Hello! I would like to inquire about your services.';
@@ -39,6 +36,4 @@ const FloatingButtons = memo(function FloatingButtons() {
       </a>
     </div>
   );
-});
-
-export default FloatingButtons;
+}
