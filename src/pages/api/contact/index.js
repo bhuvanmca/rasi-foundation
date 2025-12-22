@@ -1,5 +1,5 @@
-import dbConnect from '../../../lib/mongodb';
-import Contact from '../../../models/Contact';
+import dbConnect from '@/backend/lib/mongodb';
+import Contact from '@/backend/models/Contact';
 
 export default async function handler(req, res) {
   const { method } = req;
