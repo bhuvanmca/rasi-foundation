@@ -6,7 +6,7 @@ export default function FloatingButtons() {
   const whatsappMessage = 'Hello! I would like to inquire about your services.';
 
   return (
-    <div className="fixed right-4 bottom-4 z-50 flex flex-col gap-3">
+    <div className="fixed right-4 bottom-6 z-50 flex flex-col gap-3" style={{ top: 'auto' }}>
       {/* Call Button */}
       <a
         href={`tel:${phoneNumber}`}
