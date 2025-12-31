@@ -56,46 +56,52 @@ const Navbar = () => {
         : 'bg-white shadow-md'
         }`}>
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-2">
+          <div className="flex items-center justify-between py-3">
             {/* Logo */}
             <Link href="/" className="flex items-center group flex-shrink-0">
               <Image
                 src="/logo.png"
                 alt="RASI FOUNDATION - Career Guidance & Education Consultancy"
-                width={220}
-                height={50}
-                className="group-hover:scale-105 transition-transform h-10 md:h-12 w-auto"
+                width={200}
+                height={45}
+                className="group-hover:scale-105 transition-transform h-10 w-auto"
                 priority
               />
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  href={link.path}
-                  className={`px-3 py-1.5 rounded text-sm font-medium transition-all duration-200 ${isActive(link.path)
-                    ? 'bg-green-600 text-white'
-                    : 'text-gray-700 hover:text-green-600'
-                    }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
+            {/* Desktop Navigation - Center */}
+            <div className="hidden lg:flex items-center justify-center flex-1 px-4">
+              <nav className="flex items-center space-x-1">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    href={link.path}
+                    className={`px-4 py-2 rounded text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive(link.path)
+                      ? 'bg-green-600 text-white'
+                      : 'text-gray-700 hover:text-green-600 hover:bg-gray-100'
+                      }`}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </nav>
             </div>
 
-            {/* CTA Button */}
-            <div className="hidden md:block flex-shrink-0">
-              <Link href="/contact" className="bg-green-600 text-white px-4 py-2 rounded text-sm font-semibold hover:bg-green-700 transition-colors">
+            {/* CTA Button - Right */}
+            <div className="hidden lg:block flex-shrink-0">
+              <Link
+                href="/contact"
+                className="bg-green-600 text-white px-5 py-2 rounded text-sm font-semibold hover:bg-green-700 transition-colors whitespace-nowrap"
+              >
                 Get Counselling
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-2xl text-gray-700 hover:text-green-600 transition-colors"
+              className="lg:hidden text-2xl text-gray-700 hover:text-green-600 transition-colors"
               onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
             >
               {isOpen ? <FaTimes /> : <FaBars />}
             </button>
@@ -103,7 +109,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
           }`}>
           <div className="container mx-auto px-4 py-4 bg-gray-50 border-t">
             {navLinks.map((link) => (
