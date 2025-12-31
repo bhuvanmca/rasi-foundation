@@ -6,6 +6,7 @@ import dbConnect from '@/backend/lib/mongodb';
 import College from '@/backend/models/College';
 
 // Fallback static data in case database is empty
+// Courses updated from official college websites (December 2024)
 const fallbackData = [
   {
     district: 'Namakkal District',
@@ -13,17 +14,62 @@ const fallbackData = [
       {
         name: 'K.S. Rangasamy College of Technology (KSRCT)',
         location: 'Tiruchengode',
-        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology', 'Artificial Intelligence']
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. CSE (AI & ML)',
+          'B.Tech. Information Technology',
+          'B.E. Electronics and Communication Engineering',
+          'B.Tech. Artificial Intelligence and Data Science',
+          'B.E. VLSI Design and Technology',
+          'B.E. Mechanical Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Civil Engineering',
+          'B.E. Mechatronics Engineering',
+          'B.Tech. Computer Science and Business System',
+          'B.Tech. Biotechnology',
+          'B.Tech. Food Technology',
+          'B.Tech. Textile Technology'
+        ]
       },
       {
-        name: 'Paavai Engineering College / Paavai College of Technology',
+        name: 'Paavai Engineering College',
         location: 'Namakkal',
-        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology']
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. CSE (AI & ML)',
+          'B.E. CSE (IoT)',
+          'B.E. Cyber Security',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Mechatronics Engineering',
+          'B.E. Civil Engineering',
+          'B.E. Aeronautical Engineering',
+          'B.E. Biomedical Engineering',
+          'B.E. Robotics & Automation',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence & Data Science',
+          'B.Tech. Biotechnology',
+          'B.Tech. Chemical Engineering',
+          'B.Tech. Food Technology',
+          'B.Tech. Agricultural Engineering',
+          'B.Tech. Pharmaceutical Technology'
+        ]
       },
       {
         name: 'Selvam College of Technology (Autonomous)',
         location: 'Namakkal',
-        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil']
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.E. Biomedical Engineering',
+          'B.Tech. Information Technology',
+          'B.Tech. Biotechnology',
+          'B.Tech. Artificial Intelligence and Data Science'
+        ]
       },
     ]
   },
@@ -33,12 +79,30 @@ const fallbackData = [
       {
         name: 'Knowledge Institute of Technology (KIOT)',
         location: 'Salem',
-        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology', 'Artificial Intelligence']
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.E. Electronics and Computer Engineering',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence and Data Science',
+          'B.Tech. Computer Science and Business Systems'
+        ]
       },
       {
         name: 'R. P. Sarathy Institute of Technology (RPSIT)',
         location: 'Salem',
-        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil']
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. CSE (Cyber Security)',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence & Data Science'
+        ]
       },
     ]
   },
@@ -48,12 +112,41 @@ const fallbackData = [
       {
         name: 'Shree Venkateshwara Hi-Tech Engineering College',
         location: 'Gobichettipalayam',
-        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil']
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.E. Biomedical Engineering',
+          'B.E. Cyber Security',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence & Data Science',
+          'B.Tech. Pharmaceutical Technology'
+        ]
       },
       {
         name: 'Erode Sengunthar Engineering College (ESEC)',
         location: 'Perundurai',
-        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology']
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. CSE (Cyber Security)',
+          'B.E. CSE (AI & ML)',
+          'B.E. CSE (IoT)',
+          'B.E. Computer Science and Design',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electronics and Instrumentation Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.E. Biomedical Engineering',
+          'B.E. Agricultural Engineering',
+          'B.E. Robotics and Automation',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence & Data Science',
+          'B.Tech. Biotechnology',
+          'B.Tech. Chemical Engineering'
+        ]
       },
     ]
   },
@@ -64,13 +157,33 @@ const fallbackData = [
         name: 'Karpagam College of Engineering (Autonomous)',
         location: 'Coimbatore',
         code: '2710',
-        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology', 'Artificial Intelligence', 'Data Science']
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. CSE (Cyber Security)',
+          'B.E. Computer Science and Technology',
+          'B.E. Computer Science and Design',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electronics Engineering (VLSI Design)',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence and Data Science'
+        ]
       },
       {
-        name: 'Karpagam Institute of Technology (Autonomous)',
+        name: 'Karpagam Institute of Technology',
         location: 'Coimbatore',
         code: '2735',
-        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology']
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence and Data Science'
+        ]
       },
     ]
   },
@@ -104,6 +217,7 @@ export async function getStaticProps() {
         location: college.location,
         code: college.code || '',
         note: college.note || '',
+        departments: college.departments || [],
       });
       return acc;
     }, {});
@@ -137,42 +251,92 @@ export default function Colleges({ collegesData }) {
   const [selectedCollege, setSelectedCollege] = useState(null);
   const totalColleges = collegesData.reduce((acc, district) => acc + district.colleges.length, 0);
 
-  // Women-Centric Engineering Colleges Data with Departments
+  // Women-Centric Engineering Colleges Data with Departments (Updated from official websites)
   const womenColleges = [
     {
       name: "Avinashilingam University for Women",
       location: "Coimbatore",
-      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Information Technology", "Civil Engineering", "Mechanical Engineering"]
+      departments: [
+        "B.E. Computer Science and Engineering",
+        "B.E. CSE (AI & ML)",
+        "B.E. CSE (IoT & Cyber Security)",
+        "B.E. Electronics and Communication Engineering",
+        "B.E. Electrical and Electronics Engineering",
+        "B.E. Civil Engineering",
+        "B.E. Biomedical Instrumentation",
+        "B.Tech. Food Processing Technology",
+        "B.Tech. Printing Technology"
+      ]
     },
     {
       name: "Bharathiyar Institute of Engineering for Women",
       location: "Attur",
-      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Mechanical Engineering", "Civil Engineering"]
+      departments: [
+        "B.E. Computer Science and Engineering",
+        "B.E. Electronics and Communication Engineering",
+        "B.E. Electrical and Electronics Engineering",
+        "B.E. Mechanical Engineering",
+        "B.E. Civil Engineering"
+      ]
     },
     {
       name: "Idhaya Engineering College for Women",
       location: "Villupuram",
-      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Civil Engineering"]
+      departments: [
+        "B.E. Computer Science and Engineering",
+        "B.E. Electronics and Communication Engineering",
+        "B.E. Electrical and Electronics Engineering",
+        "B.E. Civil Engineering"
+      ]
     },
     {
       name: "Mahendra Engineering College for Women",
       location: "Tiruchengode",
-      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Mechanical Engineering", "Civil Engineering", "Information Technology"]
+      departments: [
+        "B.E. Computer Science and Engineering",
+        "B.E. Electronics and Communication Engineering",
+        "B.E. Electrical and Electronics Engineering",
+        "B.Tech. Information Technology"
+      ]
     },
     {
       name: "Periyar Maniammai University",
-      location: "Vallam",
-      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Mechanical Engineering", "Civil Engineering", "Biotechnology", "Information Technology"]
+      location: "Vallam (Thanjavur)",
+      departments: [
+        "B.E. Computer Science and Engineering",
+        "B.E. Electronics and Communication Engineering",
+        "B.E. Electrical and Electronics Engineering",
+        "B.E. Mechanical Engineering",
+        "B.E. Civil Engineering",
+        "B.Tech. Information Technology",
+        "B.Tech. Biotechnology"
+      ]
     },
     {
       name: "Sri Bharathi Engineering College for Women",
       location: "Alangudi",
-      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Civil Engineering"]
+      departments: [
+        "B.E. Computer Science and Engineering",
+        "B.E. Electronics and Communication Engineering",
+        "B.E. Electrical and Electronics Engineering",
+        "B.E. Civil Engineering"
+      ]
     },
     {
       name: "Vivekanandha College of Engineering for Women",
       location: "Tiruchengode",
-      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Mechanical Engineering", "Civil Engineering", "Information Technology", "Biomedical Engineering"]
+      departments: [
+        "B.E. Computer Science and Engineering",
+        "B.E. CSE (AI & ML)",
+        "B.E. Electronics and Communication Engineering",
+        "B.E. Electrical and Electronics Engineering",
+        "B.E. Civil Engineering",
+        "B.E. Biomedical Engineering",
+        "B.Tech. Information Technology",
+        "B.Tech. Biotechnology",
+        "B.Tech. Artificial Intelligence & Data Science",
+        "B.Tech. Agricultural Engineering"
+      ]
     },
   ];
 

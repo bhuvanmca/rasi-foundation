@@ -23,6 +23,7 @@ const Navbar = () => {
     { name: 'Courses', path: '/courses' },
     { name: 'Colleges', path: '/colleges' },
     { name: 'Scholarship Test', path: '/scholarship-test' },
+    { name: 'Practice Test', path: '/practice-test' },
     { name: 'Payment', path: '/payment' },
     { name: 'Contact Us', path: '/contact' },
   ];

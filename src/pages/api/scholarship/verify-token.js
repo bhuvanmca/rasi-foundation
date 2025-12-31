@@ -1,6 +1,6 @@
-import dbConnect from '@/lib/mongodb';
-import ScholarshipStudent from '@/models/ScholarshipStudent';
-import TestSession from '@/models/TestSession';
+import dbConnect from '@/backend/lib/mongodb';
+import ScholarshipStudent from '@/backend/models/ScholarshipStudent';
+import TestSession from '@/backend/models/TestSession';
 
 export default async function handler(req, res) {
     if (req.method !== 'GET') {

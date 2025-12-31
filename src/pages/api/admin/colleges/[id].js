@@ -20,7 +20,7 @@ async function handler(req, res) {
     }
   } else if (req.method === 'PUT' || req.method === 'PATCH') {
     try {
-      const { name, location, district, code, note, isActive, order } = req.body;
+      const { name, location, district, code, note, isActive, order, departments, website } = req.body;
 
       const updateData = {};
       if (name !== undefined) updateData.name = name;
@@ -30,6 +30,8 @@ async function handler(req, res) {
       if (note !== undefined) updateData.note = note;
       if (isActive !== undefined) updateData.isActive = isActive;
       if (order !== undefined) updateData.order = order;
+      if (departments !== undefined) updateData.departments = departments;
+      if (website !== undefined) updateData.website = website;
       updateData.updatedAt = Date.now();
 
       const college = await College.findByIdAndUpdate(

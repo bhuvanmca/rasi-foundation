@@ -3,10 +3,9 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  FaHome, 
-  FaEnvelope, 
-  FaQuestionCircle, 
+import {
+  FaHome,
+  FaEnvelope,
   FaUserGraduate,
   FaUniversity,
   FaSignOutAlt,
@@ -16,7 +15,9 @@ import {
   FaUser,
   FaChartLine,
   FaCog,
-  FaCreditCard
+  FaCreditCard,
+  FaClipboardList,
+  FaAward
 } from 'react-icons/fa';
 
 export default function AdminLayout({ children, title = 'Dashboard' }) {
@@ -27,7 +28,7 @@ export default function AdminLayout({ children, title = 'Dashboard' }) {
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     const userData = localStorage.getItem('adminUser');
-    
+
     if (!token) {
       router.push('/admin/login');
     } else if (userData) {
@@ -45,9 +46,10 @@ export default function AdminLayout({ children, title = 'Dashboard' }) {
     { name: 'Dashboard', href: '/admin', icon: FaHome },
     { name: 'Contacts', href: '/admin/contacts', icon: FaEnvelope },
     { name: 'Enquiries', href: '/admin/enquiries', icon: FaUserGraduate },
-    { name: 'Questions', href: '/admin/questions', icon: FaQuestionCircle },
     { name: 'Colleges', href: '/admin/colleges', icon: FaUniversity },
     { name: 'Payments', href: '/admin/payments', icon: FaCreditCard },
+    { name: 'Scholarship Results', href: '/admin/scholarship-results', icon: FaAward },
+    { name: 'Practice Results', href: '/admin/practice-results', icon: FaClipboardList },
   ];
 
   const isActive = (href) => {
@@ -67,29 +69,28 @@ export default function AdminLayout({ children, title = 'Dashboard' }) {
       <div className="min-h-screen bg-gray-100">
         {/* Mobile sidebar backdrop */}
         {sidebarOpen && (
-          <div 
+          <div
             className="fixed inset-0 bg-black/50 z-40 lg:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
         {/* Sidebar */}
-        <aside className={`fixed top-0 left-0 z-50 h-full w-64 bg-gray-900 transform transition-transform duration-300 lg:translate-x-0 ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-        }`}>
+        <aside className={`fixed top-0 left-0 z-50 h-full w-64 bg-gray-900 transform transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+          }`}>
           {/* Logo */}
           <div className="h-16 flex items-center justify-between px-4 border-b border-gray-800">
             <Link href="/admin" className="flex items-center gap-3">
-              <Image 
-                src="/logo.png" 
-                alt="Rasi Foundation" 
-                width={36} 
+              <Image
+                src="/logo.png"
+                alt="Rasi Foundation"
+                width={36}
                 height={36}
                 className="rounded-lg"
               />
               <span className="text-white font-bold text-lg">Admin</span>
             </Link>
-            <button 
+            <button
               onClick={() => setSidebarOpen(false)}
               className="lg:hidden text-gray-400 hover:text-white"
             >
@@ -103,11 +104,10 @@ export default function AdminLayout({ children, title = 'Dashboard' }) {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-                  isActive(item.href)
-                    ? 'bg-red-600 text-white'
-                    : 'text-gray-400 hover:bg-gray-800 hover:text-white'
-                }`}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActive(item.href)
+                  ? 'bg-red-600 text-white'
+                  : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                  }`}
               >
                 <item.icon className="text-lg" />
                 <span>{item.name}</span>

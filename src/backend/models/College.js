@@ -24,6 +24,14 @@ const CollegeSchema = new mongoose.Schema({
     type: String,
     maxlength: [500, 'Note cannot be more than 500 characters'],
   },
+  departments: {
+    type: [String],
+    default: [],
+  },
+  website: {
+    type: String,
+    maxlength: [200, 'Website URL cannot be more than 200 characters'],
+  },
   isActive: {
     type: Boolean,
     default: true,
@@ -43,7 +51,7 @@ const CollegeSchema = new mongoose.Schema({
 });
 
 // Update the updatedAt field before saving
-CollegeSchema.pre('save', function(next) {
+CollegeSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   next();
 });
