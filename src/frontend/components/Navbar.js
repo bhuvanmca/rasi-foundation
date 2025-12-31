@@ -70,52 +70,34 @@ const Navbar = () => {
               />
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center justify-center flex-1">
-              <nav className="flex items-center gap-1 xl:gap-2">
+            {/* Desktop Navigation - Centered */}
+            <div className="hidden lg:flex items-center justify-center flex-1 mx-4">
+              <div className="flex items-center gap-1 xl:gap-2">
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
                     href={link.path}
-                    className={`px-3 xl:px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${isActive(link.path)
+                    className={`px-2 xl:px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-300 whitespace-nowrap ${isActive(link.path)
                       ? 'bg-red-600 text-white shadow-md'
-                      : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
+                      : 'text-gray-800 hover:bg-red-50 hover:text-red-600'
                       }`}
                   >
                     {link.name}
                   </Link>
                 ))}
-              </nav>
-            </div>
-
-            {/* Tablet Navigation */}
-            <div className="hidden md:flex lg:hidden items-center justify-center flex-1">
-              <nav className="flex items-center gap-0.5">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.path}
-                    href={link.path}
-                    className={`px-2 py-1.5 rounded-md text-xs font-medium transition-all duration-300 ${isActive(link.path)
-                      ? 'bg-red-600 text-white shadow-sm'
-                      : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
-                      }`}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </nav>
+              </div>
             </div>
 
             {/* CTA Button */}
-            <div className="hidden lg:block flex-shrink-0 ml-4">
-              <Link href="/contact" className="bg-gradient-to-r from-green-600 to-green-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-lg hover:shadow-xl">
-                Get Counseling
+            <div className="hidden lg:block flex-shrink-0">
+              <Link href="/contact" className="btn-secondary text-sm whitespace-nowrap">
+                Get Free Counseling
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-2xl text-gray-700 hover:text-red-600 transition-colors"
+              className="lg:hidden text-2xl text-gray-700 hover:text-red-600 transition-colors"
               onClick={() => setIsOpen(!isOpen)}
             >
               {isOpen ? <FaTimes /> : <FaBars />}
@@ -124,7 +106,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}>
           <div className="container mx-auto px-4 py-4 bg-gray-50 border-t">
             {navLinks.map((link) => (
