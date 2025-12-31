@@ -1,9 +1,10 @@
 import Layout from '@/frontend/components/Layout';
+import WomenCollegesScroller from '@/components/WomenCollegesScroller';
 import Link from 'next/link';
-import { 
-  FaGraduationCap, 
-  FaUserGraduate, 
-  FaAward, 
+import {
+  FaGraduationCap,
+  FaUserGraduate,
+  FaAward,
   FaHandshake,
   FaStethoscope,
   FaCog,
@@ -68,8 +69,8 @@ export default function Home() {
   };
 
   return (
-    <Layout 
-      title="Home" 
+    <Layout
+      title="Home"
       description="Rasi Foundation - Premier career guidance & education consultancy in Tamil Nadu. Expert counseling for MBBS, Engineering, MBA, Law admissions. 5000+ students guided, 100+ partner colleges."
       keywords="NEET counseling, medical college admission Tamil Nadu, engineering admission guidance, MBA admission consultant, career counselor Rasipuram, Namakkal education consultancy"
     >
@@ -90,16 +91,16 @@ export default function Home() {
                 <FaGraduationCap />
                 <span>Career Guidance & Education Consultancy</span>
               </div>
-              
+
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
                 <span className="text-red-600">Empowering</span> Minds!
                 <br />
                 <span className="text-green-600">Igniting</span> Future!
               </h1>
-              
+
               <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-xl">
-                Your trusted partner in shaping successful careers. We provide expert guidance 
-                for admissions in top colleges across India for Medical, Engineering, Management, 
+                Your trusted partner in shaping successful careers. We provide expert guidance
+                for admissions in top colleges across India for Medical, Engineering, Management,
                 Law, and more.
               </p>
 
@@ -182,7 +183,7 @@ export default function Home() {
         {/* Wave Divider */}
         <div className="absolute bottom-0 left-0 right-0">
           <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white" />
           </svg>
         </div>
       </section>
@@ -193,18 +194,16 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center group">
-                <div className={`w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center transition-all duration-300 ${
-                  stat.color === 'red' ? 'bg-red-100 group-hover:bg-red-600' :
+                <div className={`w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center transition-all duration-300 ${stat.color === 'red' ? 'bg-red-100 group-hover:bg-red-600' :
                   stat.color === 'green' ? 'bg-green-100 group-hover:bg-green-600' :
-                  stat.color === 'amber' ? 'bg-amber-100 group-hover:bg-amber-600' :
-                  'bg-blue-100 group-hover:bg-blue-600'
-                }`}>
-                  <stat.icon className={`text-3xl transition-colors duration-300 ${
-                    stat.color === 'red' ? 'text-red-600 group-hover:text-white' :
+                    stat.color === 'amber' ? 'bg-amber-100 group-hover:bg-amber-600' :
+                      'bg-blue-100 group-hover:bg-blue-600'
+                  }`}>
+                  <stat.icon className={`text-3xl transition-colors duration-300 ${stat.color === 'red' ? 'text-red-600 group-hover:text-white' :
                     stat.color === 'green' ? 'text-green-600 group-hover:text-white' :
-                    stat.color === 'amber' ? 'text-amber-600 group-hover:text-white' :
-                    'text-blue-600 group-hover:text-white'
-                  }`} />
+                      stat.color === 'amber' ? 'text-amber-600 group-hover:text-white' :
+                        'text-blue-600 group-hover:text-white'
+                    }`} />
                 </div>
                 <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">{stat.number}</h3>
                 <p className="text-gray-600">{stat.label}</p>
@@ -224,13 +223,13 @@ export default function Home() {
                 Your Trusted Partner in <span className="text-green-600">Education</span>
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Rasi Foundation is a premier career guidance and education consultancy founded by 
-                <strong> Prof. P. Gunasekaran (M.Sc., M.Phil.)</strong>, a renowned Career Guidance 
+                Rasi Foundation is a premier career guidance and education consultancy founded by
+                <strong> Prof. P. Gunasekaran (M.Sc., M.Phil.)</strong>, a renowned Career Guidance
                 Advisor & Analyst with decades of experience in the education sector.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                Led by Administrative Director <strong>P. Yuvaraj Kumar (MBA)</strong>, our team is 
-                dedicated to helping students make informed decisions about their careers and secure 
+                Led by Administrative Director <strong>P. Yuvaraj Kumar (MBA)</strong>, our team is
+                dedicated to helping students make informed decisions about their careers and secure
                 admissions in prestigious institutions.
               </p>
 
@@ -252,7 +251,7 @@ export default function Home() {
               <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-3xl p-8 text-white">
                 <FaQuoteLeft className="text-4xl text-red-300 mb-4" />
                 <p className="text-xl italic leading-relaxed mb-6">
-                  "Education is the most powerful weapon which you can use to change the world. 
+                  "Education is the most powerful weapon which you can use to change the world.
                   At Rasi Foundation, we are committed to guiding every student towards their dreams."
                 </p>
                 <div className="flex items-center gap-4">
@@ -265,7 +264,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              
+
               {/* Decorative Elements */}
               <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-green-500 rounded-2xl -z-10"></div>
               <div className="absolute -top-6 -left-6 w-24 h-24 bg-amber-400 rounded-full -z-10"></div>
@@ -273,6 +272,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Women-Centric Engineering Colleges */}
+      <WomenCollegesScroller />
 
       {/* Featured Courses Section */}
       <section className="py-20 bg-white">
@@ -283,7 +285,7 @@ export default function Home() {
               Courses We <span className="text-green-600">Offer</span>
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              We provide guidance and admission assistance for a wide range of professional courses 
+              We provide guidance and admission assistance for a wide range of professional courses
               in top colleges across India.
             </p>
           </div>
@@ -298,26 +300,24 @@ export default function Home() {
                 <ul className="space-y-2 mb-6">
                   {course.courses.map((c, i) => (
                     <li key={i} className="flex items-center gap-2 text-gray-600">
-                      <span className={`w-2 h-2 rounded-full ${
-                        course.color === 'red' ? 'bg-red-500' :
+                      <span className={`w-2 h-2 rounded-full ${course.color === 'red' ? 'bg-red-500' :
                         course.color === 'green' ? 'bg-green-500' :
-                        course.color === 'amber' ? 'bg-amber-500' :
-                        course.color === 'blue' ? 'bg-blue-500' :
-                        course.color === 'purple' ? 'bg-purple-500' :
-                        'bg-teal-500'
-                      }`}></span>
+                          course.color === 'amber' ? 'bg-amber-500' :
+                            course.color === 'blue' ? 'bg-blue-500' :
+                              course.color === 'purple' ? 'bg-purple-500' :
+                                'bg-teal-500'
+                        }`}></span>
                       {c}
                     </li>
                   ))}
                 </ul>
-                <Link href="/courses" className={`inline-flex items-center gap-2 font-semibold transition-colors ${
-                  course.color === 'red' ? 'text-red-600 hover:text-red-700' :
+                <Link href="/courses" className={`inline-flex items-center gap-2 font-semibold transition-colors ${course.color === 'red' ? 'text-red-600 hover:text-red-700' :
                   course.color === 'green' ? 'text-green-600 hover:text-green-700' :
-                  course.color === 'amber' ? 'text-amber-600 hover:text-amber-700' :
-                  course.color === 'blue' ? 'text-blue-600 hover:text-blue-700' :
-                  course.color === 'purple' ? 'text-purple-600 hover:text-purple-700' :
-                  'text-teal-600 hover:text-teal-700'
-                }`}>
+                    course.color === 'amber' ? 'text-amber-600 hover:text-amber-700' :
+                      course.color === 'blue' ? 'text-blue-600 hover:text-blue-700' :
+                        course.color === 'purple' ? 'text-purple-600 hover:text-purple-700' :
+                          'text-teal-600 hover:text-teal-700'
+                  }`}>
                   Learn More <FaArrowRight />
                 </Link>
               </div>
@@ -338,7 +338,7 @@ export default function Home() {
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl"></div>
         </div>
-        
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
             <span className="text-amber-300 font-semibold uppercase tracking-wider">Why Choose Us</span>
@@ -346,7 +346,7 @@ export default function Home() {
               Your Success is Our Mission
             </h2>
             <p className="text-white/80 text-lg max-w-2xl mx-auto">
-              We go beyond just admission assistance. Our comprehensive approach ensures 
+              We go beyond just admission assistance. Our comprehensive approach ensures
               your educational journey is smooth and successful.
             </p>
           </div>
@@ -412,13 +412,13 @@ export default function Home() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
             </div>
-            
+
             <div className="relative z-10">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
                 Ready to Shape Your Future?
               </h2>
               <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Get expert career guidance and secure admission in your dream college. 
+                Get expert career guidance and secure admission in your dream college.
                 Contact us today for a free counseling session!
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

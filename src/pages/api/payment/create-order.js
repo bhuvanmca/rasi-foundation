@@ -1,63 +1,50 @@
 import Razorpay from 'razorpay';
-import dbConnect from '@/backend/lib/mongodb';
-import Payment from '@/backend/models/Payment';
 
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || 'rzp_test_xxxxx',
-  key_secret: process.env.RAZORPAY_KEY_SECRET || 'your_key_secret'
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
-  }
-
-  const { amount, name, email, phone, purpose } = req.body;
-
-  if (!amount || amount < 1) {
-    return res.status(400).json({ message: 'Invalid amount' });
-  }
-
-  if (!name || !email || !phone || !purpose) {
-    return res.status(400).json({ message: 'All fields are required' });
+    return res.status(405).json({ success: false, message: 'Method not allowed' });
   }
 
   try {
-    // Create Razorpay order
+    const { amount, currency = 'INR', receipt, notes } = req.body;
+
+    if (!amount || amount < 1) {
+      return res.status(400).json({
+        success: false,
+        message: 'Valid amount is required',
+      });
+    }
+
     const options = {
-      amount: amount * 100, // Razorpay expects amount in paise
-      currency: 'INR',
-      receipt: `receipt_${Date.now()}`,
-      notes: {
-        name,
-        email,
-        phone,
-        purpose
-      }
+      amount: Math.round(amount * 100), // Razorpay expects amount in paise
+      currency,
+      receipt: receipt || `receipt_${Date.now()}`,
+      notes: notes || {},
     };
 
     const order = await razorpay.orders.create(options);
 
-    // Save payment record to database
-    await dbConnect();
-    await Payment.create({
-      orderId: order.id,
-      amount,
-      name,
-      email,
-      phone,
-      purpose,
-      status: 'created'
-    });
-
     res.status(200).json({
-      id: order.id,
-      amount: order.amount,
-      currency: order.currency
+      success: true,
+      order: {
+        id: order.id,
+        amount: order.amount,
+        currency: order.currency,
+        receipt: order.receipt,
+      },
     });
 
   } catch (error) {
-    console.error('Error creating order:', error);
-    res.status(500).json({ message: 'Failed to create order' });
+    console.error('Create order error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create order',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined,
+    });
   }
 }

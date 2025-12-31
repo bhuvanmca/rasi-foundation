@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Layout from '@/frontend/components/Layout';
-import { FaMapMarkerAlt, FaUniversity, FaCode, FaGraduationCap, FaSpinner } from 'react-icons/fa';
+import Link from 'next/link';
+import { FaMapMarkerAlt, FaUniversity, FaCode, FaGraduationCap, FaSpinner, FaFemale, FaArrowRight, FaTimes } from 'react-icons/fa';
 import dbConnect from '@/backend/lib/mongodb';
 import College from '@/backend/models/College';
 
@@ -9,30 +10,68 @@ const fallbackData = [
   {
     district: 'Namakkal District',
     colleges: [
-      { name: 'K.S. Rangasamy College of Technology (KSRCT)', location: 'Tiruchengode' },
-      { name: 'Paavai Engineering College / Paavai College of Technology', location: 'Namakkal' },
-      { name: 'Selvam College of Technology (Autonomous)', location: 'Namakkal' },
+      {
+        name: 'K.S. Rangasamy College of Technology (KSRCT)',
+        location: 'Tiruchengode',
+        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology', 'Artificial Intelligence']
+      },
+      {
+        name: 'Paavai Engineering College / Paavai College of Technology',
+        location: 'Namakkal',
+        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology']
+      },
+      {
+        name: 'Selvam College of Technology (Autonomous)',
+        location: 'Namakkal',
+        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil']
+      },
     ]
   },
   {
     district: 'Salem District',
     colleges: [
-      { name: 'Knowledge Institute of Technology (KIOT)', location: 'Salem' },
-      { name: 'R. P. Sarathy Institute of Technology (RPSIT)', location: 'Salem' },
+      {
+        name: 'Knowledge Institute of Technology (KIOT)',
+        location: 'Salem',
+        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology', 'Artificial Intelligence']
+      },
+      {
+        name: 'R. P. Sarathy Institute of Technology (RPSIT)',
+        location: 'Salem',
+        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil']
+      },
     ]
   },
   {
     district: 'Erode District',
     colleges: [
-      { name: 'Shree Venkateshwara Hi-Tech Engineering College', location: 'Gobichettipalayam' },
-      { name: 'Erode Sengunthar Engineering College (ESEC)', location: 'Perundurai' },
+      {
+        name: 'Shree Venkateshwara Hi-Tech Engineering College',
+        location: 'Gobichettipalayam',
+        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil']
+      },
+      {
+        name: 'Erode Sengunthar Engineering College (ESEC)',
+        location: 'Perundurai',
+        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology']
+      },
     ]
   },
   {
     district: 'Coimbatore Zone',
     colleges: [
-      { name: 'Karpagam College of Engineering (Autonomous)', location: 'Coimbatore', code: '2710' },
-      { name: 'Karpagam Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2735' },
+      {
+        name: 'Karpagam College of Engineering (Autonomous)',
+        location: 'Coimbatore',
+        code: '2710',
+        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology', 'Artificial Intelligence', 'Data Science']
+      },
+      {
+        name: 'Karpagam Institute of Technology (Autonomous)',
+        location: 'Coimbatore',
+        code: '2735',
+        departments: ['Computer Science', 'Electronics & Communication', 'Electrical & Electronics', 'Mechanical', 'Civil', 'Information Technology']
+      },
     ]
   },
 ];
@@ -48,11 +87,11 @@ const districtColors = {
 export async function getStaticProps() {
   try {
     await dbConnect();
-    
+
     const colleges = await College.find({ isActive: true })
       .sort({ district: 1, order: 1, name: 1 })
       .lean();
-    
+
     // Group colleges by district
     const groupedColleges = colleges.reduce((acc, college) => {
       const district = college.district;
@@ -94,7 +133,49 @@ export async function getStaticProps() {
 }
 
 export default function Colleges({ collegesData }) {
+  const [showWomenColleges, setShowWomenColleges] = useState(false);
+  const [selectedCollege, setSelectedCollege] = useState(null);
   const totalColleges = collegesData.reduce((acc, district) => acc + district.colleges.length, 0);
+
+  // Women-Centric Engineering Colleges Data with Departments
+  const womenColleges = [
+    {
+      name: "Avinashilingam University for Women",
+      location: "Coimbatore",
+      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Information Technology", "Civil Engineering", "Mechanical Engineering"]
+    },
+    {
+      name: "Bharathiyar Institute of Engineering for Women",
+      location: "Attur",
+      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Mechanical Engineering", "Civil Engineering"]
+    },
+    {
+      name: "Idhaya Engineering College for Women",
+      location: "Villupuram",
+      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Civil Engineering"]
+    },
+    {
+      name: "Mahendra Engineering College for Women",
+      location: "Tiruchengode",
+      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Mechanical Engineering", "Civil Engineering", "Information Technology"]
+    },
+    {
+      name: "Periyar Maniammai University",
+      location: "Vallam",
+      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Mechanical Engineering", "Civil Engineering", "Biotechnology", "Information Technology"]
+    },
+    {
+      name: "Sri Bharathi Engineering College for Women",
+      location: "Alangudi",
+      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Civil Engineering"]
+    },
+    {
+      name: "Vivekanandha College of Engineering for Women",
+      location: "Tiruchengode",
+      departments: ["Computer Science", "Electronics & Communication", "Electrical & Electronics", "Mechanical Engineering", "Civil Engineering", "Information Technology", "Biomedical Engineering"]
+    },
+  ];
+
 
   return (
     <Layout
@@ -107,7 +188,7 @@ export default function Colleges({ collegesData }) {
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-green-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-        
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
@@ -136,6 +217,45 @@ export default function Colleges({ collegesData }) {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Women-Centric Colleges Highlight Banner */}
+      <section className="py-8 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse"></div>
+          <div className="absolute bottom-0 right-1/4 w-40 h-40 bg-white/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center animate-bounce-slow">
+                <FaFemale className="text-3xl text-white" />
+              </div>
+              <div className="text-white">
+                <h3 className="text-xl md:text-2xl font-bold flex items-center gap-2">
+                  🌸 Women-Centric Engineering Colleges
+                </h3>
+                <p className="text-white/80 text-sm md:text-base">
+                  Discover exclusive engineering institutions for women in Tamil Nadu
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => setShowWomenColleges(true)}
+              className="group flex items-center gap-2 bg-white text-pink-600 px-6 py-3 rounded-xl font-bold hover:bg-pink-50 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              <span>View Women Colleges</span>
+              <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        </div>
+
+        {/* Sparkle decorations */}
+        <div className="absolute top-2 left-10 text-white/30 text-2xl">✦</div>
+        <div className="absolute bottom-2 right-16 text-white/30 text-xl">✦</div>
+        <div className="absolute top-1/2 right-1/3 text-white/20 text-lg">✦</div>
       </section>
 
       {/* Colleges by District */}
@@ -168,9 +288,12 @@ export default function Colleges({ collegesData }) {
                         {collegeIndex + 1}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-gray-800 group-hover:text-red-600 transition-colors line-clamp-2">
+                        <button
+                          onClick={() => setSelectedCollege({ ...college, districtColor: districtColors[district.district] })}
+                          className="font-semibold text-gray-800 group-hover:text-red-600 transition-colors line-clamp-2 text-left hover:underline cursor-pointer"
+                        >
                           {college.name}
-                        </h3>
+                        </button>
                         <div className="flex items-center gap-1 text-gray-500 text-sm mt-1">
                           <FaMapMarkerAlt className="text-xs text-red-500" />
                           <span>{college.location}</span>
@@ -185,6 +308,17 @@ export default function Colleges({ collegesData }) {
                           <span className="inline-block mt-2 text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full">
                             {college.note}
                           </span>
+                        )}
+
+                        {/* View Departments Button */}
+                        {college.departments && college.departments.length > 0 && (
+                          <button
+                            onClick={() => setSelectedCollege({ ...college, districtColor: districtColors[district.district] })}
+                            className="mt-3 flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                          >
+                            📚 View {college.departments.length} Departments
+                            <FaArrowRight className="text-xs" />
+                          </button>
                         )}
                       </div>
                     </div>
@@ -222,6 +356,186 @@ export default function Colleges({ collegesData }) {
           </div>
         </div>
       </section>
+
+      {/* Women-Centric Colleges Modal */}
+      {showWomenColleges && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden animate-slideIn">
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 p-6 text-white relative">
+              <button
+                onClick={() => setShowWomenColleges(false)}
+                className="absolute top-4 right-4 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
+              >
+                <FaTimes className="text-xl" />
+              </button>
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
+                  <FaFemale className="text-3xl" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold">🌸 Women-Centric Engineering Colleges</h2>
+                  <p className="text-white/80">Exclusive institutions for women in Tamil Nadu</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Body - Colleges List */}
+            <div className="p-6 overflow-y-auto max-h-[60vh]">
+              <p className="text-sm text-gray-500 mb-4 text-center">Click on any college to get counseling</p>
+              <div className="space-y-4">
+                {womenColleges.map((college, index) => (
+                  <Link
+                    key={index}
+                    href={`/contact?college=${encodeURIComponent(college.name)}`}
+                    className="group block p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-100 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center text-white font-bold shadow-lg group-hover:scale-110 transition-transform flex-shrink-0">
+                        {index + 1}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-gray-800 group-hover:text-pink-700 transition-colors text-lg">
+                          {college.name}
+                        </h3>
+                        <div className="flex items-center gap-1 text-gray-500 text-sm mt-1">
+                          <FaMapMarkerAlt className="text-pink-500" />
+                          <span>{college.location}</span>
+                        </div>
+
+                        {/* Departments */}
+                        <div className="mt-3">
+                          <p className="text-xs text-gray-500 font-medium mb-2">📚 Departments Available:</p>
+                          <div className="flex flex-wrap gap-2">
+                            {college.departments.map((dept, deptIndex) => (
+                              <span
+                                key={deptIndex}
+                                className="inline-flex items-center text-xs bg-white text-purple-700 px-2 py-1 rounded-full border border-purple-200"
+                              >
+                                {dept}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Click indicator */}
+                        <div className="mt-3 flex items-center gap-2 text-pink-600 text-sm font-medium">
+                          <span>Get Counseling</span>
+                          <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Total Count */}
+              <div className="mt-6 text-center">
+                <span className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 px-4 py-2 rounded-full font-semibold">
+                  <FaUniversity />
+                  Total: {womenColleges.length} Colleges
+                </span>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 bg-gray-50 border-t border-gray-100">
+              <button
+                onClick={() => setShowWomenColleges(false)}
+                className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all duration-300"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* College Departments Modal */}
+      {selectedCollege && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn"
+          onClick={() => setSelectedCollege(null)}
+        >
+          <div
+            className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden animate-slideIn"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className={`bg-gradient-to-r ${selectedCollege.districtColor || 'from-red-500 to-red-600'} p-6 text-white relative`}>
+              <button
+                onClick={() => setSelectedCollege(null)}
+                className="absolute top-4 right-4 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
+              >
+                <FaTimes className="text-xl" />
+              </button>
+              <div className="flex items-center gap-4 pr-10">
+                <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center">
+                  <FaUniversity className="text-2xl" />
+                </div>
+                <div>
+                  <h2 className="text-xl font-bold">{selectedCollege.name}</h2>
+                  <div className="flex items-center gap-1 text-white/80 text-sm mt-1">
+                    <FaMapMarkerAlt />
+                    <span>{selectedCollege.location}</span>
+                  </div>
+                  {selectedCollege.code && (
+                    <div className="flex items-center gap-1 text-white/80 text-sm mt-1">
+                      <FaCode />
+                      <span>Code: {selectedCollege.code}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Modal Body - Departments List */}
+            <div className="p-6">
+              <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                📚 Departments Available
+                <span className="text-sm font-normal text-gray-500">
+                  ({selectedCollege.departments?.length || 0} courses)
+                </span>
+              </h3>
+
+              {selectedCollege.departments && selectedCollege.departments.length > 0 ? (
+                <div className="space-y-3">
+                  {selectedCollege.departments.map((dept, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+                    >
+                      <div className={`w-8 h-8 bg-gradient-to-r ${selectedCollege.districtColor || 'from-red-500 to-red-600'} rounded-lg flex items-center justify-center text-white font-bold text-sm`}>
+                        {index + 1}
+                      </div>
+                      <span className="font-medium text-gray-700">{dept}</span>
+                      <FaGraduationCap className="ml-auto text-gray-400" />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 text-center py-4">No department information available</p>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 bg-gray-50 border-t border-gray-100 flex gap-3">
+              <button
+                onClick={() => setSelectedCollege(null)}
+                className="flex-1 border-2 border-gray-300 text-gray-700 py-3 rounded-xl font-bold hover:bg-gray-100 transition-all duration-300"
+              >
+                Close
+              </button>
+              <a
+                href="/contact"
+                className={`flex-1 bg-gradient-to-r ${selectedCollege.districtColor || 'from-red-500 to-red-600'} text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all duration-300 text-center`}
+              >
+                Get Counseling
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 }

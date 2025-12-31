@@ -62,7 +62,7 @@ const Navbar = () => {
             {/* Logo */}
             <Link href="/" className="flex items-center group flex-shrink-0">
               <Image 
-                src="/logo.png" 
+                src="/logo2.png" 
                 alt="RASI FOUNDATION - Career Guidance & Education Consultancy" 
                 width={400} 
                 height={80}
