@@ -70,14 +70,14 @@ const Navbar = () => {
               />
             </Link>
 
-            {/* Desktop Navigation - Better Spaced */}
-            <div className="hidden lg:flex items-center flex-1 mx-8">
-              <div className="flex items-center justify-between w-full">
+            {/* Desktop Navigation - Equal Space */}
+            <div className="hidden lg:flex items-center flex-1 mx-6">
+              <div className="flex items-center w-full">
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
                     href={link.path}
-                    className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 whitespace-nowrap ${isActive(link.path)
+                    className={`flex-1 text-center px-2 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 whitespace-nowrap ${isActive(link.path)
                       ? 'bg-red-600 text-white shadow-md'
                       : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
                       }`}
@@ -89,13 +89,13 @@ const Navbar = () => {
             </div>
 
             {/* Tablet Navigation - Compact */}
-            <div className="hidden md:flex lg:hidden items-center flex-1 mx-4">
-              <div className="flex items-center gap-1 flex-wrap justify-center">
+            <div className="hidden md:flex lg:hidden items-center flex-1 mx-2">
+              <div className="flex items-center w-full">
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
                     href={link.path}
-                    className={`px-2 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 whitespace-nowrap ${isActive(link.path)
+                    className={`flex-1 text-center px-1 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 whitespace-nowrap ${isActive(link.path)
                       ? 'bg-red-600 text-white shadow-md'
                       : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
                       }`}
@@ -108,7 +108,7 @@ const Navbar = () => {
 
             {/* CTA Button */}
             <div className="hidden lg:block flex-shrink-0">
-              <Link href="/contact" className="bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-3 rounded-xl font-bold text-sm whitespace-nowrap hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
+              <Link href="/contact" className="bg-gradient-to-r from-green-600 to-green-700 text-white px-5 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105">
                 Get Counseling
               </Link>
             </div>
