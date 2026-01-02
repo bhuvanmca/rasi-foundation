@@ -18,7 +18,9 @@ import {
   FaPhone,
   FaQuoteLeft,
   FaStar,
-  FaCheckCircle
+  FaCheckCircle,
+  FaGlobe,
+  FaBook
 } from 'react-icons/fa';
 
 export default function Home() {
@@ -33,9 +35,10 @@ export default function Home() {
     { icon: FaStethoscope, name: 'Medical Sciences', courses: ['MBBS', 'BDS', 'AYUSH', 'Para Medical'], color: 'red' },
     { icon: FaCog, name: 'Engineering', courses: ['B.E/B.Tech', 'Polytechnic', 'Architecture'], color: 'blue' },
     { icon: FaChartLine, name: 'Management', courses: ['MBA', 'MCA', 'CA', 'B.Com'], color: 'green' },
-    { icon: FaBalanceScale, name: 'Law', courses: ['BL', 'LLB', 'LLM'], color: 'purple' },
-    { icon: FaChalkboardTeacher, name: 'Education', courses: ['B.Ed', 'M.Ed', 'D.T.Ed'], color: 'amber' },
+    { icon: FaBalanceScale, name: 'Law', courses: ['BL', 'LLB', 'LLM', 'BA LLB'], color: 'purple' },
+    { icon: FaChalkboardTeacher, name: 'Education', courses: ['B.Ed', 'M.Ed', 'D.T.Ed', 'D.El.Ed'], color: 'amber' },
     { icon: FaFlask, name: 'Arts & Science', courses: ['BA', 'BSc', 'MA', 'MSc'], color: 'teal' },
+    { icon: FaGlobe, name: 'Abroad Studies', courses: ['MBBS Abroad', 'Engineering', 'MBA', 'Masters'], color: 'indigo' },
   ];
 
   const testimonials = [
@@ -66,6 +69,7 @@ export default function Home() {
     blue: 'bg-blue-100 text-blue-600 group-hover:bg-blue-600',
     purple: 'bg-purple-100 text-purple-600 group-hover:bg-purple-600',
     teal: 'bg-teal-100 text-teal-600 group-hover:bg-teal-600',
+    indigo: 'bg-indigo-100 text-indigo-600 group-hover:bg-indigo-600',
   };
 
   return (
@@ -165,6 +169,30 @@ export default function Home() {
                     <div>
                       <p className="font-bold text-gray-800">Management</p>
                       <p className="text-sm text-gray-500">MBA, MCA, CA</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute bottom-40 left-10 bg-white rounded-2xl shadow-2xl p-6 animate-float" style={{ animationDelay: '1.5s' }}>
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center">
+                      <FaBalanceScale className="text-2xl text-purple-600" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-gray-800">Law</p>
+                      <p className="text-sm text-gray-500">LLB, BA LLB, LLM</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute top-60 right-20 bg-white rounded-2xl shadow-2xl p-6 animate-float" style={{ animationDelay: '2s' }}>
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center">
+                      <FaGlobe className="text-2xl text-indigo-600" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-gray-800">Abroad Studies</p>
+                      <p className="text-sm text-gray-500">MBBS, MBA Abroad</p>
                     </div>
                   </div>
                 </div>
@@ -305,7 +333,8 @@ export default function Home() {
                           course.color === 'amber' ? 'bg-amber-500' :
                             course.color === 'blue' ? 'bg-blue-500' :
                               course.color === 'purple' ? 'bg-purple-500' :
-                                'bg-teal-500'
+                                course.color === 'indigo' ? 'bg-indigo-500' :
+                                  'bg-teal-500'
                         }`}></span>
                       {c}
                     </li>
@@ -316,7 +345,8 @@ export default function Home() {
                     course.color === 'amber' ? 'text-amber-600 hover:text-amber-700' :
                       course.color === 'blue' ? 'text-blue-600 hover:text-blue-700' :
                         course.color === 'purple' ? 'text-purple-600 hover:text-purple-700' :
-                          'text-teal-600 hover:text-teal-700'
+                          course.color === 'indigo' ? 'text-indigo-600 hover:text-indigo-700' :
+                            'text-teal-600 hover:text-teal-700'
                   }`}>
                   Learn More <FaArrowRight />
                 </Link>
