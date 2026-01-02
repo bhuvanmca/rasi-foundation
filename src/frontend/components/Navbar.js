@@ -70,13 +70,13 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation - Center */}
-            <div className="hidden lg:flex items-center justify-center flex-1 px-4">
+            <div className="hidden md:flex items-center justify-center flex-1 px-4">
               <nav className="flex items-center space-x-1">
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
                     href={link.path}
-                    className={`px-4 py-2 rounded text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive(link.path)
+                    className={`px-3 py-2 rounded text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive(link.path)
                       ? 'bg-green-600 text-white'
                       : 'text-gray-700 hover:text-green-600 hover:bg-gray-100'
                       }`}
@@ -99,7 +99,7 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden text-2xl text-gray-700 hover:text-green-600 transition-colors"
+              className="md:hidden text-2xl text-gray-700 hover:text-green-600 transition-colors"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
@@ -109,7 +109,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Navigation */}
-        <div className={`lg:hidden transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+        <div className={`md:hidden transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
           }`}>
           <div className="container mx-auto px-4 py-4 bg-gray-50 border-t">
             {navLinks.map((link) => (
