@@ -62,9 +62,9 @@ const Navbar = () => {
               <Image
                 src="/logo.png"
                 alt="RASI FOUNDATION - Career Guidance & Education Consultancy"
-                width={200}
-                height={45}
-                className="group-hover:scale-105 transition-transform h-10 w-auto"
+                width={280}
+                height={70}
+                className="group-hover:scale-105 transition-transform h-12 md:h-14 lg:h-16 w-auto"
                 priority
               />
             </Link>
