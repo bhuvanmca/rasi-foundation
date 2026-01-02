@@ -135,72 +135,76 @@ export default function Home() {
 
             {/* Right Content - Hero Image/Illustration */}
             <div className="relative hidden lg:block">
-              <div className="relative z-10">
-                {/* Decorative Cards */}
-                <div className="absolute top-0 right-0 bg-white rounded-2xl shadow-2xl p-6 animate-float">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center">
-                      <FaStethoscope className="text-2xl text-red-600" />
+              <div className="relative z-10 py-8">
+                {/* Medical Courses - Top Right */}
+                <div className="absolute -top-4 right-0 bg-white rounded-2xl shadow-2xl p-5 animate-float z-20">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                      <FaStethoscope className="text-xl text-red-600" />
                     </div>
                     <div>
-                      <p className="font-bold text-gray-800">Medical Courses</p>
-                      <p className="text-sm text-gray-500">MBBS, BDS, AYUSH</p>
+                      <p className="font-bold text-gray-800 text-sm">Medical Courses</p>
+                      <p className="text-xs text-gray-500">MBBS, BDS, AYUSH</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute top-32 left-0 bg-white rounded-2xl shadow-2xl p-6 animate-float" style={{ animationDelay: '0.5s' }}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center">
-                      <FaCog className="text-2xl text-green-600" />
+                {/* Engineering - Top Left */}
+                <div className="absolute top-16 -left-8 bg-white rounded-2xl shadow-2xl p-5 animate-float z-20" style={{ animationDelay: '0.5s' }}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                      <FaCog className="text-xl text-green-600" />
                     </div>
                     <div>
-                      <p className="font-bold text-gray-800">Engineering</p>
-                      <p className="text-sm text-gray-500">B.E, B.Tech, Arch</p>
+                      <p className="font-bold text-gray-800 text-sm">Engineering</p>
+                      <p className="text-xs text-gray-500">B.E, B.Tech, Arch</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute bottom-20 right-10 bg-white rounded-2xl shadow-2xl p-6 animate-float" style={{ animationDelay: '1s' }}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center">
-                      <FaChartLine className="text-2xl text-amber-600" />
+                {/* Management - Middle Right */}
+                <div className="absolute top-48 -right-4 bg-white rounded-2xl shadow-2xl p-5 animate-float z-20" style={{ animationDelay: '1s' }}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                      <FaChartLine className="text-xl text-amber-600" />
                     </div>
                     <div>
-                      <p className="font-bold text-gray-800">Management</p>
-                      <p className="text-sm text-gray-500">MBA, MCA, CA</p>
+                      <p className="font-bold text-gray-800 text-sm">Management</p>
+                      <p className="text-xs text-gray-500">MBA, MCA, CA</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute bottom-40 left-10 bg-white rounded-2xl shadow-2xl p-6 animate-float" style={{ animationDelay: '1.5s' }}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center">
-                      <FaBalanceScale className="text-2xl text-purple-600" />
+                {/* Law - Middle Left */}
+                <div className="absolute top-56 -left-4 bg-white rounded-2xl shadow-2xl p-5 animate-float z-20" style={{ animationDelay: '1.5s' }}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                      <FaBalanceScale className="text-xl text-purple-600" />
                     </div>
                     <div>
-                      <p className="font-bold text-gray-800">Law</p>
-                      <p className="text-sm text-gray-500">LLB, BA LLB, LLM</p>
+                      <p className="font-bold text-gray-800 text-sm">Law</p>
+                      <p className="text-xs text-gray-500">LLB, BA LLB, LLM</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute top-60 right-20 bg-white rounded-2xl shadow-2xl p-6 animate-float" style={{ animationDelay: '2s' }}>
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center">
-                      <FaGlobe className="text-2xl text-indigo-600" />
+                {/* Abroad Studies - Bottom Center */}
+                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-2xl shadow-2xl p-5 animate-float z-20" style={{ animationDelay: '2s' }}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
+                      <FaGlobe className="text-xl text-indigo-600" />
                     </div>
                     <div>
-                      <p className="font-bold text-gray-800">Abroad Studies</p>
-                      <p className="text-sm text-gray-500">MBBS, MBA Abroad</p>
+                      <p className="font-bold text-gray-800 text-sm">Abroad Studies</p>
+                      <p className="text-xs text-gray-500">MBBS, MBA Abroad</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Central Illustration */}
-                <div className="w-80 h-80 mx-auto bg-gradient-to-br from-red-500 via-amber-500 to-green-500 rounded-full flex items-center justify-center shadow-2xl">
-                  <div className="w-72 h-72 bg-white rounded-full flex items-center justify-center">
-                    <FaGraduationCap className="text-9xl text-gray-800" />
+                <div className="w-72 h-72 mx-auto bg-gradient-to-br from-red-500 via-amber-500 to-green-500 rounded-full flex items-center justify-center shadow-2xl">
+                  <div className="w-64 h-64 bg-white rounded-full flex items-center justify-center">
+                    <FaGraduationCap className="text-8xl text-gray-800" />
                   </div>
                 </div>
               </div>
