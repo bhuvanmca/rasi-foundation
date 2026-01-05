@@ -79,7 +79,7 @@ export default function Home() {
       keywords="NEET counseling, medical college admission Tamil Nadu, engineering admission guidance, MBA admission consultant, career counselor Rasipuram, Namakkal education consultancy"
     >
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] bg-gradient-hero overflow-hidden">
+      <section className="relative min-h-[85vh] bg-gradient-hero overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 left-20 w-72 h-72 bg-red-500 rounded-full blur-3xl"></div>
@@ -133,27 +133,53 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Content - Hero Image/Illustration */}
-            <div className="relative hidden lg:block">
-              <div className="relative z-10 py-8">
-                {/* Medical Courses - Top Right */}
-                <div className="absolute -top-4 right-0 bg-white rounded-2xl shadow-2xl p-5 animate-float z-20">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                      <FaStethoscope className="text-xl text-red-600" />
-                    </div>
-                    <div>
-                      <p className="font-bold text-gray-800 text-sm">Medical Courses</p>
-                      <p className="text-xs text-gray-500">MBBS, BDS, AYUSH</p>
-                    </div>
-                  </div>
+
+            {/* Right Content - Circular Floating Courses */}
+            <div className="relative hidden lg:flex items-center justify-center" style={{ minHeight: '520px', width: '100%' }}>
+              {/* Container for circular layout */}
+              <div className="relative" style={{ width: '520px', height: '520px' }}>
+
+                {/* Large Gradient Ring */}
+                <div
+                  className="absolute rounded-full"
+                  style={{
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '280px',
+                    height: '280px',
+                    background: 'conic-gradient(from 180deg, #f97316 0deg, #f97316 60deg, #eab308 120deg, #22c55e 180deg, #22c55e 300deg, #f97316 360deg)',
+                    padding: '12px',
+                  }}
+                >
+                  {/* Inner white circle to create ring effect */}
+                  <div className="w-full h-full bg-white rounded-full shadow-inner"></div>
                 </div>
 
-                {/* Engineering - Top Left */}
-                <div className="absolute top-16 -left-8 bg-white rounded-2xl shadow-2xl p-5 animate-float z-20" style={{ animationDelay: '0.5s' }}>
+                {/* Graduation Cap - centered in the ring */}
+                <div
+                  className="absolute flex items-center justify-center z-10"
+                  style={{
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                >
+                  <FaGraduationCap className="text-6xl text-gray-800" />
+                </div>
+
+                {/* Engineering Card - TOP LEFT */}
+                <div
+                  className="absolute bg-white rounded-xl shadow-lg p-3 animate-float z-20 hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  style={{
+                    top: '8%',
+                    left: '-10px',
+                    minWidth: '175px'
+                  }}
+                >
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                      <FaCog className="text-xl text-green-600" />
+                    <div className="w-11 h-11 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <FaCog className="text-lg text-green-600" />
                     </div>
                     <div>
                       <p className="font-bold text-gray-800 text-sm">Engineering</p>
@@ -162,24 +188,41 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Management - Middle Right */}
-                <div className="absolute top-48 -right-4 bg-white rounded-2xl shadow-2xl p-5 animate-float z-20" style={{ animationDelay: '1s' }}>
+                {/* Medical Courses Card - TOP RIGHT */}
+                <div
+                  className="absolute bg-white rounded-xl shadow-lg p-3 animate-float z-20 hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  style={{
+                    top: '8%',
+                    right: '-20px',
+                    animationDelay: '0.3s',
+                    minWidth: '190px'
+                  }}
+                >
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
-                      <FaChartLine className="text-xl text-amber-600" />
+                    <div className="w-11 h-11 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <FaStethoscope className="text-lg text-red-500" />
                     </div>
                     <div>
-                      <p className="font-bold text-gray-800 text-sm">Management</p>
-                      <p className="text-xs text-gray-500">MBA, MCA, CA</p>
+                      <p className="font-bold text-gray-800 text-sm">Medical Courses</p>
+                      <p className="text-xs text-gray-500">MBBS, BDS, AYUSH</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Law - Middle Left */}
-                <div className="absolute top-56 -left-4 bg-white rounded-2xl shadow-2xl p-5 animate-float z-20" style={{ animationDelay: '1.5s' }}>
+                {/* Law Card - MIDDLE LEFT */}
+                <div
+                  className="absolute bg-white rounded-xl shadow-lg p-3 animate-float z-20 hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  style={{
+                    top: '42%',
+                    left: '-40px',
+                    transform: 'translateY(-50%)',
+                    animationDelay: '0.6s',
+                    minWidth: '170px'
+                  }}
+                >
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <FaBalanceScale className="text-xl text-purple-600" />
+                    <div className="w-11 h-11 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <FaBalanceScale className="text-lg text-purple-600" />
                     </div>
                     <div>
                       <p className="font-bold text-gray-800 text-sm">Law</p>
@@ -188,11 +231,62 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Abroad Studies - Bottom Center */}
-                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-2xl shadow-2xl p-5 animate-float z-20" style={{ animationDelay: '2s' }}>
+                {/* Management Card - MIDDLE RIGHT */}
+                <div
+                  className="absolute bg-white rounded-xl shadow-lg p-3 animate-float z-20 hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  style={{
+                    top: '42%',
+                    right: '-30px',
+                    transform: 'translateY(-50%)',
+                    animationDelay: '0.9s',
+                    minWidth: '170px'
+                  }}
+                >
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                      <FaGlobe className="text-xl text-indigo-600" />
+                    <div className="w-11 h-11 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <FaChartLine className="text-lg text-amber-600" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-gray-800 text-sm">Management</p>
+                      <p className="text-xs text-gray-500">MBA, MCA, CA</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Education Card - BOTTOM LEFT */}
+                <div
+                  className="absolute bg-white rounded-xl shadow-lg p-3 animate-float z-20 hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  style={{
+                    bottom: '12%',
+                    left: '20px',
+                    animationDelay: '1.2s',
+                    minWidth: '155px'
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 bg-cyan-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <FaChalkboardTeacher className="text-lg text-cyan-600" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-gray-800 text-sm">Education</p>
+                      <p className="text-xs text-gray-500">B.Ed, M.Ed</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Abroad Studies Card - BOTTOM RIGHT */}
+                <div
+                  className="absolute bg-white rounded-xl shadow-lg p-3 animate-float z-20 hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  style={{
+                    bottom: '12%',
+                    right: '10px',
+                    animationDelay: '1.5s',
+                    minWidth: '180px'
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-11 h-11 bg-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <FaGlobe className="text-lg text-indigo-600" />
                     </div>
                     <div>
                       <p className="font-bold text-gray-800 text-sm">Abroad Studies</p>
@@ -201,12 +295,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Central Illustration */}
-                <div className="w-72 h-72 mx-auto bg-gradient-to-br from-red-500 via-amber-500 to-green-500 rounded-full flex items-center justify-center shadow-2xl">
-                  <div className="w-64 h-64 bg-white rounded-full flex items-center justify-center">
-                    <FaGraduationCap className="text-8xl text-gray-800" />
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -467,6 +555,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </Layout>
+    </Layout >
   );
 }
