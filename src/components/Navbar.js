@@ -52,22 +52,22 @@ const Navbar = () => {
       </div>
 
       {/* Main Navbar */}
-      <nav className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/95 backdrop-blur-lg shadow-lg' 
-          : 'bg-white shadow-md'
-      }`}>
+      <nav className={`sticky top-0 z-50 transition-all duration-300 ${scrolled
+        ? 'bg-white/95 backdrop-blur-lg shadow-lg'
+        : 'bg-white shadow-md'
+        }`}>
         <div className="container mx-auto px-4">
           <div className="flex items-center py-1">
             {/* Logo */}
             <Link href="/" className="flex items-center group flex-shrink-0">
-              <Image 
-                src="/logo2.png" 
-                alt="RASI FOUNDATION - Career Guidance & Education Consultancy" 
-                width={400} 
-                height={80}
-                className="group-hover:scale-105 transition-transform h-14 md:h-16 lg:h-[70px] w-auto"
+              <Image
+                src="/logo.png"
+                alt="RASI FOUNDATION - Career Guidance & Education Consultancy"
+                width={1000}
+                height={200}
+                className="group-hover:scale-105 transition-transform h-20 md:h-24 lg:h-28 w-auto object-contain"
                 priority
+                unoptimized
               />
             </Link>
 
@@ -77,11 +77,10 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   href={link.path}
-                  className={`px-2 lg:px-3 xl:px-4 py-2 rounded-lg text-xs lg:text-sm xl:text-base font-medium transition-all duration-300 whitespace-nowrap ${
-                    isActive(link.path)
-                      ? 'bg-red-600 text-white shadow-md'
-                      : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
-                  }`}
+                  className={`px-2 lg:px-3 xl:px-4 py-2 rounded-lg text-xs lg:text-sm xl:text-base font-medium transition-all duration-300 whitespace-nowrap ${isActive(link.path)
+                    ? 'bg-red-600 text-white shadow-md'
+                    : 'text-gray-700 hover:bg-red-50 hover:text-red-600'
+                    }`}
                 >
                   {link.name}
                 </Link>
@@ -107,31 +106,30 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-        <div className="md:hidden transition-all duration-300 overflow-hidden max-h-96 opacity-100">
-          <div className="container mx-auto px-4 py-4 bg-gray-50 border-t">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                href={link.path}
-                className={`block py-3 px-4 rounded-lg mb-1 font-medium transition-all duration-300 ${
-                  isActive(link.path)
+          <div className="md:hidden transition-all duration-300 overflow-hidden max-h-96 opacity-100">
+            <div className="container mx-auto px-4 py-4 bg-gray-50 border-t">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  href={link.path}
+                  className={`block py-3 px-4 rounded-lg mb-1 font-medium transition-all duration-300 ${isActive(link.path)
                     ? 'bg-red-600 text-white'
                     : 'text-gray-700 hover:bg-red-100 hover:text-red-600'
-                }`}
+                    }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              <Link
+                href="/contact"
+                className="block w-full btn-secondary text-center mt-4"
                 onClick={() => setIsOpen(false)}
               >
-                {link.name}
+                Get Free Counseling
               </Link>
-            ))}
-            <Link 
-              href="/contact" 
-              className="block w-full btn-secondary text-center mt-4"
-              onClick={() => setIsOpen(false)}
-            >
-              Get Free Counseling
-            </Link>
+            </div>
           </div>
-        </div>
         )}
       </nav>
     </>

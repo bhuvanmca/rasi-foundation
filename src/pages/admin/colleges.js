@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '@/frontend/components/AdminLayout';
-import { 
-  FaSearch, 
+import {
+  FaSearch,
   FaPlus,
   FaEdit,
   FaTrash,
@@ -48,13 +48,29 @@ export default function AdminColleges() {
   const fetchColleges = async () => {
     try {
       const token = localStorage.getItem('adminToken');
+
+      if (!token) {
+        window.location.href = '/admin/login';
+        return;
+      }
+
       const response = await fetch('/api/admin/colleges', {
         headers: { Authorization: `Bearer ${token}` }
       });
-      
+
+      if (response.status === 401) {
+        // Token expired or invalid, redirect to login
+        localStorage.removeItem('adminToken');
+        localStorage.removeItem('adminUser');
+        window.location.href = '/admin/login';
+        return;
+      }
+
       if (response.ok) {
         const data = await response.json();
         setColleges(data);
+      } else {
+        console.error('Failed to fetch colleges:', response.status);
       }
     } catch (error) {
       console.error('Failed to fetch colleges:', error);
@@ -65,7 +81,7 @@ export default function AdminColleges() {
 
   const seedColleges = async () => {
     if (!confirm('This will seed initial colleges data. Continue?')) return;
-    
+
     setSeeding(true);
     try {
       const token = localStorage.getItem('adminToken');
@@ -73,9 +89,9 @@ export default function AdminColleges() {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` }
       });
-      
+
       const data = await response.json();
-      
+
       if (response.ok) {
         alert(`Successfully seeded ${data.count} colleges!`);
         fetchColleges();
@@ -92,22 +108,22 @@ export default function AdminColleges() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const token = localStorage.getItem('adminToken');
-      const url = editingCollege 
+      const url = editingCollege
         ? `/api/admin/colleges/${editingCollege._id}`
         : '/api/admin/colleges';
-      
+
       const response = await fetch(url, {
         method: editingCollege ? 'PUT' : 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}` 
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(formData)
       });
-      
+
       if (response.ok) {
         const college = await response.json();
         if (editingCollege) {
@@ -131,15 +147,15 @@ export default function AdminColleges() {
       const token = localStorage.getItem('adminToken');
       const response = await fetch(`/api/admin/colleges/${college._id}`, {
         method: 'PATCH',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}` 
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({ isActive: !college.isActive })
       });
-      
+
       if (response.ok) {
-        setColleges(colleges.map(c => 
+        setColleges(colleges.map(c =>
           c._id === college._id ? { ...c, isActive: !c.isActive } : c
         ));
       }
@@ -150,14 +166,14 @@ export default function AdminColleges() {
 
   const deleteCollege = async (id) => {
     if (!confirm('Are you sure you want to delete this college?')) return;
-    
+
     try {
       const token = localStorage.getItem('adminToken');
       const response = await fetch(`/api/admin/colleges/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
-      
+
       if (response.ok) {
         setColleges(colleges.filter(c => c._id !== id));
       }
@@ -209,7 +225,7 @@ export default function AdminColleges() {
   };
 
   const filteredColleges = colleges.filter(college => {
-    const matchesSearch = 
+    const matchesSearch =
       college.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       college.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (college.code && college.code.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -316,7 +332,7 @@ export default function AdminColleges() {
           <FaUniversity className="text-6xl text-gray-300 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-gray-600 mb-2">No Colleges Found</h3>
           <p className="text-gray-500 mb-4">
-            {colleges.length === 0 
+            {colleges.length === 0
               ? 'Get started by seeding initial data or adding a new college.'
               : 'No colleges match your search criteria.'}
           </p>
@@ -430,7 +446,7 @@ export default function AdminColleges() {
                 <FaTimes className="text-xl" />
               </button>
             </div>
-            
+
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
