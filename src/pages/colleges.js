@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import Layout from '@/frontend/components/Layout';
+import BengaluruColleges from '@/frontend/components/BengaluruColleges';
 import Link from 'next/link';
-import { FaMapMarkerAlt, FaUniversity, FaCode, FaGraduationCap, FaSpinner, FaFemale, FaArrowRight, FaTimes } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaUniversity, FaCode, FaGraduationCap, FaSpinner, FaFemale, FaArrowRight, FaTimes, FaSearch } from 'react-icons/fa';
 import dbConnect from '@/backend/lib/mongodb';
 import College from '@/backend/models/College';
 
@@ -32,7 +33,7 @@ const fallbackData = [
         ]
       },
       {
-        name: 'Paavai Engineering College',
+        name: 'Paavai Engineering College / Paavai College of Technology',
         location: 'Namakkal',
         departments: [
           'B.E. Computer Science and Engineering',
@@ -71,6 +72,179 @@ const fallbackData = [
           'B.Tech. Artificial Intelligence and Data Science'
         ]
       },
+      {
+        name: 'CMS College of Engineering',
+        location: 'Namakkal',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering'
+        ]
+      },
+      {
+        name: 'Gnanamani College of Technology',
+        location: 'Namakkal',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence and Data Science',
+          'B.Tech. Food Technology',
+          'B.Tech. Pharmaceutical Technology',
+          'B.Tech. Chemical Engineering'
+        ]
+      },
+      {
+        name: 'Muthayammal Engineering College',
+        location: 'Rasipuram',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. CSE (Cyber Security)',
+          'B.E. CSE (AI & ML)',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.E. Mechatronics Engineering',
+          'B.E. Biomedical Engineering',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence and Data Science',
+          'B.Tech. Biotechnology'
+        ]
+      },
+      {
+        name: 'Sengunthar Engineering College (Autonomous)',
+        location: 'Tiruchengode',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.E. Medical Electronics',
+          'B.E. Robotics and Automation',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence and Data Science'
+        ]
+      },
+      {
+        name: 'Mahendra Engineering College',
+        location: 'Mallasamudram',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. CSE (Cyber Security)',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.E. Mechatronics Engineering',
+          'B.E. Aeronautical Engineering',
+          'B.E. Aerospace Engineering',
+          'B.E. Agriculture Engineering',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence and Data Science',
+          'B.Tech. Food Technology',
+          'B.Tech. Pharmaceutical Technology',
+          'B.Tech. Chemical Engineering'
+        ]
+      },
+      {
+        name: 'Excel College of Engineering and Technology',
+        location: 'Komarapalayam',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.E. Aeronautical Engineering',
+          'B.E. Biomedical Engineering',
+          'B.E. Agriculture Engineering',
+          'B.E. Safety and Fire Engineering',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence and Data Science',
+          'B.Tech. Food Technology',
+          'B.Tech. Textile Technology',
+          'B.Tech. Petrochemical Technology'
+        ]
+      },
+      {
+        name: 'J.K.K. Nattraja College of Engineering and Technology',
+        location: 'Komarapalayam',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.Tech. Information Technology',
+          'B.Tech. Artificial Intelligence and Data Science'
+        ]
+      },
+      {
+        name: 'PGP College of Engineering and Technology',
+        location: 'Namakkal',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering'
+        ]
+      },
+      {
+        name: 'Vidhya Vikas College of Engineering and Technology',
+        location: 'Tiruchengode',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.Tech. Artificial Intelligence and Data Science'
+        ]
+      },
+      {
+        name: 'SSM College of Engineering',
+        location: 'Komarapalayam',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.Tech. Information Technology',
+          'B.Tech. Textile Technology',
+          'B.Tech. Petrochemical Technology'
+        ]
+      },
+      {
+        name: 'Annai Mathammal Sheela Engineering College',
+        location: 'Erumapatti',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering',
+          'B.Tech. Artificial Intelligence and Data Science'
+        ]
+      },
+      {
+        name: 'S.R.G. Engineering College',
+        location: 'Namakkal',
+        departments: [
+          'B.E. Computer Science and Engineering',
+          'B.E. Electronics and Communication Engineering',
+          'B.E. Electrical and Electronics Engineering',
+          'B.E. Mechanical Engineering',
+          'B.E. Civil Engineering'
+        ]
+      }
     ]
   },
   {
@@ -104,6 +278,13 @@ const fallbackData = [
           'B.Tech. Artificial Intelligence & Data Science'
         ]
       },
+      { name: 'Mahendra College of Engineering', location: 'Salem' },
+      { name: 'Sri Ganesh Engineering College', location: 'Salem' },
+      { name: 'AVS Engineering College', location: 'Salem' },
+      { name: 'AVS College of Technology', location: 'Salem' },
+      { name: 'Vinayaka Missions University', location: 'Salem' },
+      { name: 'Annapoorana Medical College and Hospital', location: 'Salem' },
+      { name: 'Sri Shanmugha College of Engineering and Technology', location: 'Salem' }
     ]
   },
   {
@@ -148,6 +329,14 @@ const fallbackData = [
           'B.Tech. Chemical Engineering'
         ]
       },
+      { name: 'J.K.K. Munirajah College of Technology', location: 'Gobichettipalayam' },
+      { name: 'M. P. Nachimuthu M. Jaganathan Engineering College (MPNMJ)', location: 'Chennimalai' },
+      { name: 'Nandha College of Technology', location: 'Erode' },
+      { name: 'Nandha Engineering College', location: 'Perundurai' },
+      { name: 'Surya Engineering College', location: 'Erode' },
+      { name: 'Sasurie College of Engineering', location: 'Vijayamangalam' },
+      { name: 'Al-Ameen Engineering College', location: 'Erode' },
+      { name: 'Aishwarya College of Engineering & Technology', location: 'Erode' }
     ]
   },
   {
@@ -172,7 +361,7 @@ const fallbackData = [
         ]
       },
       {
-        name: 'Karpagam Institute of Technology',
+        name: 'Karpagam Institute of Technology (Autonomous)',
         location: 'Coimbatore',
         code: '2735',
         departments: [
@@ -185,6 +374,66 @@ const fallbackData = [
           'B.Tech. Artificial Intelligence and Data Science'
         ]
       },
+      { name: 'Karpagam Academy of Higher Education (KAHE – University)', location: 'Coimbatore' },
+      { name: 'Sree Sakthi Engineering College (Autonomous)', location: 'Karamadai', code: '2673' },
+      { name: 'Adithya Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2744' },
+      { name: 'PPG Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2753' },
+      { name: 'Rathinam Group of Institutions (Autonomous)', location: 'Coimbatore', code: '2329', note: 'R-Smart / Sunstone supported' },
+      { name: 'Dr. NGP Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2736' },
+      { name: 'KGISL Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2751' },
+      { name: 'Nehru Institute of Engineering and Technology (Autonomous)', location: 'Coimbatore', code: '2729' },
+      { name: 'Nehru Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2755' },
+      { name: 'Coimbatore Institute of Engineering & Technology (Autonomous)', location: 'Coimbatore', code: '2704' },
+      { name: 'RVS College of Engineering and Technology (Autonomous)', location: 'Coimbatore', code: '2731' },
+      { name: 'United Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2761' },
+      { name: 'Hindusthan College of Engineering and Technology (Autonomous)', location: 'Coimbatore', code: '2708' },
+      { name: 'Hindustan Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2740' },
+      { name: 'Akshaya College of Engineering and Technology (Autonomous)', location: 'Coimbatore', code: '2763' },
+      { name: 'INFO Institute of Engineering & Technology (Autonomous)', location: 'Coimbatore', code: '2732' },
+      { name: 'KIT – Kalaignar Karunanidhi Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2750' },
+      { name: 'Dhanalakshmi Srinivasan College of Engineering (Autonomous)', location: 'Coimbatore', code: '2743' },
+      { name: 'Sri Ranganathar Institute of Engineering & Technology (Autonomous)', location: 'Athipalayam', code: '2342' },
+      { name: 'Study World College of Engineering', location: 'Coimbatore', code: '2770' },
+      { name: 'EASA College of Engineering and Technology (Autonomous)', location: 'Coimbatore', code: '2749' },
+      { name: 'Arjun College of Technology (Autonomous)', location: 'Coimbatore', code: '2367' },
+      { name: 'JCT College of Technology (Autonomous)', location: 'Coimbatore', code: '2762' },
+      { name: 'Pollachi Institute of Engineering & Technology', location: 'Coimbatore', code: '2354' },
+      { name: 'P.A. College of Engineering and Technology (Autonomous)', location: 'Pollachi', code: '2741' },
+      { name: 'SNS College of Technology (Autonomous)', location: 'Coimbatore', code: '2726' },
+      { name: 'SNS College of Engineering (Autonomous)', location: 'Coimbatore', code: '2734' },
+      { name: 'Sri Sai Ranganathan Engineering College', location: 'Thondamuthur', code: '2737' },
+      { name: 'Asian College of Engineering and Technology', location: 'Saravanampatti', code: '2338' },
+      { name: 'Vishnu Lakshmi College of Engineering and Technology', location: 'Coimbatore', code: '2368' },
+      { name: 'Dhaanish Ahmed Institute of Technology', location: 'Coimbatore', code: '2349' },
+      { name: 'VSB College of Engineering & Technical Campus', location: 'Coimbatore', code: '2357' },
+      { name: 'Park College of Engineering and Technology', location: 'Coimbatore', code: '2716' },
+      { name: 'Tamil Nadu College of Engineering', location: 'Coimbatore', code: '2721' },
+      { name: 'Sri Shakthi Institute of Engineering and Technology', location: 'L&T By-Pass', code: '2727' },
+      { name: 'Kathir College of Engineering', location: 'Coimbatore', code: '2745' },
+      { name: 'Suguna College of Engineering', location: 'Coimbatore', code: '2360' },
+      { name: 'CMS College of Engineering and Technology', location: 'Coimbatore', code: '2772' },
+      { name: 'Christ the King Engineering College', location: 'Karamadai', code: '2650' }
+    ]
+  },
+  {
+    district: 'Bengaluru Zone',
+    colleges: [
+      { name: 'Akash Group of Institutions', location: 'Bengaluru' },
+      { name: 'East Point College', location: 'Bengaluru' },
+      { name: 'Alliance University', location: 'Bengaluru' },
+      { name: 'Adithya Institute of Technology', location: 'Bengaluru' },
+      { name: 'SEA College of Engineering & Technology', location: 'Bengaluru' },
+      { name: 'T. John Group of Institutions', location: 'Bengaluru' },
+      { name: 'S-VYASA University', location: 'Bengaluru' },
+      { name: 'RR Institutions', location: 'Bengaluru' },
+      { name: 'Harsha Institutions', location: 'Bengaluru' },
+      { name: 'Atria Institute of Technology', location: 'Bengaluru' },
+      { name: 'Garden City University', location: 'Bengaluru' },
+      { name: 'Spurthy Institutions', location: 'Bengaluru' },
+      { name: 'Yenepoya University', location: 'Bengaluru' },
+      { name: 'Krupanidhi Group of Institutions', location: 'Bengaluru' },
+      { name: 'ISBR Bangalore', location: 'Bengaluru' },
+      { name: 'MVJ College of Engineering', location: 'Bengaluru' }
     ]
   },
 ];
@@ -194,6 +443,7 @@ const districtColors = {
   'Salem District': 'from-green-500 to-green-600',
   'Erode District': 'from-blue-500 to-blue-600',
   'Coimbatore Zone': 'from-purple-500 to-purple-600',
+  'Bengaluru Zone': 'from-indigo-500 to-indigo-600',
 };
 
 // Use Static Site Generation with Incremental Static Regeneration for faster loading
@@ -223,10 +473,21 @@ export async function getStaticProps() {
     }, {});
 
     // Convert to array format
-    const collegesData = Object.keys(groupedColleges).map(district => ({
+    let collegesData = Object.keys(groupedColleges).map(district => ({
       district,
       colleges: groupedColleges[district],
     }));
+
+    // If we have DB data but are missing Bengaluru Zone (which is only in fallback for now), add it
+    if (collegesData.length > 0) {
+      const hasBengaluru = collegesData.some(d => d.district === 'Bengaluru Zone');
+      if (!hasBengaluru) {
+        const bengaluruData = fallbackData.find(d => d.district === 'Bengaluru Zone');
+        if (bengaluruData) {
+          collegesData.push(bengaluruData);
+        }
+      }
+    }
 
     return {
       props: {
@@ -249,6 +510,18 @@ export async function getStaticProps() {
 export default function Colleges({ collegesData }) {
   const [showWomenColleges, setShowWomenColleges] = useState(false);
   const [selectedCollege, setSelectedCollege] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Filter colleges based on search term
+  const filteredCollegesData = collegesData.map(district => ({
+    ...district,
+    colleges: district.colleges.filter(college =>
+      college.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      college.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (college.departments && college.departments.some(dept => dept.toLowerCase().includes(searchTerm.toLowerCase())))
+    )
+  })).filter(district => district.colleges.length > 0);
+
   const totalColleges = collegesData.reduce((acc, district) => acc + district.colleges.length, 0);
 
   // Women-Centric Engineering Colleges Data with Departments (Updated from official websites)
@@ -422,75 +695,104 @@ export default function Colleges({ collegesData }) {
         <div className="absolute top-1/2 right-1/3 text-white/20 text-lg">✦</div>
       </section>
 
+      {/* Bengaluru College Tie-Ups */}
+      <BengaluruColleges />
+
       {/* Colleges by District */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          {collegesData.map((district, districtIndex) => (
-            <div key={districtIndex} className="mb-12 last:mb-0">
-              {/* District Header */}
-              <div className={`bg-gradient-to-r ${districtColors[district.district] || 'from-gray-500 to-gray-600'} text-white rounded-2xl p-6 mb-6 shadow-lg`}>
-                <div className="flex items-center gap-3">
-                  <FaMapMarkerAlt className="text-2xl" />
-                  <h2 className="text-2xl md:text-3xl font-bold">
-                    {district.district} – Engineering Colleges
-                  </h2>
+          {/* Search Box */}
+          <div className="max-w-2xl mx-auto mb-12 relative">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search colleges, locations, or departments..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-6 py-4 pl-14 rounded-full border-2 border-gray-200 focus:border-red-500 focus:outline-none shadow-sm text-lg transition-colors"
+              />
+              <FaSearch className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl" />
+            </div>
+          </div>
+
+          {filteredCollegesData.length > 0 ? (
+            filteredCollegesData.map((district, districtIndex) => (
+              <div key={districtIndex} className="mb-12 last:mb-0">
+                {/* District Header */}
+                <div className={`bg-gradient-to-r ${districtColors[district.district] || 'from-gray-500 to-gray-600'} text-white rounded-2xl p-6 mb-6 shadow-lg`}>
+                  <div className="flex items-center gap-3">
+                    <FaMapMarkerAlt className="text-2xl" />
+                    <h2 className="text-2xl md:text-3xl font-bold">
+                      {district.district} – Engineering Colleges
+                    </h2>
+                  </div>
+                  <p className="mt-2 text-white/80">
+                    {district.colleges.length} institutions available
+                  </p>
                 </div>
-                <p className="mt-2 text-white/80">
-                  {district.colleges.length} institutions available
-                </p>
-              </div>
 
-              {/* Colleges Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {district.colleges.map((college, collegeIndex) => (
-                  <div
-                    key={college._id || collegeIndex}
-                    className="bg-white rounded-xl p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 hover:-translate-y-1 group"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`flex-shrink-0 w-10 h-10 bg-gradient-to-r ${districtColors[district.district] || 'from-gray-500 to-gray-600'} text-white rounded-lg flex items-center justify-center font-bold text-sm`}>
-                        {collegeIndex + 1}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <button
-                          onClick={() => setSelectedCollege({ ...college, districtColor: districtColors[district.district] })}
-                          className="font-semibold text-gray-800 group-hover:text-red-600 transition-colors line-clamp-2 text-left hover:underline cursor-pointer"
-                        >
-                          {college.name}
-                        </button>
-                        <div className="flex items-center gap-1 text-gray-500 text-sm mt-1">
-                          <FaMapMarkerAlt className="text-xs text-red-500" />
-                          <span>{college.location}</span>
+                {/* Colleges Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {district.colleges.map((college, collegeIndex) => (
+                    <div
+                      key={college._id || collegeIndex}
+                      className="bg-white rounded-xl p-5 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-red-200 hover:-translate-y-1 group"
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className={`flex-shrink-0 w-10 h-10 bg-gradient-to-r ${districtColors[district.district] || 'from-gray-500 to-gray-600'} text-white rounded-lg flex items-center justify-center font-bold text-sm`}>
+                          {collegeIndex + 1}
                         </div>
-                        {college.code && (
-                          <div className="flex items-center gap-1 text-gray-500 text-sm mt-1">
-                            <FaCode className="text-xs text-blue-500" />
-                            <span>Code: <strong className="text-blue-600">{college.code}</strong></span>
-                          </div>
-                        )}
-                        {college.note && (
-                          <span className="inline-block mt-2 text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full">
-                            {college.note}
-                          </span>
-                        )}
-
-                        {/* View Departments Button */}
-                        {college.departments && college.departments.length > 0 && (
+                        <div className="flex-1 min-w-0">
                           <button
                             onClick={() => setSelectedCollege({ ...college, districtColor: districtColors[district.district] })}
-                            className="mt-3 flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                            className="font-semibold text-gray-800 group-hover:text-red-600 transition-colors line-clamp-2 text-left hover:underline cursor-pointer"
                           >
-                            📚 View {college.departments.length} Departments
-                            <FaArrowRight className="text-xs" />
+                            {college.name}
                           </button>
-                        )}
+                          <div className="flex items-center gap-1 text-gray-500 text-sm mt-1">
+                            <FaMapMarkerAlt className="text-xs text-red-500" />
+                            <span>{college.location}</span>
+                          </div>
+                          {college.code && (
+                            <div className="flex items-center gap-1 text-gray-500 text-sm mt-1">
+                              <FaCode className="text-xs text-blue-500" />
+                              <span>Code: <strong className="text-blue-600">{college.code}</strong></span>
+                            </div>
+                          )}
+                          {college.note && (
+                            <span className="inline-block mt-2 text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full">
+                              {college.note}
+                            </span>
+                          )}
+
+                          {/* View Departments Button */}
+                          {college.departments && college.departments.length > 0 && (
+                            <button
+                              onClick={() => setSelectedCollege({ ...college, districtColor: districtColors[district.district] })}
+                              className="mt-3 flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                            >
+                              📚 View {college.departments.length} Departments
+                              <FaArrowRight className="text-xs" />
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
+            ))
+          ) : (
+            <div className="text-center py-10">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
+                <FaSearch className="text-gray-400 text-2xl" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">No colleges found</h3>
+              <p className="text-gray-500">
+                We couldn&apos;t find any colleges matching &quot;{searchTerm}&quot;. Try a different keyword.
+              </p>
             </div>
-          ))}
+          )}
         </div>
       </section>
 
@@ -502,15 +804,15 @@ export default function Colleges({ collegesData }) {
             Need Help Choosing the Right College?
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Get personalized guidance from our expert counselors. We'll help you find the perfect college based on your rank, preferences, and career goals.
+            Get personalized guidance from our expert counselors. We&apos;ll help you find the perfect college based on your rank, preferences, and career goals.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a
+            <Link
               href="/contact"
               className="bg-white text-red-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-lg"
             >
               Get Free Counseling
-            </a>
+            </Link>
             <a
               href="tel:+919789446100"
               className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white hover:text-red-600 transition-all duration-300"
@@ -690,12 +992,12 @@ export default function Colleges({ collegesData }) {
               >
                 Close
               </button>
-              <a
+              <Link
                 href="/contact"
                 className={`flex-1 bg-gradient-to-r ${selectedCollege.districtColor || 'from-red-500 to-red-600'} text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all duration-300 text-center`}
               >
                 Get Counseling
-              </a>
+              </Link>
             </div>
           </div>
         </div>
