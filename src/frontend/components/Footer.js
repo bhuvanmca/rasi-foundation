@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  FaPhone, 
-  FaEnvelope, 
-  FaMapMarkerAlt, 
-  FaFacebook, 
-  FaTwitter, 
-  FaInstagram, 
+import {
+  FaPhone,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaFacebook,
+  FaTwitter,
+  FaInstagram,
   FaLinkedin,
   FaYoutube,
   FaArrowRight
@@ -39,16 +39,16 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-6">
-              <Image 
-                src="/logo.png" 
-                alt="RASI FOUNDATION - Career Guidance & Education Consultancy" 
-                width={250} 
+              <Image
+                src="/logo.png"
+                alt="RASI FOUNDATION - Career Guidance & Education Consultancy"
+                width={250}
                 height={55}
                 className="h-14 w-auto brightness-0 invert"
               />
             </Link>
             <p className="text-gray-400 mb-6 leading-relaxed">
-              Empowering students with the right career guidance and helping them achieve their dreams 
+              Empowering students with the right career guidance and helping them achieve their dreams
               through quality education consultancy services.
             </p>
             <div className="flex gap-4">
@@ -76,8 +76,8 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.path}>
-                  <Link 
-                    href={link.path} 
+                  <Link
+                    href={link.path}
                     className="text-gray-400 hover:text-white hover:pl-2 transition-all duration-300 flex items-center gap-2"
                   >
                     <FaArrowRight className="text-xs text-red-500" />
@@ -97,8 +97,8 @@ const Footer = () => {
             <ul className="space-y-3">
               {courses.map((course, index) => (
                 <li key={index}>
-                  <Link 
-                    href="/courses" 
+                  <Link
+                    href="/courses"
                     className="text-gray-400 hover:text-white hover:pl-2 transition-all duration-300 flex items-center gap-2"
                   >
                     <FaArrowRight className="text-xs text-green-500" />
@@ -170,7 +170,7 @@ const Footer = () => {
               © {new Date().getFullYear()} Rasi Foundation. All rights reserved.
             </p>
             <p className="text-gray-500 text-sm italic">
-              "Empowering minds! Igniting future!"
+              &quot;Empowering minds! Igniting future!&quot;
             </p>
           </div>
         </div>

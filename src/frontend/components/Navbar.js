@@ -45,7 +45,7 @@ const Navbar = () => {
             </a>
           </div>
           <div className="hidden md:block">
-            <span className="font-semibold italic">"Empowering minds! Igniting future!"</span>
+            <span className="font-semibold italic">&quot;Empowering minds! Igniting future!&quot;</span>
           </div>
         </div>
       </div>
@@ -62,10 +62,11 @@ const Navbar = () => {
               <Image
                 src="/logo.png"
                 alt="RASI FOUNDATION - Career Guidance & Education Consultancy"
-                width={280}
-                height={70}
-                className="group-hover:scale-105 transition-transform h-12 md:h-14 lg:h-16 w-auto"
+                width={500}
+                height={125}
+                className="group-hover:scale-105 transition-transform h-20 md:h-24 lg:h-28 w-auto object-contain"
                 priority
+                unoptimized
               />
             </Link>
 
