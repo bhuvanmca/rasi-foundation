@@ -371,8 +371,8 @@ export default function Home() {
               <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-3xl p-8 text-white">
                 <FaQuoteLeft className="text-4xl text-red-300 mb-4" />
                 <p className="text-xl italic leading-relaxed mb-6">
-                  "Education is the most powerful weapon which you can use to change the world.
-                  At Rasi Foundation, we are committed to guiding every student towards their dreams."
+                  &quot;Education is the most powerful weapon which you can use to change the world.
+                  At Rasi Foundation, we are committed to guiding every student towards their dreams.&quot;
                 </p>
                 <div className="flex items-center gap-4">
                   <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
@@ -510,7 +510,7 @@ export default function Home() {
                     <FaStar key={i} className="text-amber-400" />
                   ))}
                 </div>
-                <p className="text-gray-600 italic mb-6 leading-relaxed">"{testimonial.text}"</p>
+                <p className="text-gray-600 italic mb-6 leading-relaxed">&quot;{testimonial.text}&quot;</p>
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-green-500 rounded-full flex items-center justify-center text-white font-bold">
                     {testimonial.name.charAt(0)}

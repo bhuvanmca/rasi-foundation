@@ -1,9 +1,9 @@
 import Layout from '@/frontend/components/Layout';
 import Link from 'next/link';
-import { 
-  FaGraduationCap, 
-  FaUserTie, 
-  FaLightbulb, 
+import {
+  FaGraduationCap,
+  FaUserTie,
+  FaLightbulb,
   FaHandshake,
   FaPhone,
   FaEnvelope,
@@ -50,8 +50,8 @@ export default function About() {
   ];
 
   return (
-    <Layout 
-      title="About Us" 
+    <Layout
+      title="About Us"
       description="Learn about Rasi Foundation - 15+ years of excellence in career guidance. Founded by Prof. P. Gunasekaran, we've helped 5000+ students achieve their educational dreams in Medical, Engineering, MBA & Law."
       keywords="about Rasi Foundation, career guidance Rasipuram, education consultant history, Prof Gunasekaran, career counselor Tamil Nadu"
     >
@@ -67,7 +67,7 @@ export default function About() {
               Shaping <span className="text-red-600">Futures</span>, Building <span className="text-green-600">Dreams</span>
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Rasi Foundation is a premier career guidance and education consultancy dedicated to 
+              Rasi Foundation is a premier career guidance and education consultancy dedicated to
               helping students navigate their educational journey and achieve their professional dreams.
             </p>
           </div>
@@ -87,8 +87,8 @@ export default function About() {
                 </div>
                 <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
                 <p className="text-white/90 text-lg leading-relaxed">
-                  To empower students with the knowledge, guidance, and support they need to make 
-                  informed career decisions and secure admissions in prestigious institutions that 
+                  To empower students with the knowledge, guidance, and support they need to make
+                  informed career decisions and secure admissions in prestigious institutions that
                   align with their aspirations and potential.
                 </p>
               </div>
@@ -103,8 +103,8 @@ export default function About() {
                 </div>
                 <h2 className="text-3xl font-bold mb-4">Our Vision</h2>
                 <p className="text-white/90 text-lg leading-relaxed">
-                  To be the most trusted and preferred education consultancy, recognized for 
-                  transforming lives through quality guidance and creating successful professionals 
+                  To be the most trusted and preferred education consultancy, recognized for
+                  transforming lives through quality guidance and creating successful professionals
                   who contribute to society.
                 </p>
               </div>
@@ -136,7 +136,7 @@ export default function About() {
               <p className="text-red-600 font-semibold mb-2">Founder</p>
               <p className="text-gray-500 mb-4">M.Sc., M.Phil.</p>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Career Guidance Advisor & Analyst with extensive experience in the education sector. 
+                Career Guidance Advisor & Analyst with extensive experience in the education sector.
                 Prof. Gunasekaran has dedicated his career to helping students find their path to success.
               </p>
               <div className="flex items-center justify-center gap-3 text-gray-600">
@@ -156,7 +156,7 @@ export default function About() {
               <p className="text-green-600 font-semibold mb-2">Administrative Director</p>
               <p className="text-gray-500 mb-4">MBA</p>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Career Guidance Advisor with strong administrative and management skills. 
+                Career Guidance Advisor with strong administrative and management skills.
                 Yuvaraj Kumar ensures smooth operations and excellent service delivery to all students.
               </p>
               <div className="flex items-center justify-center gap-3 text-gray-600">
@@ -180,17 +180,17 @@ export default function About() {
                 The Journey of <span className="text-green-600">Rasi Foundation</span>
               </h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Rasi Foundation was born out of a deep passion for education and a sincere desire 
+                Rasi Foundation was born out of a deep passion for education and a sincere desire
                 to help students navigate the complex world of higher education and career choices.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Founded by Prof. P. Gunasekaran, a seasoned career guidance expert, the foundation 
-                has grown from a small consultancy to a trusted name in education guidance across 
+                Founded by Prof. P. Gunasekaran, a seasoned career guidance expert, the foundation
+                has grown from a small consultancy to a trusted name in education guidance across
                 Tamil Nadu and beyond.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                Today, with a team of dedicated professionals and a network of prestigious 
-                institutional partners, we continue to fulfill our mission of empowering minds 
+                Today, with a team of dedicated professionals and a network of prestigious
+                institutional partners, we continue to fulfill our mission of empowering minds
                 and igniting futures.
               </p>
 
@@ -209,15 +209,14 @@ export default function About() {
             {/* Timeline */}
             <div className="relative">
               <div className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 via-amber-500 to-green-500 rounded-full"></div>
-              
+
               {timeline.map((item, index) => (
                 <div key={index} className="relative pl-20 pb-12 last:pb-0">
-                  <div className={`absolute left-4 w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold ${
-                    index === 0 ? 'bg-red-500' :
-                    index === 1 ? 'bg-orange-500' :
-                    index === 2 ? 'bg-amber-500' :
-                    'bg-green-500'
-                  }`}>
+                  <div className={`absolute left-4 w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold ${index === 0 ? 'bg-red-500' :
+                      index === 1 ? 'bg-orange-500' :
+                        index === 2 ? 'bg-amber-500' :
+                          'bg-green-500'
+                    }`}>
                     {index + 1}
                   </div>
                   <div className="card p-6">
@@ -264,8 +263,8 @@ export default function About() {
           <div className="max-w-4xl mx-auto text-center text-white">
             <FaQuoteLeft className="text-5xl mx-auto mb-6 opacity-50" />
             <blockquote className="text-2xl md:text-3xl font-medium italic leading-relaxed mb-8">
-              "Every student has potential. Our job is to help them discover it and guide them 
-              towards the right path that will help them shine."
+              &quot;Every student has potential. Our job is to help them discover it and guide them
+              towards the right path that will help them shine.&quot;
             </blockquote>
             <div className="flex items-center justify-center gap-4">
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">

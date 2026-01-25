@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Layout from '@/frontend/components/Layout';
+import Link from 'next/link';
 import Script from 'next/script';
 import {
   FaCreditCard,
@@ -197,18 +198,18 @@ export default function PaymentPage() {
               </div>
 
               <div className="flex flex-col gap-3">
-                <a
+                <Link
                   href="/"
-                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all"
+                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 rounded-xl font-bold hover:shadow-lg transition-all text-center"
                 >
                   Back to Home
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/contact"
-                  className="w-full border-2 border-green-600 text-green-600 py-3 rounded-xl font-bold hover:bg-green-50 transition-all"
+                  className="w-full border-2 border-green-600 text-green-600 py-3 rounded-xl font-bold hover:bg-green-50 transition-all text-center"
                 >
                   Contact Us
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -275,8 +276,8 @@ export default function PaymentPage() {
                             type="button"
                             onClick={() => setFormData(prev => ({ ...prev, purpose: purpose.id }))}
                             className={`p-3 rounded-xl border-2 text-left transition-all ${formData.purpose === purpose.id
-                                ? 'border-red-500 bg-red-50 text-red-700'
-                                : 'border-gray-200 hover:border-red-300 text-gray-600'
+                              ? 'border-red-500 bg-red-50 text-red-700'
+                              : 'border-gray-200 hover:border-red-300 text-gray-600'
                               }`}
                           >
                             <purpose.icon className={`text-xl mb-1 ${formData.purpose === purpose.id ? 'text-red-600' : 'text-gray-400'}`} />

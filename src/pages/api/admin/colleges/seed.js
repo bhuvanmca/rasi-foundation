@@ -20,7 +20,7 @@ const initialColleges = [
   { name: 'SSM College of Engineering', location: 'Komarapalayam', district: 'Namakkal District' },
   { name: 'Annai Mathammal Sheela Engineering College', location: 'Erumapatti', district: 'Namakkal District' },
   { name: 'S.R.G. Engineering College', location: 'Namakkal', district: 'Namakkal District' },
-  
+
   // Salem District
   { name: 'Knowledge Institute of Technology (KIOT)', location: 'Salem', district: 'Salem District' },
   { name: 'R. P. Sarathy Institute of Technology (RPSIT)', location: 'Salem', district: 'Salem District' },
@@ -31,7 +31,7 @@ const initialColleges = [
   { name: 'Vinayaka Missions University', location: 'Salem', district: 'Salem District' },
   { name: 'Annapoorana Medical College and Hospital', location: 'Salem', district: 'Salem District' },
   { name: 'Sri Shanmugha College of Engineering and Technology', location: 'Salem', district: 'Salem District' },
-  
+
   // Erode District
   { name: 'Shree Venkateshwara Hi-Tech Engineering College', location: 'Gobichettipalayam', district: 'Erode District' },
   { name: 'Erode Sengunthar Engineering College (ESEC)', location: 'Perundurai', district: 'Erode District' },
@@ -43,7 +43,7 @@ const initialColleges = [
   { name: 'Sasurie College of Engineering', location: 'Vijayamangalam', district: 'Erode District' },
   { name: 'Al-Ameen Engineering College', location: 'Erode', district: 'Erode District' },
   { name: 'Aishwarya College of Engineering & Technology', location: 'Erode', district: 'Erode District' },
-  
+
   // Coimbatore Zone
   { name: 'Karpagam College of Engineering (Autonomous)', location: 'Coimbatore', district: 'Coimbatore Zone', code: '2710' },
   { name: 'Karpagam Institute of Technology (Autonomous)', location: 'Coimbatore', district: 'Coimbatore Zone', code: '2735' },
@@ -86,6 +86,33 @@ const initialColleges = [
   { name: 'Suguna College of Engineering', location: 'Coimbatore', district: 'Coimbatore Zone', code: '2360' },
   { name: 'CMS College of Engineering and Technology', location: 'Coimbatore', district: 'Coimbatore Zone', code: '2772' },
   { name: 'Christ the King Engineering College', location: 'Karamadai', district: 'Coimbatore Zone', code: '2650' },
+
+  // Bengaluru Colleges
+  { name: "Akash Group of Institutions", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "East Point College", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "Alliance University", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "Adithya Institute of Technology", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "SEA College of Engineering & Technology", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "T. John Group of Institutions", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "S-VYASA University", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "RR Institutions", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "Harsha Institutions", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "Atria Institute of Technology", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "Garden City University", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "Spurthy Institutions", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "Yenepoya University", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "Krupanidhi Group of Institutions", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "ISBR Bangalore", location: "Bengaluru", district: "Bengaluru Colleges" },
+  { name: "MVJ College of Engineering", location: "Bengaluru", district: "Bengaluru Colleges" },
+
+  // Women Centric Colleges
+  { name: "Avinashilingam University for Women", location: "Coimbatore", district: "Women Centric Colleges" },
+  { name: "Bharathiyar Institute of Engineering for Women", location: "Attur", district: "Women Centric Colleges" },
+  { name: "Idhaya Engineering College for Women", location: "Villupuram", district: "Women Centric Colleges" },
+  { name: "Mahendra Engineering College for Women", location: "Tiruchengode", district: "Women Centric Colleges" },
+  { name: "Periyar Maniammai University", location: "Vallam", district: "Women Centric Colleges" },
+  { name: "Sri Bharathi Engineering College for Women", location: "Alangudi", district: "Women Centric Colleges" },
+  { name: "Vivekanandha College of Engineering for Women", location: "Tiruchengode", district: "Women Centric Colleges" },
 ];
 
 async function handler(req, res) {
@@ -95,9 +122,9 @@ async function handler(req, res) {
     try {
       // Check if colleges already exist
       const existingCount = await College.countDocuments();
-      
+
       if (existingCount > 0) {
-        return res.status(400).json({ 
+        return res.status(400).json({
           message: 'Colleges already exist in database',
           count: existingCount
         });
@@ -112,7 +139,7 @@ async function handler(req, res) {
 
       await College.insertMany(collegesWithOrder);
 
-      res.status(201).json({ 
+      res.status(201).json({
         message: 'Colleges seeded successfully',
         count: collegesWithOrder.length
       });

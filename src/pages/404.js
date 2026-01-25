@@ -4,8 +4,8 @@ import { FaHome, FaSearch, FaArrowLeft } from 'react-icons/fa';
 
 export default function Custom404() {
   return (
-    <Layout 
-      title="Page Not Found" 
+    <Layout
+      title="Page Not Found"
       description="The page you're looking for doesn't exist or has been moved."
       noIndex={true}
     >
@@ -28,16 +28,16 @@ export default function Custom404() {
               Oops! Page Not Found
             </h2>
             <p className="text-xl text-gray-600 mb-8">
-              The page you're looking for doesn't exist or has been moved. 
-              Let's get you back on track!
+              The page you&apos;re looking for doesn&apos;t exist or has been moved.
+              Let&apos;s get you back on track!
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/" className="btn-primary inline-flex items-center justify-center gap-2">
                 <FaHome /> Go to Homepage
               </Link>
-              <button 
-                onClick={() => window.history.back()} 
+              <button
+                onClick={() => window.history.back()}
                 className="btn-outline inline-flex items-center justify-center gap-2"
               >
                 <FaArrowLeft /> Go Back
@@ -54,7 +54,7 @@ export default function Custom404() {
                   { name: 'Contact', path: '/contact' },
                   { name: 'Questions', path: '/questions' },
                 ].map((link) => (
-                  <Link 
+                  <Link
                     key={link.path}
                     href={link.path}
                     className="px-4 py-2 bg-gray-100 rounded-full text-gray-700 hover:bg-red-100 hover:text-red-600 transition-colors"

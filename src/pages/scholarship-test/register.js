@@ -14,7 +14,12 @@ import {
     FaArrowRight,
     FaArrowLeft,
     FaCheckCircle,
-    FaExclamationTriangle
+    FaExclamationTriangle,
+    FaIdCard,
+    FaGlobe,
+    FaUserGraduate,
+    FaSpinner,
+    FaRocket
 } from 'react-icons/fa';
 
 export default function RegisterPage() {
@@ -100,11 +105,13 @@ export default function RegisterPage() {
     const handleNext = () => {
         if (validateStep(step)) {
             setStep(prev => Math.min(prev + 1, 3));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
     const handlePrev = () => {
         setStep(prev => Math.max(prev - 1, 1));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         setError('');
     };
 
@@ -132,6 +139,7 @@ export default function RegisterPage() {
             }
 
             setSuccess(data.data);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (err) {
             setError(err.message);
         } finally {
@@ -164,49 +172,58 @@ export default function RegisterPage() {
     if (success) {
         return (
             <Layout title="Registration Successful" description="RASI Foundation Scholarship Test Registration Complete">
-                <section className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-20">
-                    <div className="container mx-auto px-4">
-                        <div className="max-w-xl mx-auto bg-white rounded-3xl shadow-2xl p-8 text-center">
-                            <div className="w-20 h-20 mx-auto mb-6 bg-green-100 rounded-full flex items-center justify-center">
-                                <FaCheckCircle className="text-4xl text-green-600" />
+                <section className="min-h-screen bg-gray-50 py-24 px-4 overflow-hidden relative">
+                    {/* Background Accents */}
+                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-500/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-green-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+
+                    <div className="container mx-auto relative z-10">
+                        <div className="max-w-xl mx-auto bg-white border border-gray-100 rounded-[2.5rem] p-10 md:p-12 shadow-2xl text-center">
+                            <div className="w-24 h-24 mx-auto mb-8 relative group">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-red-500 to-green-500 rounded-full blur opacity-50 transition duration-1000"></div>
+                                <div className="relative w-full h-full bg-white rounded-full flex items-center justify-center border border-gray-100 shadow-inner">
+                                    <FaCheckCircle className="text-5xl text-green-600" />
+                                </div>
                             </div>
 
-                            <h1 className="text-3xl font-bold text-gray-800 mb-4">Registration Successful!</h1>
-                            <p className="text-gray-600 mb-8">
-                                Thank you for registering for the RASI Foundation Scholarship Test.
+                            <h1 className="text-4xl font-black text-gray-900 mb-4 tracking-tighter">Registration <span className="text-red-600">Successful!</span></h1>
+                            <p className="text-gray-500 mb-10 font-medium">
+                                Your application for the RASI Foundation Scholarship Test has been processed.
                             </p>
 
-                            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 mb-8">
-                                <p className="text-sm text-gray-600 mb-2">Your Registration Token</p>
-                                <p className="text-2xl font-bold text-indigo-700 font-mono tracking-wider">
+                            <div className="bg-gray-50 border border-gray-200 rounded-3xl p-8 mb-10 relative overflow-hidden group">
+                                <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-4">Registration Token</p>
+                                <p className="text-4xl font-black text-green-600 font-mono tracking-tighter mb-4">
                                     {success.registrationToken}
                                 </p>
-                                <p className="text-xs text-gray-500 mt-2">
-                                    Save this token! You'll need it to start and resume your test.
+                                <p className="text-[10px] font-bold text-gray-400 italic">
+                                    Please save this token. It is required to start your test.
                                 </p>
                             </div>
 
-                            <div className="space-y-3 text-left mb-8 bg-gray-50 rounded-xl p-4">
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">Name:</span>
-                                    <span className="font-medium text-gray-800">{success.name}</span>
+                            <div className="space-y-4 text-left mb-10 p-6 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                                <div className="flex justify-between items-center border-b border-gray-50 pb-3">
+                                    <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">Candidate</span>
+                                    <span className="font-bold text-gray-800">{success.name}</span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">Email:</span>
-                                    <span className="font-medium text-gray-800">{success.email}</span>
+                                <div className="flex justify-between items-center border-b border-gray-50 pb-3">
+                                    <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">Contact</span>
+                                    <span className="font-bold text-gray-800">{success.email}</span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="text-gray-600">+2 Group:</span>
-                                    <span className="font-medium text-gray-800">{success.plus2Group}</span>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">Group</span>
+                                    <span className="font-bold text-gray-800">{success.plus2Group}</span>
                                 </div>
                             </div>
 
                             <Link
                                 href={`/scholarship-test/select-subject?token=${success.registrationToken}`}
-                                className="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg transition-all duration-300"
+                                className="w-full relative group/btn overflow-hidden rounded-2xl p-[2px] flex items-center justify-center"
                             >
-                                Continue to Subject Selection
-                                <FaArrowRight />
+                                <div className="absolute inset-0 bg-gradient-to-r from-red-600 via-red-500 to-green-600 bg-[length:200%_100%] animate-gradient"></div>
+                                <div className="relative w-full bg-[#020617] py-5 rounded-2xl flex items-center justify-center gap-3 font-bold text-white uppercase tracking-[0.2em] text-sm group-hover/btn:bg-transparent transition-colors">
+                                    Start Test Selection <FaArrowRight className="text-xs group-hover/btn:translate-x-1 transition-transform" />
+                                </div>
                             </Link>
                         </div>
                     </div>
@@ -217,371 +234,405 @@ export default function RegisterPage() {
 
     return (
         <Layout
-            title="Register for Scholarship Test"
+            title="Scholarship Registration"
             description="Register for RASI Foundation Online Scholarship Test"
         >
-            <section className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 py-12">
-                <div className="container mx-auto px-4">
-                    <div className="max-w-3xl mx-auto">
+            <section className="min-h-screen bg-gray-50 py-20 px-4 relative overflow-hidden">
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+                    <div className="absolute top-20 left-20 w-[500px] h-[500px] bg-red-600 rounded-full blur-[120px]"></div>
+                    <div className="absolute bottom-20 right-20 w-[600px] h-[600px] bg-green-600 rounded-full blur-[150px]"></div>
+                </div>
+
+                <div className="container mx-auto relative z-10">
+                    <div className="max-w-4xl mx-auto">
                         {/* Header */}
-                        <div className="text-center mb-8">
-                            <Link href="/scholarship-test" className="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 mb-4">
-                                <FaArrowLeft /> Back to Scholarship Test
+                        <div className="text-center mb-16">
+                            <Link href="/scholarship-test" className="inline-flex items-center gap-2 text-gray-400 hover:text-red-600 transition-colors mb-8 text-sm group font-bold">
+                                <FaArrowLeft className="text-xs group-hover:-translate-x-1 transition-transform" /> BACK TO DASHBOARD
                             </Link>
-                            <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
-                                Student <span className="text-indigo-600">Registration</span>
+                            <h1 className="text-5xl md:text-6xl font-black text-gray-900 mb-6 tracking-tighter">
+                                Test <span className="text-red-600 italic">Registration</span>
                             </h1>
-                            <p className="text-gray-600 mt-2">Complete the registration to get your test token</p>
+                            <p className="text-gray-500 text-lg font-medium">Complete the registration to obtain your secure examination token.</p>
                         </div>
 
-                        {/* Progress Steps */}
-                        <div className="flex justify-center mb-8">
-                            <div className="flex items-center gap-4">
-                                {[1, 2, 3].map((s) => (
-                                    <div key={s} className="flex items-center">
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${step >= s
-                                                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
-                                                : 'bg-gray-200 text-gray-500'
+                        {/* Progress Stepper */}
+                        <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8 md:gap-4 max-w-2xl mx-auto px-4">
+                            {[
+                                { step: 1, label: 'Candidate Identity', icon: FaIdCard },
+                                { step: 2, label: 'Secure Liaison', icon: FaGlobe },
+                                { step: 3, label: 'Academic Profile', icon: FaUserGraduate }
+                            ].map((s) => (
+                                <div key={s.step} className="flex-1 w-full flex flex-col items-center group relative">
+                                    <div className="flex items-center w-full">
+                                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-black transition-all duration-700 relative z-10 ${step >= s.step
+                                            ? 'bg-red-600 text-white shadow-xl shadow-red-600/20'
+                                            : 'bg-white text-gray-300 border border-gray-100 shadow-sm'
                                             }`}>
-                                            {s}
+                                            <s.icon className="text-xl" />
                                         </div>
-                                        {s < 3 && (
-                                            <div className={`w-16 h-1 mx-2 rounded transition-all duration-300 ${step > s ? 'bg-indigo-600' : 'bg-gray-200'
-                                                }`}></div>
+                                        {s.step < 3 && (
+                                            <div className="hidden md:block flex-1 h-[2px] mx-4 relative bg-gray-100 overflow-hidden">
+                                                <div className={`absolute inset-0 bg-red-600 transition-all duration-1000 ${step > s.step ? 'translate-x-0' : '-translate-x-full'}`}></div>
+                                            </div>
                                         )}
                                     </div>
-                                ))}
-                            </div>
+                                    <span className={`text-[10px] font-black uppercase tracking-[0.2em] mt-4 transition-colors ${step >= s.step ? 'text-red-600' : 'text-gray-300'}`}>
+                                        {s.label}
+                                    </span>
+                                </div>
+                            ))}
                         </div>
 
-                        {/* Step Labels */}
-                        <div className="flex justify-between max-w-md mx-auto mb-8 text-sm text-gray-600">
-                            <span className={step >= 1 ? 'text-indigo-600 font-medium' : ''}>Personal</span>
-                            <span className={step >= 2 ? 'text-indigo-600 font-medium' : ''}>Contact</span>
-                            <span className={step >= 3 ? 'text-indigo-600 font-medium' : ''}>Academic</span>
-                        </div>
+                        {/* Main Form Container */}
+                        <div className="relative group/form">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-red-600/5 to-green-600/5 rounded-[2.5rem] blur opacity-50"></div>
+                            <div className="relative bg-white border border-gray-100 rounded-[2.5rem] p-8 md:p-16 shadow-2xl">
+                                <form onSubmit={handleSubmit} className="space-y-10">
 
-                        {/* Form Card */}
-                        <div className="bg-white rounded-3xl shadow-xl p-8">
-                            <form onSubmit={handleSubmit}>
-                                {/* Step 1: Personal Details */}
-                                {step === 1 && (
-                                    <div className="space-y-6 animate-fadeIn">
-                                        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2 mb-6">
-                                            <FaUser className="text-indigo-600" />
-                                            Personal Details
-                                        </h2>
-
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">Full Name *</label>
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    value={formData.name}
-                                                    onChange={handleChange}
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                    placeholder="Enter your full name"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">Date of Birth *</label>
-                                                <input
-                                                    type="date"
-                                                    name="dateOfBirth"
-                                                    value={formData.dateOfBirth}
-                                                    onChange={handleChange}
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">Father's Name *</label>
-                                                <input
-                                                    type="text"
-                                                    name="fatherName"
-                                                    value={formData.fatherName}
-                                                    onChange={handleChange}
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                    placeholder="Enter father's name"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">Community *</label>
-                                                <select
-                                                    name="community"
-                                                    value={formData.community}
-                                                    onChange={handleChange}
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                >
-                                                    <option value="">Select Community</option>
-                                                    {communities.map(c => (
-                                                        <option key={c} value={c}>{c}</option>
-                                                    ))}
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <label className="block text-gray-700 font-medium mb-2">Full Address *</label>
-                                            <textarea
-                                                name="address"
-                                                value={formData.address}
-                                                onChange={handleChange}
-                                                rows={3}
-                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
-                                                placeholder="Enter your complete address"
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Step 2: Contact Details */}
-                                {step === 2 && (
-                                    <div className="space-y-6 animate-fadeIn">
-                                        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2 mb-6">
-                                            <FaPhone className="text-indigo-600" />
-                                            Contact Details
-                                        </h2>
-
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">Student Email *</label>
-                                                <div className="relative">
-                                                    <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                                                    <input
-                                                        type="email"
-                                                        name="studentEmail"
-                                                        value={formData.studentEmail}
-                                                        onChange={handleChange}
-                                                        className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                        placeholder="student@email.com"
-                                                    />
+                                    {/* Step 1: Personal Details */}
+                                    {step === 1 && (
+                                        <div className="space-y-10 animate-fadeIn">
+                                            <div className="grid md:grid-cols-2 gap-8">
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Candidate Full Name *</label>
+                                                    <div className="relative group/input">
+                                                        <FaUser className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within/input:text-red-500 transition-colors" />
+                                                        <input
+                                                            type="text"
+                                                            name="name"
+                                                            value={formData.name}
+                                                            onChange={handleChange}
+                                                            className="w-full bg-gray-50 border border-gray-200 text-gray-800 pl-14 pr-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                                                            placeholder="Personal Name"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Date of Birth *</label>
+                                                    <div className="relative group/input">
+                                                        <FaCalendar className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within/input:text-red-500 transition-colors" />
+                                                        <input
+                                                            type="date"
+                                                            name="dateOfBirth"
+                                                            value={formData.dateOfBirth}
+                                                            onChange={handleChange}
+                                                            className="w-full bg-gray-50 border border-gray-200 text-gray-800 pl-14 pr-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all font-bold block"
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">Student Mobile *</label>
-                                                <div className="relative">
-                                                    <FaPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+
+                                            <div className="grid md:grid-cols-2 gap-8">
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Father&apos;s Name *</label>
                                                     <input
-                                                        type="tel"
-                                                        name="studentMobile"
-                                                        value={formData.studentMobile}
+                                                        type="text"
+                                                        name="fatherName"
+                                                        value={formData.fatherName}
                                                         onChange={handleChange}
-                                                        maxLength={10}
-                                                        className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                        placeholder="9876543210"
+                                                        className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                                                        placeholder="Guardian Name"
                                                     />
                                                 </div>
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Community *</label>
+                                                    <select
+                                                        name="community"
+                                                        value={formData.community}
+                                                        onChange={handleChange}
+                                                        className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all font-bold appearance-none cursor-pointer"
+                                                    >
+                                                        <option value="">SELECT COMMUNITY</option>
+                                                        {communities.map(c => (
+                                                            <option key={c} value={c}>{c}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div className="space-y-3">
+                                                <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Current Address *</label>
+                                                <textarea
+                                                    name="address"
+                                                    value={formData.address}
+                                                    onChange={handleChange}
+                                                    rows={3}
+                                                    className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold resize-none"
+                                                    placeholder="Complete Residential Address"
+                                                />
                                             </div>
                                         </div>
+                                    )}
 
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">Father's Mobile *</label>
-                                                <div className="relative">
-                                                    <FaPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                                    {/* Step 2: Contact Details */}
+                                    {step === 2 && (
+                                        <div className="space-y-10 animate-fadeIn">
+                                            <div className="grid md:grid-cols-2 gap-8">
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Student Email *</label>
+                                                    <div className="relative group/input">
+                                                        <FaEnvelope className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within/input:text-red-500 transition-colors" />
+                                                        <input
+                                                            type="email"
+                                                            name="studentEmail"
+                                                            value={formData.studentEmail}
+                                                            onChange={handleChange}
+                                                            className="w-full bg-gray-50 border border-gray-200 text-gray-800 pl-14 pr-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                                                            placeholder="example@email.com"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Mobile Number *</label>
+                                                    <div className="relative group/input">
+                                                        <FaPhone className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within/input:text-red-500 transition-colors" />
+                                                        <input
+                                                            type="tel"
+                                                            name="studentMobile"
+                                                            value={formData.studentMobile}
+                                                            onChange={handleChange}
+                                                            maxLength={10}
+                                                            className="w-full bg-gray-50 border border-gray-200 text-gray-800 pl-14 pr-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                                                            placeholder="91-0000000000"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="grid md:grid-cols-2 gap-8">
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Father&apos;s Mobile *</label>
                                                     <input
                                                         type="tel"
                                                         name="fatherMobile"
                                                         value={formData.fatherMobile}
                                                         onChange={handleChange}
                                                         maxLength={10}
-                                                        className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                        placeholder="9876543210"
+                                                        className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                                                        placeholder="Primary Guardian Mobile"
                                                     />
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">Mother's Mobile</label>
-                                                <div className="relative">
-                                                    <FaPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Mother&apos;s Mobile</label>
                                                     <input
                                                         type="tel"
                                                         name="motherMobile"
                                                         value={formData.motherMobile}
                                                         onChange={handleChange}
                                                         maxLength={10}
-                                                        className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                        placeholder="9876543210 (Optional)"
+                                                        className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                                                        placeholder="Secondary Contact (Optional)"
                                                     />
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                )}
-
-                                {/* Step 3: Academic Details */}
-                                {step === 3 && (
-                                    <div className="space-y-6 animate-fadeIn">
-                                        <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2 mb-6">
-                                            <FaGraduationCap className="text-indigo-600" />
-                                            Academic Details
-                                        </h2>
-
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">Course Applied For *</label>
-                                                <select
-                                                    name="admissionCourse"
-                                                    value={formData.admissionCourse}
-                                                    onChange={handleChange}
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                >
-                                                    <option value="">Select Course</option>
-                                                    {courses.map(c => (
-                                                        <option key={c} value={c}>{c}</option>
-                                                    ))}
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">College Name *</label>
-                                                <input
-                                                    type="text"
-                                                    name="collegeName"
-                                                    value={formData.collegeName}
-                                                    onChange={handleChange}
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                    placeholder="Enter target college name"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">+2 Group *</label>
-                                                <select
-                                                    name="plus2Group"
-                                                    value={formData.plus2Group}
-                                                    onChange={handleChange}
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                >
-                                                    <option value="">Select Group</option>
-                                                    <option value="Academic">Academic</option>
-                                                    <option value="Vocational">Vocational</option>
-                                                </select>
-                                            </div>
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">+2 Exam Number *</label>
-                                                <input
-                                                    type="text"
-                                                    name="plus2ExamNumber"
-                                                    value={formData.plus2ExamNumber}
-                                                    onChange={handleChange}
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                    placeholder="Enter your +2 exam number"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">12th Expected Cut Off *</label>
-                                                <input
-                                                    type="number"
-                                                    name="expectedCutOff"
-                                                    value={formData.expectedCutOff}
-                                                    onChange={handleChange}
-                                                    min="0"
-                                                    max="200"
-                                                    step="0.1"
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                    placeholder="e.g., 195.5"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className="block text-gray-700 font-medium mb-2">Last Studied School & Place *</label>
-                                                <input
-                                                    type="text"
-                                                    name="lastStudiedSchool"
-                                                    value={formData.lastStudiedSchool}
-                                                    onChange={handleChange}
-                                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
-                                                    placeholder="School name, Place"
-                                                />
-                                            </div>
-                                        </div>
-
-                                        <div className="grid md:grid-cols-2 gap-6">
-                                            <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
-                                                <input
-                                                    type="checkbox"
-                                                    name="studiedInGovtSchool"
-                                                    id="studiedInGovtSchool"
-                                                    checked={formData.studiedInGovtSchool}
-                                                    onChange={handleChange}
-                                                    className="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
-                                                />
-                                                <label htmlFor="studiedInGovtSchool" className="text-gray-700 cursor-pointer">
-                                                    Studied in Government School (6th to 12th)
-                                                </label>
-                                            </div>
-                                            <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl">
-                                                <input
-                                                    type="checkbox"
-                                                    name="firstGenerationGraduate"
-                                                    id="firstGenerationGraduate"
-                                                    checked={formData.firstGenerationGraduate}
-                                                    onChange={handleChange}
-                                                    className="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500"
-                                                />
-                                                <label htmlFor="firstGenerationGraduate" className="text-gray-700 cursor-pointer">
-                                                    First Generation Graduate
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Error Message */}
-                                {error && (
-                                    <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3 text-red-700">
-                                        <FaExclamationTriangle />
-                                        <span>{error}</span>
-                                    </div>
-                                )}
-
-                                {/* Navigation Buttons */}
-                                <div className="flex justify-between mt-8">
-                                    {step > 1 ? (
-                                        <button
-                                            type="button"
-                                            onClick={handlePrev}
-                                            className="flex items-center gap-2 px-6 py-3 border-2 border-gray-300 rounded-xl text-gray-700 font-medium hover:border-indigo-500 hover:text-indigo-600 transition-all"
-                                        >
-                                            <FaArrowLeft />
-                                            Previous
-                                        </button>
-                                    ) : (
-                                        <div></div>
                                     )}
 
-                                    {step < 3 ? (
-                                        <button
-                                            type="button"
-                                            onClick={handleNext}
-                                            className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all"
-                                        >
-                                            Next
-                                            <FaArrowRight />
-                                        </button>
-                                    ) : (
-                                        <button
-                                            type="submit"
-                                            disabled={loading}
-                                            className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl font-medium hover:shadow-lg transition-all disabled:opacity-50"
-                                        >
-                                            {loading ? 'Submitting...' : 'Complete Registration'}
-                                            <FaCheckCircle />
-                                        </button>
+                                    {/* Step 3: Academic Details */}
+                                    {step === 3 && (
+                                        <div className="space-y-10 animate-fadeIn">
+                                            <div className="grid md:grid-cols-2 gap-8">
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Planned Course *</label>
+                                                    <select
+                                                        name="admissionCourse"
+                                                        value={formData.admissionCourse}
+                                                        onChange={handleChange}
+                                                        className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all font-bold appearance-none cursor-pointer"
+                                                    >
+                                                        <option value="">SELECT TARGET COURSE</option>
+                                                        {courses.map(c => (
+                                                            <option key={c} value={c}>{c}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Preferred College *</label>
+                                                    <input
+                                                        type="text"
+                                                        name="collegeName"
+                                                        value={formData.collegeName}
+                                                        onChange={handleChange}
+                                                        className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                                                        placeholder="Institution Name"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="grid md:grid-cols-2 gap-8">
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">+2 Group *</label>
+                                                    <select
+                                                        name="plus2Group"
+                                                        value={formData.plus2Group}
+                                                        onChange={handleChange}
+                                                        className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all font-bold appearance-none cursor-pointer"
+                                                    >
+                                                        <option value="">SELECT GROUP</option>
+                                                        <option value="Academic">ACADEMIC</option>
+                                                        <option value="Vocational">VOCATIONAL</option>
+                                                    </select>
+                                                </div>
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">+2 Exam Number *</label>
+                                                    <input
+                                                        type="text"
+                                                        name="plus2ExamNumber"
+                                                        value={formData.plus2ExamNumber}
+                                                        onChange={handleChange}
+                                                        className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                                                        placeholder="Registration Number"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="grid md:grid-cols-2 gap-8">
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Expected Cut Off *</label>
+                                                    <input
+                                                        type="number"
+                                                        name="expectedCutOff"
+                                                        value={formData.expectedCutOff}
+                                                        onChange={handleChange}
+                                                        min="0"
+                                                        max="200"
+                                                        step="0.1"
+                                                        className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                                                        placeholder="e.g. 195.5"
+                                                    />
+                                                </div>
+                                                <div className="space-y-3">
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">School & Place *</label>
+                                                    <input
+                                                        type="text"
+                                                        name="lastStudiedSchool"
+                                                        value={formData.lastStudiedSchool}
+                                                        onChange={handleChange}
+                                                        className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                                                        placeholder="Last Institutional Place"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="grid md:grid-cols-2 gap-8">
+                                                <div className="flex items-center gap-4 p-6 bg-gray-50 border border-gray-200 rounded-2xl transition-all hover:bg-white group/check">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="studiedInGovtSchool"
+                                                        id="studiedInGovtSchool"
+                                                        checked={formData.studiedInGovtSchool}
+                                                        onChange={handleChange}
+                                                        className="w-6 h-6 rounded-lg text-red-600 focus:ring-red-500 focus:ring-offset-0 border-gray-300 cursor-pointer"
+                                                    />
+                                                    <label htmlFor="studiedInGovtSchool" className="text-[11px] font-black text-gray-500 uppercase tracking-widest cursor-pointer group-hover/check:text-gray-900 transition-colors">
+                                                        Govt School (6th to 12th)
+                                                    </label>
+                                                </div>
+                                                <div className="flex items-center gap-4 p-6 bg-gray-50 border border-gray-200 rounded-2xl transition-all hover:bg-white group/check">
+                                                    <input
+                                                        type="checkbox"
+                                                        name="firstGenerationGraduate"
+                                                        id="firstGenerationGraduate"
+                                                        checked={formData.firstGenerationGraduate}
+                                                        onChange={handleChange}
+                                                        className="w-6 h-6 rounded-lg text-red-600 focus:ring-red-500 focus:ring-offset-0 border-gray-300 cursor-pointer"
+                                                    />
+                                                    <label htmlFor="firstGenerationGraduate" className="text-[11px] font-black text-gray-500 uppercase tracking-widest cursor-pointer group-hover/check:text-gray-900 transition-colors">
+                                                        First Gen Graduate
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     )}
-                                </div>
-                            </form>
+
+                                    {/* Error Message */}
+                                    {error && (
+                                        <div className="p-5 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-4 text-red-600 animate-shake text-xs font-bold uppercase tracking-widest">
+                                            <FaExclamationTriangle />
+                                            <span>{error}</span>
+                                        </div>
+                                    )}
+
+                                    {/* Navigation */}
+                                    <div className="flex flex-col sm:flex-row justify-between gap-4 pt-10 border-t border-gray-50">
+                                        {step > 1 ? (
+                                            <button
+                                                type="button"
+                                                onClick={handlePrev}
+                                                className="flex items-center justify-center gap-3 px-10 py-5 bg-gray-50 text-gray-500 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] hover:bg-gray-100 hover:text-gray-900 transition-all border border-gray-200"
+                                            >
+                                                <FaArrowLeft className="text-[10px]" /> Previous
+                                            </button>
+                                        ) : (
+                                            <div></div>
+                                        )}
+
+                                        {step < 3 ? (
+                                            <button
+                                                type="button"
+                                                onClick={handleNext}
+                                                className="relative group/next overflow-hidden rounded-2xl p-[2px]"
+                                            >
+                                                <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-500"></div>
+                                                <div className="relative bg-[#020617] px-12 py-5 rounded-2xl flex items-center justify-center gap-3 font-bold text-white uppercase tracking-[0.2em] text-[10px] group-hover/next:bg-transparent transition-colors">
+                                                    Next Phase <FaArrowRight className="text-[10px] group-hover/next:translate-x-1 transition-transform" />
+                                                </div>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                type="submit"
+                                                disabled={loading}
+                                                className="relative group/submit overflow-hidden rounded-2xl p-[2px]"
+                                            >
+                                                <div className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-500"></div>
+                                                <div className="relative bg-[#020617] px-12 py-5 rounded-2xl flex items-center justify-center gap-3 font-bold text-white uppercase tracking-[0.2em] text-[10px] group-hover/submit:bg-transparent transition-colors">
+                                                    {loading ? (
+                                                        <FaSpinner className="animate-spin" />
+                                                    ) : (
+                                                        <><FaRocket className="text-xs" /> Register Now</>
+                                                    )}
+                                                </div>
+                                            </button>
+                                        )}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        {/* Footer */}
+                        <div className="mt-16 text-center">
+                            <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em]">RASI FOUNDATION — SECURE PORTAL</p>
                         </div>
                     </div>
                 </div>
+
+                <style jsx>{`
+                    @keyframes gradient {
+                        0% { background-position: 0% 50%; }
+                        50% { background-position: 100% 50%; }
+                        100% { background-position: 0% 50%; }
+                    }
+                    .animate-gradient {
+                        animation: gradient 3s linear infinite;
+                    }
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(10px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                    .animate-fadeIn {
+                        animation: fadeIn 0.5s ease-out forwards;
+                    }
+                    @keyframes shake {
+                        0%, 100% { transform: translateX(0); }
+                        25% { transform: translateX(-4px); }
+                        75% { transform: translateX(4px); }
+                    }
+                    .animate-shake {
+                        animation: shake 0.2s ease-in-out 0s 2;
+                    }
+                `}</style>
             </section>
         </Layout>
     );

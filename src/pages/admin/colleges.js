@@ -21,7 +21,18 @@ const DISTRICTS = [
   'Salem District',
   'Erode District',
   'Coimbatore Zone',
+  'Bengaluru Colleges',
+  'Women Centric Colleges',
 ];
+
+const districtColors = {
+  'Namakkal District': 'from-red-500 to-red-600',
+  'Salem District': 'from-green-500 to-green-600',
+  'Erode District': 'from-blue-500 to-blue-600',
+  'Coimbatore Zone': 'from-purple-500 to-purple-600',
+  'Bengaluru Colleges': 'from-indigo-500 to-indigo-600',
+  'Women Centric Colleges': 'from-pink-500 to-rose-600',
+};
 
 export default function AdminColleges() {
   const [colleges, setColleges] = useState([]);
@@ -242,13 +253,6 @@ export default function AdminColleges() {
     return acc;
   }, {});
 
-  const districtColors = {
-    'Namakkal District': 'from-red-500 to-red-600',
-    'Salem District': 'from-green-500 to-green-600',
-    'Erode District': 'from-blue-500 to-blue-600',
-    'Coimbatore Zone': 'from-purple-500 to-purple-600',
-  };
-
   if (loading) {
     return (
       <AdminLayout title="Manage Colleges">
@@ -315,14 +319,30 @@ export default function AdminColleges() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
         {DISTRICTS.map(district => (
-          <div key={district} className={`bg-gradient-to-r ${districtColors[district]} text-white rounded-xl p-4`}>
-            <p className="text-white/80 text-sm">{district}</p>
-            <p className="text-2xl font-bold">
-              {colleges.filter(c => c.district === district).length}
-            </p>
-          </div>
+          <button
+            key={district}
+            onClick={() => setDistrictFilter(district)}
+            className={`bg-gradient-to-r ${districtColors[district]} text-white rounded-xl p-4 text-left hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden active:scale-95`}
+          >
+            <div className="relative z-10">
+              <p className="text-white/80 text-[10px] font-bold uppercase tracking-wider mb-1">{district}</p>
+              <p className="text-3xl font-black">
+                {colleges.filter(c => c.district === district).length}
+              </p>
+            </div>
+            {/* Visual indicator for active filter */}
+            {districtFilter === district && (
+              <div className="absolute top-2 right-2">
+                <div className="w-2 h-2 bg-white rounded-full animate-ping"></div>
+              </div>
+            )}
+            {/* Background decoration */}
+            <div className="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <FaUniversity className="text-6xl -rotate-12" />
+            </div>
+          </button>
         ))}
       </div>
 

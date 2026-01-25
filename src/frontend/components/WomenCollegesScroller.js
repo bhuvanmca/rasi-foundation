@@ -3,45 +3,42 @@ import { FaUniversity, FaMapMarkerAlt, FaFemale } from 'react-icons/fa';
 
 const WomenCollegesScroller = () => {
     const [isPaused, setIsPaused] = useState(false);
+    const [colleges, setColleges] = useState([]);
+    const [loading, setLoading] = useState(true);
     const scrollerRef = useRef(null);
 
-    const colleges = [
-        {
-            name: "Avinashilingam University for Women",
-            location: "Coimbatore",
-            color: "from-pink-400 to-rose-500"
-        },
-        {
-            name: "Bharathiyar Institute of Engineering for Women",
-            location: "Attur",
-            color: "from-purple-400 to-violet-500"
-        },
-        {
-            name: "Idhaya Engineering College for Women",
-            location: "Villupuram",
-            color: "from-fuchsia-400 to-pink-500"
-        },
-        {
-            name: "Mahendra Engineering College for Women",
-            location: "Tiruchengode",
-            color: "from-rose-400 to-red-400"
-        },
-        {
-            name: "Periyar Maniammai University",
-            location: "Vallam",
-            color: "from-violet-400 to-purple-500"
-        },
-        {
-            name: "Sri Bharathi Engineering College for Women",
-            location: "Alangudi",
-            color: "from-pink-400 to-fuchsia-500"
-        },
-        {
-            name: "Vivekanandha College of Engineering for Women",
-            location: "Tiruchengode",
-            color: "from-purple-400 to-rose-500"
-        }
+    const colors = [
+        "from-pink-400 to-rose-500",
+        "from-purple-400 to-violet-500",
+        "from-fuchsia-400 to-pink-500",
+        "from-rose-400 to-red-400",
+        "from-violet-400 to-purple-500",
+        "from-pink-400 to-fuchsia-500",
+        "from-purple-400 to-rose-500"
     ];
+
+    useEffect(() => {
+        const fetchColleges = async () => {
+            try {
+                const response = await fetch('/api/colleges');
+                const data = await response.json();
+                const womenData = data.find(item => item.district === 'Women Centric Colleges');
+                if (womenData) {
+                    const formattedColleges = womenData.colleges.map((college, idx) => ({
+                        ...college,
+                        color: colors[idx % colors.length]
+                    }));
+                    setColleges(formattedColleges);
+                }
+            } catch (error) {
+                console.error('Error fetching women colleges:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchColleges();
+    }, []);
 
     // Duplicate colleges for seamless infinite scroll
     const duplicatedColleges = [...colleges, ...colleges, ...colleges];

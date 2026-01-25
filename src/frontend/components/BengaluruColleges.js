@@ -3,26 +3,29 @@ import { FaUniversity, FaMapMarkerAlt, FaCheckCircle, FaPhone, FaStar, FaHandsha
 
 const BengaluruColleges = () => {
     const [isPaused, setIsPaused] = useState(false);
+    const [colleges, setColleges] = useState([]);
+    const [loading, setLoading] = useState(true);
     const scrollerRef = useRef(null);
 
-    const colleges = [
-        { name: "Akash Group of Institutions", location: "Bengaluru" },
-        { name: "East Point College", location: "Bengaluru" },
-        { name: "Alliance University", location: "Bengaluru" },
-        { name: "Adithya Institute of Technology", location: "Bengaluru" },
-        { name: "SEA College of Engineering & Technology", location: "Bengaluru" },
-        { name: "T. John Group of Institutions", location: "Bengaluru" },
-        { name: "S-VYASA University", location: "Bengaluru" },
-        { name: "RR Institutions", location: "Bengaluru" },
-        { name: "Harsha Institutions", location: "Bengaluru" },
-        { name: "Atria Institute of Technology", location: "Bengaluru" },
-        { name: "Garden City University", location: "Bengaluru" },
-        { name: "Spurthy Institutions", location: "Bengaluru" },
-        { name: "Yenepoya University", location: "Bengaluru" },
-        { name: "Krupanidhi Group of Institutions", location: "Bengaluru" },
-        { name: "ISBR Bangalore", location: "Bengaluru" },
-        { name: "MVJ College of Engineering", location: "Bengaluru" }
-    ];
+    useEffect(() => {
+        const fetchColleges = async () => {
+            try {
+                const response = await fetch('/api/colleges');
+                const data = await response.json();
+                // Filter for Bengaluru Colleges from the grouped data
+                const bengaluruData = data.find(item => item.district === 'Bengaluru Colleges');
+                if (bengaluruData) {
+                    setColleges(bengaluruData.colleges);
+                }
+            } catch (error) {
+                console.error('Error fetching Bengaluru colleges:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchColleges();
+    }, []);
 
     const benefits = [
         { text: "Direct admission guidance", icon: FaHandshake },

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { FaPhone, FaEnvelope, FaBars, FaTimes } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaBars, FaTimes, FaGraduationCap, FaChevronRight } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +11,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -22,117 +22,135 @@ const Navbar = () => {
     { name: 'About Us', path: '/about' },
     { name: 'Courses', path: '/courses' },
     { name: 'Colleges', path: '/colleges' },
-    { name: 'Scholarship Test', path: '/scholarship-test' },
+    { name: 'Scholarship', path: '/scholarship-test' },
+    { name: 'Achievements', path: '/achievements' },
     { name: 'Payment', path: '/payment' },
-    { name: 'Contact Us', path: '/contact' },
   ];
 
   const isActive = (path) => router.pathname === path;
 
   return (
     <>
-      {/* Top Bar */}
-      <div className="bg-gradient-to-r from-red-700 via-red-600 to-green-700 text-white py-2 text-sm">
-        <div className="container mx-auto px-4 flex flex-wrap justify-between items-center">
-          <div className="flex items-center gap-6">
-            <a href="tel:+919789446100" className="flex items-center gap-2 hover:text-amber-300 transition-colors">
-              <FaPhone className="text-xs" />
-              <span>+91 97 89 44 61 00</span>
+      {/* Restored Original Color Theme Top Bar */}
+      <div className="bg-gradient-to-r from-red-700 via-red-600 to-green-700 text-white py-2 text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] relative z-[60]">
+        <div className="container mx-auto px-4 flex justify-between items-center">
+          <div className="flex items-center gap-4 md:gap-8">
+            <a href="tel:+919789446100" className="flex items-center gap-2 hover:text-amber-300 transition-colors group">
+              <FaPhone className="text-white group-hover:scale-110 transition-transform" />
+              <span className="hidden sm:inline">+91 97 89 44 61 00</span>
+              <span className="sm:hidden">9789446100</span>
             </a>
-            <a href="mailto:rasipuramrasifoundation@gmail.com" className="hidden md:flex items-center gap-2 hover:text-amber-300 transition-colors">
-              <FaEnvelope className="text-xs" />
-              <span>rasipuramrasifoundation@gmail.com</span>
+            <a href="mailto:rasipuramrasifoundation@gmail.com" className="hidden lg:flex items-center gap-2 hover:text-amber-300 transition-colors group">
+              <FaEnvelope className="text-white group-hover:scale-110 transition-transform" />
+              <span>RASIFOUNDATION@GMAIL.COM</span>
             </a>
           </div>
-          <div className="hidden md:block">
-            <span className="font-semibold italic">&quot;Empowering minds! Igniting future!&quot;</span>
+          <div className="flex items-center gap-4">
+            <span className="hidden xl:inline text-white/90 italic font-medium tracking-normal normal-case">&quot;Empowering minds! Igniting future!&quot;</span>
+            <Link href="/contact" className="hover:text-amber-300 transition-colors border-l border-white/20 pl-4 ml-2">Contact Us</Link>
           </div>
         </div>
       </div>
 
       {/* Main Navbar */}
-      <nav className={`sticky top-0 z-50 transition-all duration-300 ${scrolled
-        ? 'bg-white/95 backdrop-blur-lg shadow-lg'
-        : 'bg-white shadow-md'
+      <nav className={`sticky top-0 z-50 transition-all duration-500 ${scrolled
+        ? 'bg-white/95 backdrop-blur-md shadow-lg py-2'
+        : 'bg-white shadow-sm py-4'
         }`}>
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-3">
+          <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center group flex-shrink-0">
-              <Image
-                src="/logo.png"
-                alt="RASI FOUNDATION - Career Guidance & Education Consultancy"
-                width={500}
-                height={125}
-                className="group-hover:scale-105 transition-transform h-20 md:h-24 lg:h-28 w-auto object-contain"
-                priority
-                unoptimized
-              />
+            <Link href="/" className="flex items-center group relative z-[60]">
+              <div className="relative h-12 md:h-16 lg:h-20 w-auto">
+                <Image
+                  src="/logo.png"
+                  alt="RASI FOUNDATION"
+                  width={400}
+                  height={100}
+                  className="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-102"
+                  priority
+                  unoptimized
+                />
+              </div>
             </Link>
 
-            {/* Desktop Navigation - Center */}
-            <div className="hidden md:flex items-center justify-center flex-1 px-4">
-              <nav className="flex items-center space-x-1">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.path}
-                    href={link.path}
-                    className={`px-3 py-2 rounded text-sm font-medium transition-all duration-200 whitespace-nowrap ${isActive(link.path)
-                      ? 'bg-green-600 text-white'
-                      : 'text-gray-700 hover:text-green-600 hover:bg-gray-100'
-                      }`}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </nav>
+            {/* Desktop Navigation - Original Color Theme Integration */}
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  href={link.path}
+                  className={`relative px-3 lg:px-4 py-2 text-[11px] lg:text-[12px] font-bold uppercase tracking-wider transition-all duration-300 rounded-lg group ${isActive(link.path)
+                    ? 'bg-green-600 text-white'
+                    : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
+                    }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
             </div>
 
-            {/* CTA Button - Right */}
-            <div className="hidden lg:block flex-shrink-0">
+            {/* Action Button */}
+            <div className="flex items-center gap-4 relative z-[60]">
               <Link
                 href="/contact"
-                className="bg-green-600 text-white px-5 py-2 rounded text-sm font-semibold hover:bg-green-700 transition-colors whitespace-nowrap"
+                className="hidden lg:flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider shadow-lg shadow-green-600/20 hover:bg-green-700 hover:-translate-y-0.5 transition-all"
               >
-                Get Counselling
+                <FaGraduationCap className="text-sm" />
+                Find Your Course
               </Link>
-            </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden text-2xl text-gray-700 hover:text-green-600 transition-colors"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <FaTimes /> : <FaBars />}
-            </button>
+              {/* Mobile Menu Icon */}
+              <button
+                className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 transition-all"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label="Toggle menu"
+              >
+                <span className={`w-6 h-0.5 bg-gray-800 rounded-full transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+                <span className={`w-6 h-0.5 bg-gray-800 rounded-full transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
+                <span className={`w-6 h-0.5 bg-gray-800 rounded-full transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+        {/* Mobile menu */}
+        <div
+          className={`fixed inset-0 z-[-1] bg-black/40 backdrop-blur-sm transition-opacity duration-500 md:hidden ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            }`}
+          onClick={() => setIsOpen(false)}
+        ></div>
+
+        <div className={`absolute top-full left-0 w-full bg-white md:hidden border-t border-gray-100 transition-all duration-500 ease-in-out origin-top shadow-2xl ${isOpen ? 'scale-y-100 opacity-100 pointer-events-auto' : 'scale-y-0 opacity-0 pointer-events-none'
           }`}>
-          <div className="container mx-auto px-4 py-4 bg-gray-50 border-t">
-            {navLinks.map((link) => (
+          <div className="container mx-auto px-6 py-8">
+            <div className="space-y-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  href={link.path}
+                  className={`flex items-center justify-between py-4 px-6 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${isActive(link.path)
+                      ? 'bg-green-600 text-white'
+                      : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  {link.name}
+                  <FaChevronRight className={`text-[10px] ${isActive(link.path) ? 'text-white/60' : 'text-gray-300'}`} />
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-6 pt-6 border-t border-gray-100">
               <Link
-                key={link.path}
-                href={link.path}
-                className={`block py-3 px-4 rounded-lg mb-1 font-medium transition-all duration-300 ${isActive(link.path)
-                  ? 'bg-green-600 text-white'
-                  : 'text-gray-700 hover:bg-green-100 hover:text-green-600'
-                  }`}
+                href="/contact"
+                className="flex items-center justify-center gap-3 w-full bg-red-600 text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs shadow-lg shadow-red-600/20"
                 onClick={() => setIsOpen(false)}
               >
-                {link.name}
+                <FaGraduationCap className="text-lg" />
+                Contact Us Now
               </Link>
-            ))}
-            <Link
-              href="/contact"
-              className="block w-full bg-green-600 text-white text-center py-3 rounded-lg font-semibold mt-4 hover:bg-green-700"
-              onClick={() => setIsOpen(false)}
-            >
-              Get Counselling
-            </Link>
+            </div>
           </div>
         </div>
       </nav>

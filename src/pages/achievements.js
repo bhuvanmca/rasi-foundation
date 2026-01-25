@@ -1,6 +1,6 @@
 import Layout from '@/frontend/components/Layout';
 import Link from 'next/link';
-import { 
+import {
   FaTrophy,
   FaUserGraduate,
   FaUniversity,
@@ -150,8 +150,8 @@ export default function Achievements() {
   ];
 
   return (
-    <Layout 
-      title="Achievements" 
+    <Layout
+      title="Achievements"
       description="Rasi Foundation achievements: 5000+ students guided, 100+ partner colleges, 15+ years excellence. Read success stories of students placed in top Medical, Engineering & Management colleges."
       keywords="student success stories, education consultancy achievements, MBBS admission success, engineering placement stories, career guidance testimonials"
     >
@@ -167,8 +167,8 @@ export default function Achievements() {
               Celebrating <span className="text-amber-600">Success</span> Stories
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Over the years, Rasi Foundation has helped thousands of students achieve their 
-              educational dreams. Here's a glimpse of our journey and accomplishments.
+              Over the years, Rasi Foundation has helped thousands of students achieve their
+              educational dreams. Here&apos;s a glimpse of our journey and accomplishments.
             </p>
           </div>
         </div>
@@ -180,18 +180,16 @@ export default function Achievements() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center group">
-                <div className={`w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center transition-all duration-300 ${
-                  stat.color === 'red' ? 'bg-red-100 group-hover:bg-red-600' :
+                <div className={`w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center transition-all duration-300 ${stat.color === 'red' ? 'bg-red-100 group-hover:bg-red-600' :
                   stat.color === 'green' ? 'bg-green-100 group-hover:bg-green-600' :
-                  stat.color === 'amber' ? 'bg-amber-100 group-hover:bg-amber-600' :
-                  'bg-blue-100 group-hover:bg-blue-600'
-                }`}>
-                  <stat.icon className={`text-3xl transition-colors duration-300 ${
-                    stat.color === 'red' ? 'text-red-600 group-hover:text-white' :
+                    stat.color === 'amber' ? 'bg-amber-100 group-hover:bg-amber-600' :
+                      'bg-blue-100 group-hover:bg-blue-600'
+                  }`}>
+                  <stat.icon className={`text-3xl transition-colors duration-300 ${stat.color === 'red' ? 'text-red-600 group-hover:text-white' :
                     stat.color === 'green' ? 'text-green-600 group-hover:text-white' :
-                    stat.color === 'amber' ? 'text-amber-600 group-hover:text-white' :
-                    'text-blue-600 group-hover:text-white'
-                  }`} />
+                      stat.color === 'amber' ? 'text-amber-600 group-hover:text-white' :
+                        'text-blue-600 group-hover:text-white'
+                    }`} />
                 </div>
                 <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">{stat.number}</h3>
                 <p className="text-gray-600">{stat.label}</p>
@@ -214,22 +212,20 @@ export default function Achievements() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {placementHighlights.map((item, index) => (
               <div key={index} className="card p-6 text-center card-hover">
-                <div className={`w-14 h-14 mx-auto mb-4 rounded-xl flex items-center justify-center ${
-                  item.color === 'red' ? 'bg-red-100' :
+                <div className={`w-14 h-14 mx-auto mb-4 rounded-xl flex items-center justify-center ${item.color === 'red' ? 'bg-red-100' :
                   item.color === 'blue' ? 'bg-blue-100' :
-                  item.color === 'green' ? 'bg-green-100' :
-                  item.color === 'purple' ? 'bg-purple-100' :
-                  item.color === 'amber' ? 'bg-amber-100' :
-                  'bg-teal-100'
-                }`}>
-                  <item.icon className={`text-2xl ${
-                    item.color === 'red' ? 'text-red-600' :
+                    item.color === 'green' ? 'bg-green-100' :
+                      item.color === 'purple' ? 'bg-purple-100' :
+                        item.color === 'amber' ? 'bg-amber-100' :
+                          'bg-teal-100'
+                  }`}>
+                  <item.icon className={`text-2xl ${item.color === 'red' ? 'text-red-600' :
                     item.color === 'blue' ? 'text-blue-600' :
-                    item.color === 'green' ? 'text-green-600' :
-                    item.color === 'purple' ? 'text-purple-600' :
-                    item.color === 'amber' ? 'text-amber-600' :
-                    'text-teal-600'
-                  }`} />
+                      item.color === 'green' ? 'text-green-600' :
+                        item.color === 'purple' ? 'text-purple-600' :
+                          item.color === 'amber' ? 'text-amber-600' :
+                            'text-teal-600'
+                    }`} />
                 </div>
                 <h4 className="text-2xl font-bold text-gray-800">{item.placements}</h4>
                 <p className="text-gray-600 text-sm">{item.category}</p>
@@ -255,20 +251,18 @@ export default function Achievements() {
               <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-red-500 via-amber-500 to-green-500 rounded-full hidden md:block"></div>
 
               {milestones.map((milestone, index) => (
-                <div key={index} className={`relative flex items-center mb-12 ${
-                  index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}>
+                <div key={index} className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                  }`}>
                   {/* Content */}
                   <div className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
                     <div className="card p-6 card-hover">
-                      <span className={`inline-block px-3 py-1 rounded-full text-sm font-bold mb-3 ${
-                        index === 0 ? 'bg-red-100 text-red-600' :
+                      <span className={`inline-block px-3 py-1 rounded-full text-sm font-bold mb-3 ${index === 0 ? 'bg-red-100 text-red-600' :
                         index === 1 ? 'bg-orange-100 text-orange-600' :
-                        index === 2 ? 'bg-amber-100 text-amber-600' :
-                        index === 3 ? 'bg-lime-100 text-lime-600' :
-                        index === 4 ? 'bg-green-100 text-green-600' :
-                        'bg-emerald-100 text-emerald-600'
-                      }`}>
+                          index === 2 ? 'bg-amber-100 text-amber-600' :
+                            index === 3 ? 'bg-lime-100 text-lime-600' :
+                              index === 4 ? 'bg-green-100 text-green-600' :
+                                'bg-emerald-100 text-emerald-600'
+                        }`}>
                         {milestone.year}
                       </span>
                       <h3 className="text-xl font-bold text-gray-800 mb-2">{milestone.title}</h3>
@@ -278,14 +272,13 @@ export default function Achievements() {
 
                   {/* Center Icon */}
                   <div className="absolute left-1/2 transform -translate-x-1/2 hidden md:flex">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg ${
-                      index === 0 ? 'bg-red-500' :
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white shadow-lg ${index === 0 ? 'bg-red-500' :
                       index === 1 ? 'bg-orange-500' :
-                      index === 2 ? 'bg-amber-500' :
-                      index === 3 ? 'bg-lime-500' :
-                      index === 4 ? 'bg-green-500' :
-                      'bg-emerald-500'
-                    }`}>
+                        index === 2 ? 'bg-amber-500' :
+                          index === 3 ? 'bg-lime-500' :
+                            index === 4 ? 'bg-green-500' :
+                              'bg-emerald-500'
+                      }`}>
                       <milestone.icon />
                     </div>
                   </div>
@@ -316,26 +309,24 @@ export default function Achievements() {
             {successStories.map((story, index) => (
               <div key={index} className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
                 <FaQuoteLeft className="text-2xl text-amber-400 mb-4" />
-                <p className="text-gray-300 italic mb-6 leading-relaxed">"{story.quote}"</p>
+                <p className="text-gray-300 italic mb-6 leading-relaxed">&quot;{story.quote}&quot;</p>
                 <div className="flex items-center gap-4">
-                  <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg ${
-                    story.color === 'red' ? 'bg-gradient-to-br from-red-500 to-red-700' :
+                  <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg ${story.color === 'red' ? 'bg-gradient-to-br from-red-500 to-red-700' :
                     story.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-700' :
-                    story.color === 'green' ? 'bg-gradient-to-br from-green-500 to-green-700' :
-                    story.color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-700' :
-                    'bg-gradient-to-br from-amber-500 to-amber-700'
-                  }`}>
+                      story.color === 'green' ? 'bg-gradient-to-br from-green-500 to-green-700' :
+                        story.color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-700' :
+                          'bg-gradient-to-br from-amber-500 to-amber-700'
+                    }`}>
                     {story.image}
                   </div>
                   <div>
                     <h4 className="font-bold text-white">{story.name}</h4>
-                    <p className={`text-sm ${
-                      story.color === 'red' ? 'text-red-400' :
+                    <p className={`text-sm ${story.color === 'red' ? 'text-red-400' :
                       story.color === 'blue' ? 'text-blue-400' :
-                      story.color === 'green' ? 'text-green-400' :
-                      story.color === 'purple' ? 'text-purple-400' :
-                      'text-amber-400'
-                    }`}>{story.achievement}</p>
+                        story.color === 'green' ? 'text-green-400' :
+                          story.color === 'purple' ? 'text-purple-400' :
+                            'text-amber-400'
+                      }`}>{story.achievement}</p>
                   </div>
                 </div>
               </div>
@@ -375,7 +366,7 @@ export default function Achievements() {
             Be Our Next Success Story!
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Join the thousands of students who have achieved their dreams with Rasi Foundation. 
+            Join the thousands of students who have achieved their dreams with Rasi Foundation.
             Your success story could be next!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

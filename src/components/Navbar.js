@@ -46,7 +46,7 @@ const Navbar = () => {
             </a>
           </div>
           <div className="hidden md:block">
-            <span className="font-semibold italic">"Empowering minds! Igniting future!"</span>
+            <span className="font-semibold italic">&quot;Empowering minds! Igniting future!&quot;</span>
           </div>
         </div>
       </div>
