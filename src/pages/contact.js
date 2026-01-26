@@ -287,7 +287,16 @@ export default function Contact() {
                         </div>
                         <div>
                           <p className="font-black text-green-900 text-sm uppercase tracking-widest">Message Sent!</p>
-                          <p className="text-green-700 text-sm font-bold mt-1">We&apos;ll contact you shortly.</p>
+                          <p className="text-green-700 text-sm font-bold mt-1 mb-4">We&apos;ll contact you shortly.</p>
+                          <button
+                            onClick={() => {
+                              const message = `*NEW WEBSITE ENQUIRY*%0A%0A*Name:* ${formData.name}%0A*Subject:* ${formData.subject}%0A*Message:* ${formData.message}`;
+                              window.open(`https://wa.me/919789446100?text=${message}`, '_blank');
+                            }}
+                            className="bg-[#25D366] text-white px-6 py-3 rounded-xl font-black uppercase tracking-widest text-[9px] flex items-center gap-2 hover:bg-[#128C7E] transition-all"
+                          >
+                            <FaWhatsapp /> Confirm on WhatsApp
+                          </button>
                         </div>
                       </motion.div>
                     )}

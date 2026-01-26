@@ -19,6 +19,7 @@ import {
     FaRedo,
     FaTimesCircle,
     FaQuestionCircle,
+    FaWhatsapp,
 } from 'react-icons/fa';
 
 export default function PracticeTestPage() {
@@ -391,10 +392,10 @@ export default function PracticeTestPage() {
 
                                 {/* Timer */}
                                 <div className={`flex items-center gap-2 px-4 py-2 rounded-xl font-mono text-lg font-bold ${timeRemaining <= 300
-                                        ? 'bg-red-100 text-red-600 animate-pulse'
-                                        : timeRemaining <= 600
-                                            ? 'bg-amber-100 text-amber-600'
-                                            : 'bg-green-100 text-green-600'
+                                    ? 'bg-red-100 text-red-600 animate-pulse'
+                                    : timeRemaining <= 600
+                                        ? 'bg-amber-100 text-amber-600'
+                                        : 'bg-green-100 text-green-600'
                                     }`}>
                                     <FaClock />
                                     <span>{formatTime(timeRemaining)}</span>
@@ -438,8 +439,8 @@ export default function PracticeTestPage() {
                                             {currentQuestion.topic}
                                         </span>
                                         <span className={`px-3 py-1 rounded-full text-sm font-medium ${currentQuestion.difficulty === 'easy' ? 'bg-green-100 text-green-700' :
-                                                currentQuestion.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-700' :
-                                                    'bg-red-100 text-red-700'
+                                            currentQuestion.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-700' :
+                                                'bg-red-100 text-red-700'
                                             }`}>
                                             {currentQuestion.difficulty}
                                         </span>
@@ -466,13 +467,13 @@ export default function PracticeTestPage() {
                                                 key={option.label}
                                                 onClick={() => handleAnswerSelect(currentQuestion.id, option.label)}
                                                 className={`w-full p-4 md:p-5 rounded-xl border-2 text-left transition-all duration-200 flex items-start gap-4 ${isSelected
-                                                        ? 'border-indigo-600 bg-indigo-50 shadow-md'
-                                                        : 'border-gray-200 hover:border-indigo-300 hover:bg-gray-50'
+                                                    ? 'border-indigo-600 bg-indigo-50 shadow-md'
+                                                    : 'border-gray-200 hover:border-indigo-300 hover:bg-gray-50'
                                                     }`}
                                             >
                                                 <span className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg flex-shrink-0 ${isSelected
-                                                        ? 'bg-indigo-600 text-white'
-                                                        : 'bg-gray-200 text-gray-600'
+                                                    ? 'bg-indigo-600 text-white'
+                                                    : 'bg-gray-200 text-gray-600'
                                                     }`}>
                                                     {option.label}
                                                 </span>
@@ -518,10 +519,10 @@ export default function PracticeTestPage() {
                                                 key={q.id}
                                                 onClick={() => setCurrentIndex(idx)}
                                                 className={`w-10 h-10 rounded-lg text-sm font-medium transition-all ${isCurrent
-                                                        ? 'bg-indigo-600 text-white ring-2 ring-indigo-300'
-                                                        : isAnswered
-                                                            ? 'bg-green-500 text-white'
-                                                            : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                                                    ? 'bg-indigo-600 text-white ring-2 ring-indigo-300'
+                                                    : isAnswered
+                                                        ? 'bg-green-500 text-white'
+                                                        : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
                                                     }`}
                                             >
                                                 {idx + 1}
@@ -676,6 +677,22 @@ export default function PracticeTestPage() {
                                         <p className="text-gray-600">Time Taken</p>
                                         <p className="font-bold text-gray-800">{formatTime(result.timeTaken)}</p>
                                     </div>
+                                </div>
+
+                                <div className="mt-6">
+                                    <button
+                                        onClick={() => {
+                                            const message = `*PHYSICS PRACTICE TEST REPORT*%0A%0A` +
+                                                `*Name:* ${result.studentName}%0A` +
+                                                `*Score:* ${result.percentage}% (${result.correctAnswers}/${result.totalQuestions})%0A` +
+                                                `*Grade:* ${result.grade.grade}%0A` +
+                                                `*Time:* ${formatTime(result.timeTaken)}`;
+                                            window.open(`https://wa.me/919789446100?text=${message}`, '_blank');
+                                        }}
+                                        className="w-full flex items-center justify-center gap-3 bg-[#25D366] text-white p-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] hover:bg-[#128C7E] transition-all shadow-lg"
+                                    >
+                                        <FaWhatsapp className="text-lg" /> Share Report via WhatsApp
+                                    </button>
                                 </div>
                             </div>
 
