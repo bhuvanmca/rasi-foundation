@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const AchievementSchema = new mongoose.Schema({
     type: {
         type: String,
-        enum: ['milestone', 'success_story', 'stat', 'recognition', 'placement'],
+        enum: ['milestone', 'success_story', 'stat', 'recognition', 'placement', 'spotlight'],
         required: [true, 'Please provide achievement type'],
     },
     title: {
@@ -13,11 +13,11 @@ const AchievementSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        maxlength: [1000, 'Description cannot be more than 1000 characters'],
+        maxlength: [2000, 'Description cannot be more than 2000 characters'],
     },
     year: {
         type: String,
-        maxlength: [10, 'Year cannot be more than 10 characters'],
+        maxlength: [20, 'Year cannot be more than 20 characters'],
     },
     name: {
         type: String,
@@ -32,25 +32,47 @@ const AchievementSchema = new mongoose.Schema({
         maxlength: [1000, 'Quote cannot be more than 1000 characters'],
     },
     image: {
-        type: String, // Initials or URL
-        maxlength: [500, 'Image URL cannot be more than 500 characters'],
+        type: String,
+        maxlength: [500, 'Image URL or initials'],
+    },
+    videoUrl: {
+        type: String,
+        maxlength: [500, 'YouTube or Vimeo URL'],
     },
     course: {
         type: String,
         maxlength: [100, 'Course cannot be more than 100 characters'],
     },
     value: {
-        type: String, // For stats like '5000+'
+        type: String,
         maxlength: [50, 'Value cannot be more than 50 characters'],
     },
     icon: {
-        type: String, // String identifier for the icon
-        maxlength: [100, 'Icon identifier cannot be more than 100 characters'],
+        type: String,
+        maxlength: [100, 'Icon identifier'],
     },
     color: {
         type: String,
         default: 'blue',
     },
+    isVerified: {
+        type: Boolean,
+        default: false,
+    },
+    reactions: {
+        type: Number,
+        default: 0,
+    },
+    status: {
+        type: String,
+        enum: ['draft', 'published', 'archived'],
+        default: 'published',
+    },
+    journey: [{
+        label: String,
+        date: String
+    }],
+    tags: [String],
     isActive: {
         type: Boolean,
         default: true,

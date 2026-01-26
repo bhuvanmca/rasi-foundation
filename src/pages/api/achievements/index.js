@@ -9,18 +9,22 @@ export default async function handler(req, res) {
     try {
         await dbConnect();
 
-        // Fetch all active achievements
-        const achievements = await Achievement.find({ isActive: true })
+        // Fetch all active and published achievements
+        const achievements = await Achievement.find({
+            isActive: true,
+            status: 'published'
+        })
             .sort({ order: 1, createdAt: -1 })
             .lean();
 
         // Group achievements for the frontend with defaults
         const grouped = {
-            stats: achievements.filter(a => a.type === 'stat') || [],
-            milestones: achievements.filter(a => a.type === 'milestone') || [],
-            success_stories: achievements.filter(a => a.type === 'success_story') || [],
-            recognitions: achievements.filter(a => a.type === 'recognition') || [],
-            placements: achievements.filter(a => a.type === 'placement') || []
+            stats: achievements.filter(a => a.type === 'stat'),
+            milestones: achievements.filter(a => a.type === 'milestone'),
+            success_stories: achievements.filter(a => a.type === 'success_story'),
+            recognitions: achievements.filter(a => a.type === 'recognition'),
+            placements: achievements.filter(a => a.type === 'placement'),
+            spotlights: achievements.filter(a => a.type === 'spotlight')
         };
 
         res.status(200).json(grouped);

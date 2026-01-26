@@ -1,5 +1,6 @@
 import Layout from '@/frontend/components/Layout';
 import WomenCollegesScroller from '@/components/WomenCollegesScroller';
+import PlacementTicker from '@/frontend/components/PlacementTicker';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -11,20 +12,18 @@ import {
   FaCog,
   FaBalanceScale,
   FaChartLine,
-  FaPaintBrush,
-  FaSeedling,
-  FaChalkboardTeacher,
-  FaFlask,
   FaArrowRight,
   FaPhone,
   FaQuoteLeft,
   FaStar,
   FaCheckCircle,
   FaGlobe,
-  FaBook
+  FaChalkboardTeacher,
+  FaFlask
 } from 'react-icons/fa';
 
 export default function Home() {
+
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
@@ -341,6 +340,8 @@ export default function Home() {
           </svg>
         </div>
       </section>
+
+      <PlacementTicker />
 
       {/* Stats Section */}
       <section className="py-16 bg-white relative -mt-1">

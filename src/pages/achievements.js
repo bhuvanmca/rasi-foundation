@@ -19,6 +19,7 @@ import {
   FaStethoscope,
   FaCog,
   FaBalanceScale,
+  FaCheckCircle,
   FaSpinner
 } from 'react-icons/fa';
 
@@ -42,24 +43,47 @@ export default function Achievements() {
     milestones: [],
     success_stories: [],
     recognitions: [],
-    placements: []
+    placements: [],
+    spotlights: []
   });
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState('all');
 
   useEffect(() => {
-    const fetchAchievements = async () => {
-      try {
-        const response = await fetch('/api/achievements');
-        const result = await response.json();
-        setData(result);
-      } catch (error) {
-        console.error('Error:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchAchievements();
   }, []);
+
+  const fetchAchievements = async () => {
+    try {
+      const response = await fetch('/api/achievements');
+      const result = await response.json();
+      setData(result);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleReact = async (id, currentReactions) => {
+    try {
+      // Optimistic update
+      const newData = { ...data };
+      Object.keys(newData).forEach(key => {
+        const item = newData[key].find(a => a._id === id);
+        if (item) item.reactions = (item.reactions || 0) + 1;
+      });
+      setData(newData);
+
+      await fetch('/api/achievements/react', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id })
+      });
+    } catch (error) {
+      console.error('Failed to react:', error);
+    }
+  };
 
   const statIcons = [FaUserGraduate, FaUniversity, FaTrophy, FaStar];
   const milestoneIcons = [FaHeart, FaChartLine, FaUserGraduate, FaHandshake, FaTrophy, FaMedal];
@@ -90,7 +114,7 @@ export default function Achievements() {
               className="inline-flex items-center gap-2 bg-amber-100 text-amber-700 px-5 py-2 rounded-full text-xs font-black uppercase tracking-[0.2em] mb-8 border border-amber-200"
             >
               <FaTrophy className="text-[10px]" />
-              <span>Our Achievements</span>
+              <span>Our Hall of Fame</span>
             </motion.span>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -98,29 +122,99 @@ export default function Achievements() {
               transition={{ delay: 0.2 }}
               className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-8 tracking-tighter leading-none"
             >
-              Celebrating <br /><span className="text-amber-600 italic">Success</span> Stories
+              The Legacy of <br /><span className="text-amber-600 italic">Excellence</span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="text-xl text-gray-600 leading-relaxed font-medium max-w-2xl mx-auto"
+              className="text-xl text-gray-600 leading-relaxed font-medium max-w-2xl mx-auto mb-12"
             >
-              Over the years, Rasi Foundation has helped thousands of students achieve their
-              educational dreams. Here&apos;s a glimpse of our journey and accomplishments.
+              Empowering thousands of dreams since 2010. Explore the journeys of students who transformed their potential into success.
             </motion.p>
+
+            {/* Filter Pills */}
+            <div className="flex flex-wrap justify-center gap-3">
+              {['all', 'success_story', 'placement', 'milestone', 'recognition'].map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-6 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${activeFilter === filter
+                    ? 'bg-gray-900 text-white shadow-xl scale-110'
+                    : 'bg-white text-gray-400 hover:text-gray-900 border border-gray-100'
+                    }`}
+                >
+                  {filter.replace('_', ' ')}
+                </button>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-white relative -mt-10 mb-10 overflow-hidden">
-        <div className="container mx-auto px-4">
-          {loading ? (
-            <div className="flex justify-center py-12">
-              <FaSpinner className="animate-spin text-4xl text-amber-600" />
+      {/* Spotlight Section */}
+      {data.spotlights?.length > 0 && (
+        <section className="py-24 bg-white overflow-hidden">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center gap-4 mb-16">
+              <div className="h-px bg-gray-100 flex-1"></div>
+              <h2 className="text-sm font-black text-gray-400 uppercase tracking-[0.3em]">Featured Spotlight</h2>
+              <div className="h-px bg-gray-100 flex-1"></div>
             </div>
-          ) : (
+            {data.spotlights.map((item) => (
+              <motion.div
+                key={item._id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                className="bg-[#0f172a] rounded-[3rem] p-8 md:p-16 text-white grid md:grid-cols-2 gap-12 items-center relative overflow-hidden shadow-2xl"
+              >
+                <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-amber-500/10 to-transparent"></div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-8">
+                    <span className="bg-amber-600 text-[10px] font-black uppercase tracking-widest px-4 py-1 rounded-lg">Featured</span>
+                    {item.isVerified && <span className="text-blue-400 text-[10px] font-black uppercase tracking-widest flex items-center gap-1"><FaCheckCircle /> Verified</span>}
+                  </div>
+                  <h3 className="text-4xl md:text-5xl font-black mb-6 tracking-tight leading-tight">{item.title}</h3>
+                  <p className="text-slate-300 text-lg mb-8 leading-relaxed font-medium italic">&quot;{item.quote}&quot;</p>
+                  <div className="flex items-center gap-4 mb-10">
+                    <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center text-3xl font-black">{item.name?.charAt(0)}</div>
+                    <div>
+                      <h4 className="font-bold text-xl">{item.name}</h4>
+                      <p className="text-amber-500 font-bold text-xs uppercase tracking-widest">{item.course}</p>
+                    </div>
+                  </div>
+                  {item.videoUrl && (
+                    <a href={item.videoUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-105 transition-transform">
+                      <FaTrophy /> Watch Success Story
+                    </a>
+                  )}
+                </div>
+                <div className="relative z-10 bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-[2rem]">
+                  <h4 className="text-amber-500 font-black uppercase tracking-widest text-xs mb-6">The Journey</h4>
+                  <div className="space-y-6">
+                    {item.journey?.map((pt, idx) => (
+                      <div key={idx} className="flex gap-4 relative">
+                        <div className="w-1 bg-amber-500/20 absolute left-2 top-8 bottom-0"></div>
+                        <div className="w-5 h-5 rounded-full bg-amber-500 border-4 border-[#0f172a] z-10"></div>
+                        <div>
+                          <p className="text-amber-500 font-black text-[10px] uppercase mb-1">{pt.date}</p>
+                          <p className="font-bold text-sm text-slate-100">{pt.label}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Stats Section */}
+      {(activeFilter === 'all' || activeFilter === 'stat') && (
+        <section className="py-20 bg-white overflow-hidden">
+          <div className="container mx-auto px-4">
             <motion.div
               initial="initial"
               whileInView="animate"
@@ -149,44 +243,95 @@ export default function Achievements() {
                 );
               })}
             </motion.div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
-      {/* Placement Highlights */}
-      <section className="py-24 bg-gray-50 overflow-hidden">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <span className="text-red-600 font-black uppercase tracking-[0.2em] text-xs">Placement Stats</span>
-            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mt-4 mb-6 tracking-tighter">
-              Category-wise <span className="text-green-600">Placements</span>
-            </h2>
-          </motion.div>
-
-          {loading ? (
-            <div className="flex justify-center py-8">
-              <FaSpinner className="animate-spin text-2xl text-green-600" />
+      {/* Success Stories Grid */}
+      {(activeFilter === 'all' || activeFilter === 'success_story') && (
+        <section className="py-24 bg-gray-50 overflow-hidden">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <span className="text-amber-600 font-black uppercase tracking-[0.2em] text-xs">Testimonials</span>
+              <h2 className="text-4xl font-black text-gray-900 mt-2 tracking-tighter">Student Journeys</h2>
             </div>
-          ) : (
             <motion.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
               variants={staggerContainer}
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             >
+              {data.success_stories.map((story) => (
+                <motion.div
+                  key={story._id}
+                  variants={fadeInUp}
+                  className="bg-white rounded-[2.5rem] p-10 border border-gray-100 hover:shadow-2xl transition-all duration-500 group relative"
+                >
+                  {story.isVerified && (
+                    <div className="absolute top-8 right-8 bg-blue-50 text-blue-600 px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest flex items-center gap-1 border border-blue-100">
+                      <FaCheckCircle className="text-[10px]" /> Verified Success
+                    </div>
+                  )}
+                  <FaQuoteLeft className="text-4xl text-gray-100 mb-8" />
+                  <p className="text-gray-600 italic mb-10 leading-relaxed font-medium text-lg">&quot;{story.description}&quot;</p>
+
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-xl transition-all group-hover:scale-110 ${story.color === 'red' ? 'bg-red-500' :
+                        story.color === 'blue' ? 'bg-blue-500' :
+                          story.color === 'green' ? 'bg-green-500' :
+                            story.color === 'purple' ? 'bg-purple-500' :
+                              'bg-amber-500'
+                        }`}>
+                        {story.name?.charAt(0)}
+                      </div>
+                      <div>
+                        <h4 className="font-black text-gray-900 text-lg tracking-tight">{story.name}</h4>
+                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">{story.course}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between pt-6 border-t border-gray-50">
+                    <button
+                      onClick={() => handleReact(story._id, story.reactions)}
+                      className="flex items-center gap-2 text-gray-400 hover:text-amber-500 transition-colors group/btn"
+                    >
+                      <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover/btn:bg-amber-50 group-active:scale-125 transition-all">
+                        <FaHeart className={story.reactions > 0 ? 'text-amber-500' : ''} />
+                      </div>
+                      <span className="text-xs font-black">{story.reactions || 0}</span>
+                    </button>
+                    {story.videoUrl && (
+                      <a href={story.videoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-red-600 font-black uppercase tracking-widest text-[10px] hover:translate-x-1 transition-transform">
+                        Watch Story <FaArrowRight />
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* Placements Section */}
+      {(activeFilter === 'all' || activeFilter === 'placement') && (
+        <section className="py-24 bg-white overflow-hidden">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <span className="text-green-600 font-black uppercase tracking-[0.2em] text-xs">Placements</span>
+              <h2 className="text-4xl font-black text-gray-900 mt-2 tracking-tighter">Category-wise Success</h2>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
               {data.placements.map((item, index) => {
                 const Icon = placementIcons[index % placementIcons.length];
                 return (
                   <motion.div
                     variants={fadeInUp}
                     key={item._id}
-                    className="bg-white p-8 rounded-[2rem] text-center shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 group"
+                    className="bg-gray-50 p-8 rounded-[2rem] text-center shadow-sm border border-gray-100 hover:shadow-xl hover:bg-white transition-all duration-500 group"
                   >
                     <div className={`w-16 h-16 mx-auto mb-6 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-500 ${item.color === 'red' ? 'bg-red-50 text-red-600' :
                       item.color === 'blue' ? 'bg-blue-50 text-blue-600' :
@@ -202,185 +347,60 @@ export default function Achievements() {
                   </motion.div>
                 );
               })}
-            </motion.div>
-          )}
-        </div>
-      </section>
-
-      {/* Timeline Section */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-24"
-          >
-            <span className="text-amber-600 font-black uppercase tracking-[0.2em] text-xs">Our Journey</span>
-            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mt-4 mb-6 tracking-tighter">
-              Key <span className="text-green-600 italic">Milestones</span>
-            </h2>
-          </motion.div>
-
-          <div className="max-w-5xl mx-auto relative px-4">
-            {/* Timeline Line */}
-            <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 via-amber-500 to-green-500 rounded-full opacity-20"></div>
-
-            <div className="space-y-24">
-              {data.milestones.map((milestone, index) => {
-                const Icon = milestoneIcons[index % milestoneIcons.length];
-                const isEven = index % 2 === 0;
-                return (
-                  <motion.div
-                    key={milestone._id}
-                    initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.8 }}
-                    className={`relative flex items-center md:justify-between ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
-                  >
-                    {/* Content */}
-                    <div className="flex-1 md:w-5/12 pl-16 md:pl-0">
-                      <div className="bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-50 relative group transition-all duration-500 hover:shadow-2xl hover:border-amber-200">
-                        <span className={`inline-block px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 ${index % 6 === 0 ? 'bg-red-100 text-red-600' :
-                          index % 6 === 1 ? 'bg-orange-100 text-orange-600' :
-                            index % 6 === 2 ? 'bg-amber-100 text-amber-600' :
-                              index % 6 === 3 ? 'bg-lime-100 text-lime-600' :
-                                index % 6 === 4 ? 'bg-green-100 text-green-600' :
-                                  'bg-emerald-100 text-emerald-600'
-                          }`}>
-                          {milestone.year}
-                        </span>
-                        <h3 className="text-2xl font-black text-gray-900 mb-3 tracking-tight">{milestone.title}</h3>
-                        <p className="text-gray-600 leading-relaxed font-medium">{milestone.description}</p>
-                      </div>
-                    </div>
-
-                    {/* Center Icon */}
-                    <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-2xl z-10 transition-transform duration-500 group-hover:scale-125
-                      ${index % 6 === 0 ? 'bg-red-500' :
-                        index % 6 === 1 ? 'bg-orange-500' :
-                          index % 6 === 2 ? 'bg-amber-500' :
-                            index % 6 === 3 ? 'bg-lime-500' :
-                              index % 6 === 4 ? 'bg-green-500' :
-                                'bg-emerald-500'
-                      }">
-                      <Icon className="text-xl" />
-                    </div>
-
-                    {/* Spacer for MD screens */}
-                    <div className="hidden md:block md:w-5/12"></div>
-                  </motion.div>
-                );
-              })}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* Success Stories */}
-      <section className="py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-24"
-          >
-            <span className="text-amber-400 font-black uppercase tracking-[0.2em] text-xs">Success Stories</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-4 mb-6 tracking-tighter">
-              Our Students, Our <span className="text-green-500 italic">Pride</span>
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto font-medium text-lg">
-              Real stories from real students who achieved their dreams with our guidance.
-            </p>
-          </motion.div>
+      {/* Milestones / Journey Section */}
+      {(activeFilter === 'all' || activeFilter === 'milestone') && (
+        <section className="py-24 bg-white overflow-hidden border-t">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-24">
+              <span className="text-amber-600 font-black uppercase tracking-[0.2em] text-xs">Our Journey</span>
+              <h2 className="text-4xl font-black text-gray-900 mt-2 tracking-tighter">Key Milestones</h2>
+            </div>
 
-          <motion.div
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {data.success_stories.map((story, index) => (
-              <motion.div
-                key={story._id}
-                variants={fadeInUp}
-                className="bg-white/5 backdrop-blur-xl rounded-[2.5rem] p-10 border border-white/10 hover:bg-white/10 transition-all duration-500 group"
-              >
-                <FaQuoteLeft className="text-4xl text-amber-400/20 mb-8" />
-                <p className="text-gray-200 italic mb-10 leading-relaxed font-medium text-lg">&quot;{story.quote}&quot;</p>
-                <div className="flex items-center gap-5">
-                  <div className={`w-16 h-16 rounded-3xl flex items-center justify-center text-white font-black text-xl shadow-2xl group-hover:scale-110 transition-transform duration-500 ${story.color === 'red' ? 'bg-gradient-to-br from-red-500 to-red-600' :
-                    story.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
-                      story.color === 'green' ? 'bg-gradient-to-br from-green-500 to-green-600' :
-                        story.color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-600' :
-                          'bg-gradient-to-br from-amber-500 to-amber-600'
-                    }`}>
-                    {story.image}
-                  </div>
-                  <div>
-                    <h4 className="font-black text-white text-xl tracking-tight">{story.name}</h4>
-                    <p className={`text-[10px] font-black uppercase tracking-[0.2em] ${story.color === 'red' ? 'text-red-400' :
-                      story.color === 'blue' ? 'text-blue-400' :
-                        story.color === 'green' ? 'text-green-400' :
-                          story.color === 'purple' ? 'text-purple-400' :
-                            'text-amber-400'
-                      }`}>{story.achievement}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+            <div className="max-w-5xl mx-auto relative px-4">
+              <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-red-500 via-amber-500 to-green-500 rounded-full opacity-10"></div>
 
-      {/* Recognitions */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-24"
-          >
-            <span className="text-red-600 font-black uppercase tracking-[0.2em] text-xs">Recognition</span>
-            <h2 className="text-4xl md:text-5xl font-black text-gray-900 mt-4 mb-6 tracking-tighter">
-              Awards & <span className="text-green-600 italic">Accolades</span>
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
-          >
-            {data.recognitions.map((item, index) => {
-              const Icon = recognitionIcons[index % recognitionIcons.length];
-              return (
-                <motion.div
-                  key={item._id}
-                  variants={fadeInUp}
-                  className="bg-gray-50 p-10 rounded-[2.5rem] text-center shadow-lg border border-gray-100 hover:shadow-2xl hover:bg-white transition-all duration-500 group"
-                >
-                  <div className={`w-20 h-20 mx-auto mb-8 bg-gradient-to-br ${item.color === 'amber' ? 'from-amber-400 to-amber-600' : 'from-yellow-400 to-yellow-600'} rounded-3xl flex items-center justify-center text-white shadow-2xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                    <Icon className="text-3xl" />
-                  </div>
-                  <h3 className="text-2xl font-black text-gray-900 mb-3 tracking-tight uppercase tracking-tight">{item.title}</h3>
-                  <p className="text-gray-500 font-medium">{item.description}</p>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section>
+              <div className="space-y-24">
+                {data.milestones.map((milestone, index) => {
+                  const Icon = milestoneIcons[index % milestoneIcons.length];
+                  const isEven = index % 2 === 0;
+                  return (
+                    <motion.div
+                      key={milestone._id}
+                      initial={{ opacity: 0, x: isEven ? -50 : 50 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      className={`relative flex items-center md:justify-between ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}
+                    >
+                      <div className="flex-1 md:w-5/12 pl-16 md:pl-0">
+                        <div className="bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-50 relative group transition-all duration-500 hover:shadow-2xl hover:border-amber-200">
+                          <span className="inline-block px-4 py-1.5 rounded-full text-[10px] bg-red-50 text-red-600 font-black uppercase tracking-widest mb-6 border border-red-100">
+                            {milestone.year}
+                          </span>
+                          <h3 className="text-2xl font-black text-gray-900 mb-3 tracking-tight">{milestone.title}</h3>
+                          <p className="text-gray-600 leading-relaxed font-medium">{milestone.description}</p>
+                        </div>
+                      </div>
+                      <div className="absolute left-8 md:left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-2xl bg-gray-900 flex items-center justify-center text-white shadow-2xl z-10 transition-transform duration-500 group-hover:scale-125">
+                        <Icon />
+                      </div>
+                      <div className="hidden md:block md:w-5/12"></div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-amber-500 to-amber-600 overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
+      <section className="py-24 bg-gradient-to-r from-gray-900 to-black overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -388,17 +408,16 @@ export default function Achievements() {
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter"
           >
-            Be Our Next Success <br /><span className="text-white/80 italic">Story!</span>
+            Be Our Next Success <br /><span className="text-amber-500 italic">Story!</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-white/90 mb-12 max-w-2xl mx-auto font-medium"
+            className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto font-medium"
           >
-            Join the thousands of students who have achieved their dreams with Rasi Foundation.
-            Your success story could be next!
+            Join the legacy of achievers at Rasi Foundation. Your dreams, our guidance!
           </motion.p>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -407,11 +426,8 @@ export default function Achievements() {
             transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-6 justify-center"
           >
-            <Link href="/contact" className="bg-white text-amber-700 px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm hover:shadow-2xl transition-all hover:scale-105 inline-flex items-center justify-center gap-3">
+            <Link href="/contact" className="bg-amber-600 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm hover:shadow-2xl transition-all hover:scale-105 inline-flex items-center justify-center gap-3">
               Start Your Journey <FaArrowRight />
-            </Link>
-            <Link href="/courses" className="bg-transparent border-2 border-white text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all hover:scale-105">
-              Explore Courses
             </Link>
           </motion.div>
         </div>
