@@ -157,6 +157,25 @@ const Footer = () => {
                   </div>
                 </div>
               </li>
+              <li>
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-blue-600/20 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <FaMapMarkerAlt className="text-blue-500" />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Address:</p>
+                    <a
+                      href="https://www.google.com/maps/place/11%C2%B024'06.6%22N+78%C2%B009'34.6%22E/@11.4018417,78.1570241,17z/data=!3m1!4b1!4m4!3m3!8m2!3d11.4018417!4d78.159599"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white hover:text-blue-400 text-sm"
+                    >
+                      Rasipuram, Tamil Nadu<br />
+                      <span className="text-[10px] uppercase tracking-widest text-blue-400 font-bold">Open in Maps</span>
+                    </a>
+                  </div>
+                </div>
+              </li>
             </ul>
           </div>
         </div>

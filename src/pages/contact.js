@@ -44,9 +44,16 @@ export default function Contact() {
     email: 'rasipuramrasifoundation@gmail.com',
     address: {
       '@type': 'PostalAddress',
+      streetAddress: '11°24\'06.6"N 78°09\'34.6"E',
       addressLocality: 'Rasipuram',
       addressRegion: 'Tamil Nadu',
+      postalCode: '637408',
       addressCountry: 'IN'
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: '11.4018417',
+      longitude: '78.159599'
     },
     openingHours: 'Mo-Sa 09:00-18:00'
   };
@@ -288,15 +295,21 @@ export default function Contact() {
                         <div>
                           <p className="font-black text-green-900 text-sm uppercase tracking-widest">Message Sent!</p>
                           <p className="text-green-700 text-sm font-bold mt-1 mb-4">We&apos;ll contact you shortly.</p>
-                          <button
-                            onClick={() => {
-                              const message = `*NEW WEBSITE ENQUIRY*%0A%0A*Name:* ${formData.name}%0A*Subject:* ${formData.subject}%0A*Message:* ${formData.message}`;
-                              window.open(`https://wa.me/919789446100?text=${message}`, '_blank');
-                            }}
-                            className="bg-[#25D366] text-white px-6 py-3 rounded-xl font-black uppercase tracking-widest text-[9px] flex items-center gap-2 hover:bg-[#128C7E] transition-all"
+                          <a
+                            href={`https://wa.me/918073774591?text=${encodeURIComponent(
+                              `*NEW ENQUIRY*\n\n` +
+                              `*Name:* ${formData.name}\n` +
+                              `*Subject:* ${formData.subject}\n` +
+                              `*Phone:* ${formData.phone}\n` +
+                              `*Email:* ${formData.email}\n` +
+                              `*Message:* ${formData.message}`
+                            )}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-green-700 transition-colors shadow-lg shadow-green-200"
                           >
-                            <FaWhatsapp /> Confirm on WhatsApp
-                          </button>
+                            <FaWhatsapp /> Chat on WhatsApp
+                          </a>
                         </div>
                       </motion.div>
                     )}
@@ -369,6 +382,24 @@ export default function Contact() {
                 <div className="space-y-12">
                   <div className="flex items-start gap-6">
                     <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center border border-gray-200 shadow-sm">
+                      <FaMapMarkerAlt className="text-red-600 text-xl" />
+                    </div>
+                    <div>
+                      <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.25em] mb-2">Location</h4>
+                      <a
+                        href="https://www.google.com/maps/place/11%C2%B024'06.6%22N+78%C2%B009'34.6%22E/@11.4018417,78.1570241,17z/data=!3m1!4b1!4m4!3m3!8m2!3d11.4018417!4d78.159599"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-900 font-black hover:text-red-600 transition-colors text-lg"
+                      >
+                        Rasipuram, Tamil Nadu<br />
+                        <span className="text-sm font-bold text-red-500">View on Google Maps</span>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-6">
+                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center border border-gray-200 shadow-sm">
                       <FaEnvelope className="text-red-600 text-xl" />
                     </div>
                     <div>
@@ -390,7 +421,7 @@ export default function Contact() {
                   </div>
 
                   <div className="flex items-start gap-6 pt-6">
-                    <Link href="https://wa.me/919789446100" className="flex items-center gap-4 w-full bg-green-600 text-white p-6 rounded-2xl font-black uppercase tracking-[0.2em] text-sm justify-center hover:bg-green-700 transition-all shadow-xl shadow-green-100 hover:scale-[1.02]">
+                    <Link href="https://wa.me/918073774591" className="flex items-center gap-4 w-full bg-green-600 text-white p-6 rounded-2xl font-black uppercase tracking-[0.2em] text-sm justify-center hover:bg-green-700 transition-all shadow-xl shadow-green-100 hover:scale-[1.02]">
                       <FaWhatsapp className="text-2xl" /> WhatsApp Chat
                     </Link>
                   </div>

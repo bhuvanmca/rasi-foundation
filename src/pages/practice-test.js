@@ -19,7 +19,6 @@ import {
     FaRedo,
     FaTimesCircle,
     FaQuestionCircle,
-    FaWhatsapp,
 } from 'react-icons/fa';
 
 export default function PracticeTestPage() {
@@ -677,22 +676,6 @@ export default function PracticeTestPage() {
                                         <p className="text-gray-600">Time Taken</p>
                                         <p className="font-bold text-gray-800">{formatTime(result.timeTaken)}</p>
                                     </div>
-                                </div>
-
-                                <div className="mt-6">
-                                    <button
-                                        onClick={() => {
-                                            const message = `*PHYSICS PRACTICE TEST REPORT*%0A%0A` +
-                                                `*Name:* ${result.studentName}%0A` +
-                                                `*Score:* ${result.percentage}% (${result.correctAnswers}/${result.totalQuestions})%0A` +
-                                                `*Grade:* ${result.grade.grade}%0A` +
-                                                `*Time:* ${formatTime(result.timeTaken)}`;
-                                            window.open(`https://wa.me/919789446100?text=${message}`, '_blank');
-                                        }}
-                                        className="w-full flex items-center justify-center gap-3 bg-[#25D366] text-white p-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] hover:bg-[#128C7E] transition-all shadow-lg"
-                                    >
-                                        <FaWhatsapp className="text-lg" /> Share Report via WhatsApp
-                                    </button>
                                 </div>
                             </div>
 

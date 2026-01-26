@@ -19,8 +19,7 @@ import {
     FaGlobe,
     FaUserGraduate,
     FaSpinner,
-    FaRocket,
-    FaWhatsapp
+    FaRocket
 } from 'react-icons/fa';
 
 export default function RegisterPage() {
@@ -29,21 +28,6 @@ export default function RegisterPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(null);
-
-    const handleWhatsApp = () => {
-        if (!success) return;
-
-        const message = `*SCHOLARSHIP TEST REGISTRATION*%0A%0A` +
-            `*Token:* ${success.registrationToken}%0A` +
-            `*Name:* ${success.name}%0A` +
-            `*Course:* ${success.admissionCourse}%0A` +
-            `*Group:* ${success.plus2Group}%0A` +
-            `*School:* ${success.lastStudiedSchool}%0A` +
-            `*Mobile:* ${success.studentMobile}%0A` +
-            `*Father:* ${success.fatherName}`;
-
-        window.open(`https://wa.me/919789446100?text=${message}`, '_blank');
-    };
 
     const [formData, setFormData] = useState({
         // Personal Details
@@ -217,14 +201,14 @@ export default function RegisterPage() {
                                 </p>
                             </div>
 
-                            <div className="space-y-4 text-left mb-6 p-6 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                            <div className="space-y-4 text-left mb-10 p-6 bg-white rounded-2xl border border-gray-100 shadow-sm">
                                 <div className="flex justify-between items-center border-b border-gray-50 pb-3">
                                     <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">Candidate</span>
                                     <span className="font-bold text-gray-800">{success.name}</span>
                                 </div>
                                 <div className="flex justify-between items-center border-b border-gray-50 pb-3">
-                                    <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">Target Course</span>
-                                    <span className="font-bold text-gray-800">{success.admissionCourse}</span>
+                                    <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">Contact</span>
+                                    <span className="font-bold text-gray-800">{success.email}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                     <span className="text-gray-400 text-[10px] font-black uppercase tracking-widest">Group</span>
@@ -232,22 +216,34 @@ export default function RegisterPage() {
                                 </div>
                             </div>
 
-                            <div className="grid md:grid-cols-2 gap-4 mb-10">
-                                <button
-                                    onClick={handleWhatsApp}
-                                    className="flex items-center justify-center gap-3 bg-[#25D366] text-white p-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] hover:bg-[#128C7E] transition-all shadow-xl shadow-green-100"
-                                >
-                                    <FaWhatsapp className="text-lg" /> Send to WhatsApp
-                                </button>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                 <Link
                                     href={`/scholarship-test/select-subject?token=${success.registrationToken}`}
-                                    className="relative group/btn overflow-hidden rounded-2xl p-[2px] flex items-center justify-center"
+                                    className="relative group/btn overflow-hidden rounded-2xl p-[2px] flex items-center justify-center shadow-lg"
                                 >
                                     <div className="absolute inset-0 bg-gradient-to-r from-red-600 via-red-500 to-green-600 bg-[length:200%_100%] animate-gradient"></div>
-                                    <div className="relative w-full h-full bg-[#020617] py-5 rounded-2xl flex items-center justify-center gap-3 font-bold text-white uppercase tracking-[0.2em] text-[10px] group-hover/btn:bg-transparent transition-colors">
-                                        Start Selection <FaArrowRight className="text-[10px]" />
+                                    <div className="relative w-full bg-[#020617] py-5 rounded-2xl flex items-center justify-center gap-3 font-black text-white uppercase tracking-[0.2em] text-xs group-hover/btn:bg-transparent transition-colors">
+                                        Start Test <FaArrowRight className="text-xs group-hover/btn:translate-x-1 transition-transform" />
                                     </div>
                                 </Link>
+
+                                <a
+                                    href={`https://wa.me/918073774591?text=${encodeURIComponent(
+                                        `*NEW SCHOLARSHIP REGISTRATION*\n\n` +
+                                        `*Token:* ${success.registrationToken}\n` +
+                                        `*Name:* ${formData.name}\n` +
+                                        `*Course:* ${formData.admissionCourse}\n` +
+                                        `*Mobile:* ${formData.studentMobile}\n` +
+                                        `*School:* ${formData.lastStudiedSchool}\n` +
+                                        `*Cut-off:* ${formData.expectedCutOff}\n\n` +
+                                        `_Please verify my registration for the scholarship test._`
+                                    )}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-3 bg-green-600 text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-green-700 transition-all shadow-xl shadow-green-100"
+                                >
+                                    Confirm on WhatsApp <FaCheckCircle className="text-sm" />
+                                </a>
                             </div>
                         </div>
                     </div>
