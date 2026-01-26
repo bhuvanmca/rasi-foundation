@@ -1,20 +1,8 @@
-import dbConnect from '@/lib/mongodb';
-import PracticeTestResult from '@/models/PracticeTestResult';
-import jwt from 'jsonwebtoken';
+import dbConnect from '@/backend/lib/mongodb';
+import PracticeTestResult from '@/backend/models/PracticeTestResult';
+import { withAuth } from '@/backend/lib/auth';
 
-export default async function handler(req, res) {
-    // Verify admin token
-    const token = req.headers.authorization?.replace('Bearer ', '');
-    if (!token) {
-        return res.status(401).json({ message: 'Unauthorized' });
-    }
-
-    try {
-        jwt.verify(token, process.env.JWT_SECRET || 'rasi-secret-key');
-    } catch {
-        return res.status(401).json({ message: 'Invalid token' });
-    }
-
+async function handler(req, res) {
     await dbConnect();
 
     if (req.method === 'GET') {
@@ -110,3 +98,5 @@ export default async function handler(req, res) {
         res.status(405).json({ message: 'Method not allowed' });
     }
 }
+
+export default withAuth(handler);

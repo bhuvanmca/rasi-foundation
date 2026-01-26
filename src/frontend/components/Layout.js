@@ -2,10 +2,11 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import SEO from './SEO';
 import FloatingButtons from './FloatingButtons';
+import NotificationBar from './NotificationBar';
 
-const Layout = ({ 
-  children, 
-  title = 'RASI FOUNDATION', 
+const Layout = ({
+  children,
+  title = 'RASI FOUNDATION',
   description = 'Empowering minds! Igniting future! - Career Guidance & Education Consultancy in Tamil Nadu. Expert guidance for MBBS, Engineering, MBA, Law admissions.',
   keywords = '',
   ogImage = '/og-image.jpg',
@@ -15,7 +16,7 @@ const Layout = ({
 }) => {
   return (
     <>
-      <SEO 
+      <SEO
         title={title}
         description={description}
         keywords={keywords}
@@ -25,6 +26,7 @@ const Layout = ({
         structuredData={structuredData}
       />
       <div className="min-h-screen flex flex-col">
+        <NotificationBar />
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />

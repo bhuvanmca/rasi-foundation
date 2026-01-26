@@ -1,6 +1,7 @@
 import Layout from '@/frontend/components/Layout';
 import { useState } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaPhone,
   FaEnvelope,
@@ -20,6 +21,19 @@ import {
 } from 'react-icons/fa';
 
 export default function Contact() {
+  const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
   // Page SEO structured data for local business
   const contactStructuredData = {
     '@context': 'https://schema.org',
@@ -114,107 +128,127 @@ export default function Contact() {
       keywords="career guidance, education consultancy, medical admission, engineering career advisor"
       structuredData={contactStructuredData}
     >
-      {/* Hero Section - Restored Red/Green Theme with Premium Feel */}
-      <section className="relative pt-32 pb-20 bg-gray-50 overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative pt-40 pb-24 bg-gray-50 overflow-hidden">
         {/* Decorative background elements */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-500/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-green-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-red-500/5 rounded-full blur-[150px] -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-green-500/5 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <span className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-5 py-2 rounded-full text-xs font-black uppercase tracking-[0.2em] mb-8 border border-red-200">
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={staggerContainer}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <motion.span
+              variants={fadeInUp}
+              className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-[0.25em] mb-10 border border-red-200"
+            >
               <FaEnvelope className="text-[10px]" />
               <span>Get In Touch</span>
-            </span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-8 tracking-tighter leading-none">
+            </motion.span>
+            <motion.h1
+              variants={fadeInUp}
+              className="text-5xl md:text-6xl lg:text-8xl font-black text-gray-900 mb-10 tracking-tighter leading-none"
+            >
               Contact <span className="text-green-600 italic">Us</span>
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed font-medium">
+            </motion.h1>
+            <motion.p
+              variants={fadeInUp}
+              className="text-2xl text-gray-600 leading-relaxed font-medium max-w-2xl mx-auto"
+            >
               Have questions about admissions or need career guidance? Reach out to us
               and take the first step towards your dream career.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
       {/* Main Content Area */}
-      <section className="py-24 bg-white relative">
+      <section className="py-32 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-12 gap-16">
+          <div className="grid lg:grid-cols-12 gap-20">
 
             {/* Left Column: Form Container */}
-            <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-7"
+            >
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-red-600/10 to-green-600/10 rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-red-600/10 to-green-600/10 rounded-[3rem] blur-xl opacity-25 group-hover:opacity-50 transition duration-1000"></div>
 
-                <div className="relative bg-white border border-gray-100 rounded-[2rem] p-8 md:p-12 shadow-2xl">
-                  <h2 className="text-3xl font-black text-gray-800 mb-2 tracking-tight">Send a Message</h2>
-                  <p className="text-gray-500 mb-10 font-medium">Fill out the form below and we&apos;ll get back to you shortly.</p>
+                <div className="relative bg-white border border-gray-100 rounded-[3rem] p-10 md:p-16 shadow-2xl">
+                  <h2 className="text-4xl font-black text-gray-900 mb-3 tracking-tighter">Send a Message</h2>
+                  <p className="text-lg text-gray-500 mb-12 font-medium">Fill out the form below and we&apos;ll get back to you shortly.</p>
 
-                  <form onSubmit={handleSubmit} className="space-y-8">
-                    <div className="grid md:grid-cols-2 gap-8">
-                      <div className="space-y-2">
-                        <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] ml-1">Your Name</label>
+                  <form onSubmit={handleSubmit} className="space-y-10">
+                    <div className="grid md:grid-cols-2 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] ml-2">Your Name</label>
                         <input
                           type="text"
                           name="name"
                           value={formData.name}
                           onChange={handleInputChange}
                           required
-                          className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                          className="w-full bg-gray-50 border border-gray-200 text-gray-900 px-8 py-6 rounded-2xl focus:ring-4 focus:ring-red-500/10 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold text-lg"
                           placeholder="Your full name"
                         />
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] ml-1">Email Address</label>
+                      <div className="space-y-3">
+                        <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] ml-2">Email Address</label>
                         <input
                           type="email"
                           name="email"
                           value={formData.email}
                           onChange={handleInputChange}
                           required
-                          className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                          className="w-full bg-gray-50 border border-gray-200 text-gray-900 px-8 py-6 rounded-2xl focus:ring-4 focus:ring-red-500/10 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold text-lg"
                           placeholder="your@email.com"
                         />
                       </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-8">
-                      <div className="space-y-2">
-                        <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] ml-1">Phone Number</label>
+                    <div className="grid md:grid-cols-2 gap-10">
+                      <div className="space-y-3">
+                        <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] ml-2">Phone Number</label>
                         <input
                           type="tel"
                           name="phone"
                           value={formData.phone}
                           onChange={handleInputChange}
                           required
-                          className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                          className="w-full bg-gray-50 border border-gray-200 text-gray-900 px-8 py-6 rounded-2xl focus:ring-4 focus:ring-red-500/10 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold text-lg"
                           placeholder="+91 000 000 0000"
                         />
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] ml-1">Subject</label>
+                      <div className="space-y-3">
+                        <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] ml-2">Subject</label>
                         <input
                           type="text"
                           name="subject"
                           value={formData.subject}
                           onChange={handleInputChange}
                           required
-                          className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold"
+                          className="w-full bg-gray-50 border border-gray-200 text-gray-900 px-8 py-6 rounded-2xl focus:ring-4 focus:ring-red-500/10 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold text-lg"
                           placeholder="How can we help?"
                         />
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] ml-1">Your Message</label>
+                    <div className="space-y-3">
+                      <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] ml-2">Your Message</label>
                       <textarea
                         name="message"
                         value={formData.message}
                         onChange={handleInputChange}
                         required
-                        rows={5}
-                        className="w-full bg-gray-50 border border-gray-200 text-gray-800 px-6 py-5 rounded-2xl focus:ring-2 focus:ring-red-500/20 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold resize-none"
+                        rows={6}
+                        className="w-full bg-gray-50 border border-gray-200 text-gray-900 px-8 py-6 rounded-2xl focus:ring-4 focus:ring-red-500/10 focus:border-red-500/50 outline-none transition-all placeholder:text-gray-300 font-bold text-lg resize-none"
                         placeholder="Tell us about your requirements"
                       ></textarea>
                     </div>
@@ -225,108 +259,134 @@ export default function Contact() {
                       className="w-full relative group/btn overflow-hidden rounded-2xl p-[2px] disabled:opacity-50"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-red-600 via-red-500 to-green-600 bg-[length:200%_100%] animate-gradient"></div>
-                      <div className="relative bg-[#020617] py-5 rounded-2xl flex items-center justify-center gap-3 font-bold text-white uppercase tracking-[0.2em] text-sm group-hover/btn:bg-transparent transition-colors">
+                      <div className="relative bg-[#020617] py-6 rounded-2xl flex items-center justify-center gap-4 font-black text-white uppercase tracking-[0.25em] text-sm group-hover/btn:bg-transparent transition-colors">
                         {isSubmitting ? (
                           <>
-                            <FaSpinner className="animate-spin" />
+                            <FaSpinner className="animate-spin text-lg" />
                             Sending...
                           </>
                         ) : (
                           <>
-                            <FaPaperPlane className="text-xs" /> Send Message
+                            <FaPaperPlane className="text-sm" /> Send Message
                           </>
                         )}
                       </div>
                     </button>
                   </form>
 
-                  {/* Status Messages */}
-                  {submitStatus === 'success' && (
-                    <div className="mt-8 p-6 bg-green-50 border border-green-200 rounded-2xl flex items-center gap-4 animate-fadeIn">
-                      <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <FaCheckCircle className="text-white text-xl" />
-                      </div>
-                      <div>
-                        <p className="font-bold text-green-800 text-sm uppercase tracking-widest">Message Sent!</p>
-                        <p className="text-green-600 text-xs font-medium mt-1">We&apos;ll contact you shortly.</p>
-                      </div>
-                    </div>
-                  )}
+                  <AnimatePresence>
+                    {submitStatus === 'success' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        className="mt-10 p-8 bg-green-50 border border-green-200 rounded-3xl flex items-center gap-6"
+                      >
+                        <div className="w-14 h-14 bg-green-500 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-green-200">
+                          <FaCheckCircle className="text-white text-2xl" />
+                        </div>
+                        <div>
+                          <p className="font-black text-green-900 text-sm uppercase tracking-widest">Message Sent!</p>
+                          <p className="text-green-700 text-sm font-bold mt-1">We&apos;ll contact you shortly.</p>
+                        </div>
+                      </motion.div>
+                    )}
 
-                  {submitStatus === 'error' && (
-                    <div className="mt-8 p-6 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-4 animate-fadeIn">
-                      <div className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center flex-shrink-0 text-white font-bold">!</div>
-                      <div>
-                        <p className="font-bold text-red-800 text-sm uppercase tracking-widest">Error</p>
-                        <p className="text-red-600 text-xs font-medium mt-1">Please try again or call us directly.</p>
-                      </div>
-                    </div>
-                  )}
+                    {submitStatus === 'error' && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        className="mt-10 p-8 bg-red-50 border border-red-200 rounded-3xl flex items-center gap-6"
+                      >
+                        <div className="w-14 h-14 bg-red-500 rounded-2xl flex items-center justify-center flex-shrink-0 text-white font-black text-xl shadow-lg shadow-red-200">!</div>
+                        <div>
+                          <p className="font-black text-red-900 text-sm uppercase tracking-widest">Submission Error</p>
+                          <p className="text-red-700 text-sm font-bold mt-1">Please try again or call us directly.</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right Column: Contact Cards */}
-            <div className="lg:col-span-5 space-y-8">
-              <div className="grid gap-6">
+            <div className="lg:col-span-5 space-y-12">
+              <motion.div
+                initial="initial"
+                whileInView="animate"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+                className="grid gap-8"
+              >
                 {contactInfo.map((contact, index) => (
-                  <div key={index} className="bg-white border border-gray-100 rounded-3xl p-6 hover:shadow-xl transition-all duration-500 group">
-                    <div className="flex items-center gap-6">
-                      <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-white text-2xl font-black shadow-lg ${contact.color === 'red' ? 'bg-red-600' : 'bg-green-600'
+                  <motion.div
+                    key={index}
+                    variants={fadeInUp}
+                    className="bg-white border border-gray-100 rounded-[2.5rem] p-8 hover:shadow-2xl transition-all duration-500 group shadow-lg"
+                  >
+                    <div className="flex items-center gap-8">
+                      <div className={`w-24 h-24 rounded-3xl flex items-center justify-center text-white text-3xl font-black shadow-xl group-hover:scale-110 transition-transform duration-500 ${contact.color === 'red' ? 'bg-gradient-to-br from-red-600 to-red-700 shadow-red-100' : 'bg-gradient-to-br from-green-600 to-green-700 shadow-green-100'
                         }`}>
                         {contact.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
                       </div>
                       <div className="flex-1">
-                        <span className={`text-[10px] font-black uppercase tracking-widest block mb-1 ${contact.color === 'red' ? 'text-red-600' : 'text-green-600'
+                        <span className={`text-[10px] font-black uppercase tracking-[0.25em] block mb-2 ${contact.color === 'red' ? 'text-red-600' : 'text-green-600'
                           }`}>{contact.title}</span>
-                        <h3 className="text-xl font-black text-gray-800">{contact.name}</h3>
-                        <p className="text-xs text-gray-500 font-bold mb-4">{contact.role}</p>
+                        <h3 className="text-2xl font-black text-gray-900 tracking-tight">{contact.name}</h3>
+                        <p className="text-xs text-gray-500 font-black mb-5 uppercase tracking-widest">{contact.role}</p>
                         <a
                           href={`tel:${contact.phone.replace(/\s/g, '')}`}
-                          className="inline-flex items-center gap-2 text-gray-800 font-black hover:text-red-600 transition-colors"
+                          className="inline-flex items-center gap-3 text-gray-900 font-black hover:text-red-600 transition-colors text-lg"
                         >
-                          <FaPhone className="text-xs" /> {contact.phone}
+                          <FaPhone className="text-sm" /> {contact.phone}
                         </a>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
               {/* Quick Info */}
-              <div className="bg-gray-50 border border-gray-100 rounded-[2.5rem] p-10">
-                <h3 className="text-2xl font-black text-gray-800 mb-8 tracking-tight">Information</h3>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-gray-50 border border-gray-100 rounded-[3rem] p-12 shadow-inner"
+              >
+                <h3 className="text-3xl font-black text-gray-900 mb-10 tracking-tighter">Information</h3>
 
-                <div className="space-y-10">
-                  <div className="flex items-start gap-5">
-                    <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center border border-gray-200">
-                      <FaEnvelope className="text-red-600 text-lg" />
+                <div className="space-y-12">
+                  <div className="flex items-start gap-6">
+                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center border border-gray-200 shadow-sm">
+                      <FaEnvelope className="text-red-600 text-xl" />
                     </div>
                     <div>
-                      <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Email</h4>
-                      <a href="mailto:rasipuramrasifoundation@gmail.com" className="text-gray-800 font-bold hover:text-red-600 transition-colors break-all text-sm">
+                      <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.25em] mb-2">Email</h4>
+                      <a href="mailto:rasipuramrasifoundation@gmail.com" className="text-gray-900 font-black hover:text-red-600 transition-colors break-all text-lg">
                         rasipuramrasifoundation@gmail.com
                       </a>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-5">
-                    <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center border border-gray-200">
-                      <FaClock className="text-green-600 text-lg" />
+                  <div className="flex items-start gap-6">
+                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center border border-gray-200 shadow-sm">
+                      <FaClock className="text-green-600 text-xl" />
                     </div>
                     <div>
-                      <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Availability</h4>
-                      <p className="text-gray-800 font-bold">MON — SAT / 09:00 — 18:00</p>
+                      <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.25em] mb-2">Availability</h4>
+                      <p className="text-gray-900 font-black text-lg">MON — SAT / 09:00 — 18:00</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-5 pt-4">
-                    <Link href="https://wa.me/919789446100" className="flex items-center gap-3 w-full bg-green-600 text-white p-5 rounded-2xl font-bold uppercase tracking-widest text-xs justify-center hover:bg-green-700 transition-all">
-                      <FaWhatsapp className="text-lg" /> WhatsApp Chat
+                  <div className="flex items-start gap-6 pt-6">
+                    <Link href="https://wa.me/919789446100" className="flex items-center gap-4 w-full bg-green-600 text-white p-6 rounded-2xl font-black uppercase tracking-[0.2em] text-sm justify-center hover:bg-green-700 transition-all shadow-xl shadow-green-100 hover:scale-[1.02]">
+                      <FaWhatsapp className="text-2xl" /> WhatsApp Chat
                     </Link>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -340,13 +400,6 @@ export default function Contact() {
         }
         .animate-gradient {
           animation: gradient 3s linear infinite;
-        }
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.5s ease-out forwards;
         }
       `}</style>
     </Layout>

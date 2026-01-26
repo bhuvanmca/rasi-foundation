@@ -1,6 +1,7 @@
 import Layout from '@/frontend/components/Layout';
 import WomenCollegesScroller from '@/components/WomenCollegesScroller';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import {
   FaGraduationCap,
   FaUserGraduate,
@@ -24,6 +25,19 @@ import {
 } from 'react-icons/fa';
 
 export default function Home() {
+  const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
   const stats = [
     { icon: FaUserGraduate, number: '5000+', label: 'Students Guided', color: 'red' },
     { icon: FaGraduationCap, number: '50+', label: 'Courses Offered', color: 'green' },
@@ -90,35 +104,55 @@ export default function Home() {
         <div className="container mx-auto px-4 py-20 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
             {/* Left Content */}
-            <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={staggerContainer}
+              className="text-center lg:text-left"
+            >
+              <motion.div
+                variants={fadeInUp}
+                className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-semibold mb-6"
+              >
                 <FaGraduationCap />
                 <span>Career Guidance & Education Consultancy</span>
-              </div>
+              </motion.div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight">
+              <motion.h1
+                variants={fadeInUp}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6 leading-tight"
+              >
                 <span className="text-red-600">Empowering</span> Minds!
                 <br />
                 <span className="text-green-600">Igniting</span> Future!
-              </h1>
+              </motion.h1>
 
-              <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-xl">
+              <motion.p
+                variants={fadeInUp}
+                className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-xl"
+              >
                 Your trusted partner in shaping successful careers. We provide expert guidance
                 for admissions in top colleges across India for Medical, Engineering, Management,
                 Law, and more.
-              </p>
+              </motion.p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
+              <motion.div
+                variants={fadeInUp}
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8"
+              >
                 <Link href="/courses" className="btn-primary flex items-center justify-center gap-2">
                   Explore Courses <FaArrowRight />
                 </Link>
                 <Link href="/contact" className="btn-outline flex items-center justify-center gap-2">
                   <FaPhone /> Get Free Counseling
                 </Link>
-              </div>
+              </motion.div>
 
               {/* Quick Contact */}
-              <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
+              <motion.div
+                variants={fadeInUp}
+                className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start"
+              >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                     <FaPhone className="text-red-600" />
@@ -130,8 +164,8 @@ export default function Home() {
                     </a>
                   </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
 
             {/* Right Content - Circular Floating Courses */}
@@ -311,9 +345,19 @@ export default function Home() {
       {/* Stats Section */}
       <section className="py-16 bg-white relative -mt-1">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+          >
             {stats.map((stat, index) => (
-              <div key={index} className="text-center group">
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="text-center group"
+              >
                 <div className={`w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center transition-all duration-300 ${stat.color === 'red' ? 'bg-red-100 group-hover:bg-red-600' :
                   stat.color === 'green' ? 'bg-green-100 group-hover:bg-green-600' :
                     stat.color === 'amber' ? 'bg-amber-100 group-hover:bg-amber-600' :
@@ -327,17 +371,22 @@ export default function Home() {
                 </div>
                 <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">{stat.number}</h3>
                 <p className="text-gray-600">{stat.label}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* About Preview Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
               <span className="text-red-600 font-semibold uppercase tracking-wider">About Us</span>
               <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mt-2 mb-6">
                 Your Trusted Partner in <span className="text-green-600">Education</span>
@@ -355,20 +404,33 @@ export default function Home() {
 
               <div className="space-y-4 mb-8">
                 {['Expert Career Counseling', 'Admission Assistance', 'Scholarship Guidance', 'Documentation Support'].map((item, i) => (
-                  <div key={i} className="flex items-center gap-3">
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="flex items-center gap-3"
+                  >
                     <FaCheckCircle className="text-green-600 text-xl" />
                     <span className="text-gray-700 font-medium">{item}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
 
               <Link href="/about" className="btn-primary inline-flex items-center gap-2">
                 Learn More About Us <FaArrowRight />
               </Link>
-            </div>
+            </motion.div>
 
-            <div className="relative">
-              <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-3xl p-8 text-white">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, rotate: 2 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative"
+            >
+              <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-3xl p-8 text-white shadow-2xl relative z-10">
                 <FaQuoteLeft className="text-4xl text-red-300 mb-4" />
                 <p className="text-xl italic leading-relaxed mb-6">
                   &quot;Education is the most powerful weapon which you can use to change the world.
@@ -386,9 +448,17 @@ export default function Home() {
               </div>
 
               {/* Decorative Elements */}
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-green-500 rounded-2xl -z-10"></div>
-              <div className="absolute -top-6 -left-6 w-24 h-24 bg-amber-400 rounded-full -z-10"></div>
-            </div>
+              <motion.div
+                animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0] }}
+                transition={{ duration: 5, repeat: Infinity }}
+                className="absolute -bottom-6 -right-6 w-32 h-32 bg-green-500 rounded-2xl -z-10 shadow-lg"
+              ></motion.div>
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-6 -left-6 w-24 h-24 bg-amber-400 rounded-full -z-10 shadow-lg"
+              ></motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -397,9 +467,14 @@ export default function Home() {
       <WomenCollegesScroller />
 
       {/* Featured Courses Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
             <span className="text-red-600 font-semibold uppercase tracking-wider">Our Courses</span>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mt-2 mb-4">
               Courses We <span className="text-green-600">Offer</span>
@@ -408,11 +483,21 @@ export default function Home() {
               We provide guidance and admission assistance for a wide range of professional courses
               in top colleges across India.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
             {featuredCourses.map((course, index) => (
-              <div key={index} className="card card-hover group p-6">
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="card card-hover group p-6"
+              >
                 <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 ${colorClasses[course.color]} group-hover:text-white`}>
                   <course.icon className="text-3xl" />
                 </div>
@@ -442,9 +527,9 @@ export default function Home() {
                   }`}>
                   Learn More <FaArrowRight />
                 </Link>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           <div className="text-center mt-12">
             <Link href="/courses" className="btn-secondary inline-flex items-center gap-2">
@@ -462,7 +547,12 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
             <span className="text-amber-300 font-semibold uppercase tracking-wider">Why Choose Us</span>
             <h2 className="text-4xl md:text-5xl font-bold mt-2 mb-4">
               Your Success is Our Mission
@@ -471,46 +561,71 @@ export default function Home() {
               We go beyond just admission assistance. Our comprehensive approach ensures
               your educational journey is smooth and successful.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
             {[
               { title: 'Expert Guidance', desc: 'Personalized counseling by experienced professionals', icon: FaUserGraduate },
               { title: 'Wide Network', desc: 'Partnerships with 100+ top colleges across India', icon: FaHandshake },
               { title: 'Complete Support', desc: 'From course selection to admission completion', icon: FaCheckCircle },
               { title: 'Proven Track Record', desc: '5000+ students successfully guided', icon: FaAward },
             ].map((item, index) => (
-              <div key={index} className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl hover:bg-white/20 transition-all duration-300">
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="text-center p-6 bg-white/10 backdrop-blur-sm rounded-2xl hover:bg-white/20 transition-all duration-300 border border-white/10"
+              >
                 <div className="w-16 h-16 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
                   <item.icon className="text-3xl text-amber-300" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">{item.title}</h3>
                 <p className="text-white/80">{item.desc}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-gray-50 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
             <span className="text-red-600 font-semibold uppercase tracking-wider">Testimonials</span>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mt-2 mb-4">
               What Our <span className="text-green-600">Students Say</span>
             </h2>
-          </div>
+          </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-8"
+          >
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="card p-8">
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="card p-8 group hover:border-green-500/30"
+              >
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <FaStar key={i} className="text-amber-400" />
                   ))}
                 </div>
-                <p className="text-gray-600 italic mb-6 leading-relaxed">&quot;{testimonial.text}&quot;</p>
+                <p className="text-gray-600 italic mb-6 leading-relaxed group-hover:text-gray-800 transition-colors">&quot;{testimonial.text}&quot;</p>
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-green-500 rounded-full flex items-center justify-center text-white font-bold">
                     {testimonial.name.charAt(0)}
@@ -520,16 +635,21 @@ export default function Home() {
                     <p className="text-sm text-gray-500">{testimonial.course}</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-3xl p-12 md:p-16 text-center text-white relative overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="bg-gradient-to-r from-green-600 to-green-700 rounded-3xl p-12 md:p-16 text-center text-white relative overflow-hidden shadow-2xl shadow-green-200"
+          >
             <div className="absolute inset-0 opacity-10">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl"></div>
@@ -544,15 +664,15 @@ export default function Home() {
                 Contact us today for a free counseling session!
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/contact" className="bg-white text-green-700 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors inline-flex items-center justify-center gap-2">
+                <Link href="/contact" className="bg-white text-green-700 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all hover:scale-105 inline-flex items-center justify-center gap-2">
                   <FaPhone /> Get Free Counseling
                 </Link>
-                <a href="tel:+919789446100" className="bg-transparent border-2 border-white px-8 py-4 rounded-lg font-bold hover:bg-white/10 transition-colors">
+                <a href="tel:+919789446100" className="bg-transparent border-2 border-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all hover:scale-105">
                   Call: +91 97 89 44 61 00
                 </a>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </Layout >

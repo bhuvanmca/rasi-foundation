@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import AdminLayout from '@/frontend/components/AdminLayout';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaSearch,
   FaPlus,
@@ -21,7 +22,7 @@ const DISTRICTS = [
   'Salem District',
   'Erode District',
   'Coimbatore Zone',
-  'Bengaluru Colleges',
+  'Bengaluru Zone',
   'Women Centric Colleges',
 ];
 
@@ -30,7 +31,7 @@ const districtColors = {
   'Salem District': 'from-green-500 to-green-600',
   'Erode District': 'from-blue-500 to-blue-600',
   'Coimbatore Zone': 'from-purple-500 to-purple-600',
-  'Bengaluru Colleges': 'from-indigo-500 to-indigo-600',
+  'Bengaluru Zone': 'from-indigo-500 to-indigo-600',
   'Women Centric Colleges': 'from-pink-500 to-rose-600',
 };
 
@@ -42,6 +43,7 @@ export default function AdminColleges() {
   const [showModal, setShowModal] = useState(false);
   const [editingCollege, setEditingCollege] = useState(null);
   const [seeding, setSeeding] = useState(false);
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
   const [formData, setFormData] = useState({
     name: '',
     location: '',
@@ -55,6 +57,15 @@ export default function AdminColleges() {
   useEffect(() => {
     fetchColleges();
   }, []);
+
+  useEffect(() => {
+    if (toast.show) {
+      const timer = setTimeout(() => {
+        setToast(prev => ({ ...prev, show: false }));
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast.show]);
 
   const fetchColleges = async () => {
     try {
@@ -139,8 +150,10 @@ export default function AdminColleges() {
         const college = await response.json();
         if (editingCollege) {
           setColleges(colleges.map(c => c._id === college._id ? college : c));
+          setToast({ show: true, message: 'College updated successfully!', type: 'success' });
         } else {
           setColleges([...colleges, college]);
+          setToast({ show: true, message: `${college.name} added successfully!`, type: 'success' });
         }
         closeModal();
       } else {
@@ -169,6 +182,11 @@ export default function AdminColleges() {
         setColleges(colleges.map(c =>
           c._id === college._id ? { ...c, isActive: !c.isActive } : c
         ));
+        setToast({
+          show: true,
+          message: `College ${!college.isActive ? 'activated' : 'deactivated'} successfully!`,
+          type: 'success'
+        });
       }
     } catch (error) {
       console.error('Failed to toggle status:', error);
@@ -187,6 +205,9 @@ export default function AdminColleges() {
 
       if (response.ok) {
         setColleges(colleges.filter(c => c._id !== id));
+        setToast({ show: true, message: 'College deleted successfully!', type: 'success' });
+      } else {
+        setToast({ show: true, message: 'Failed to delete college', type: 'error' });
       }
     } catch (error) {
       console.error('Failed to delete college:', error);
@@ -585,6 +606,39 @@ export default function AdminColleges() {
           </div>
         </div>
       )}
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toast.show && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100]"
+          >
+            <div className={`flex items-center gap-3 px-6 py-4 rounded-2xl shadow-2xl border backdrop-blur-md ${toast.type === 'success'
+              ? 'bg-green-600/90 border-green-500 text-white'
+              : 'bg-red-600/90 border-red-500 text-white'
+              }`}>
+              {toast.type === 'success' ? (
+                <div className="bg-white/20 p-2 rounded-full">
+                  <FaCheck className="text-sm" />
+                </div>
+              ) : (
+                <div className="bg-white/20 p-2 rounded-full">
+                  <FaTimes className="text-sm" />
+                </div>
+              )}
+              <p className="font-bold tracking-tight">{toast.message}</p>
+              <button
+                onClick={() => setToast({ ...toast, show: false })}
+                className="ml-4 hover:opacity-70 transition-opacity"
+              >
+                <FaTimes />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </AdminLayout>
   );
 }

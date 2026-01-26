@@ -1,6 +1,7 @@
 import Layout from '@/frontend/components/Layout';
 import Link from 'next/link';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   FaStethoscope,
   FaCog,
@@ -27,6 +28,19 @@ import {
 } from 'react-icons/fa';
 
 export default function Courses() {
+  const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.05
+      }
+    }
+  };
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -787,151 +801,244 @@ export default function Courses() {
       keywords="MBBS course admission, engineering courses Tamil Nadu, MBA admission guidance, law courses India, B.Ed admission, NEET coaching, medical courses, polytechnic admission"
     >
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-50 via-white to-amber-50 py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-4xl mx-auto">
-            <span className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold mb-6">
+      <section className="bg-gradient-to-br from-green-50 via-white to-amber-50 py-20 overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-green-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={staggerContainer}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <motion.span
+              variants={fadeInUp}
+              className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-black uppercase tracking-widest mb-6"
+            >
               <FaGraduationCap />
               <span>Course Offerings</span>
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6">
-              Explore Our <span className="text-green-600">Courses</span>
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed mb-8">
+            </motion.span>
+            <motion.h1
+              variants={fadeInUp}
+              className="text-4xl md:text-5xl lg:text-7xl font-black text-gray-800 mb-6 tracking-tighter"
+            >
+              Explore Our <span className="text-green-600 italic">Courses</span>
+            </motion.h1>
+            <motion.p
+              variants={fadeInUp}
+              className="text-xl text-gray-600 leading-relaxed mb-12 font-medium"
+            >
               We provide guidance and admission assistance for a comprehensive range of professional
-              courses in top colleges across India.
-            </p>
+              courses in top colleges across India. Find the perfect path for your future.
+            </motion.p>
 
             {/* Search Bar */}
-            <div className="max-w-xl mx-auto relative">
-              <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search for a course..."
-                className="w-full pl-12 pr-4 py-4 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none text-lg"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-          </div>
+            <motion.div
+              variants={fadeInUp}
+              className="max-w-2xl mx-auto relative group"
+            >
+              <div className="absolute -inset-1 bg-gradient-to-r from-green-500 to-amber-500 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+              <div className="relative bg-white border border-gray-100 p-2 rounded-2xl flex items-center shadow-2xl">
+                <div className="pl-4">
+                  <FaSearch className="text-gray-400" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search courses (e.g. MBBS, CSE, MBA...)"
+                  className="w-full px-4 py-3 text-lg bg-transparent border-none focus:outline-none text-gray-800 font-bold placeholder:text-gray-300"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Category Filter */}
-      <section className="py-8 bg-white border-b sticky top-[72px] z-40">
+      <section className="py-12 bg-white sticky top-20 z-40 shadow-sm backdrop-blur-md bg-white/80">
         <div className="container mx-auto px-4">
-          <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-wrap justify-center gap-3"
+          >
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium whitespace-nowrap transition-all duration-300 ${activeCategory === category.id
-                  ? 'bg-green-600 text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-black uppercase tracking-widest transition-all duration-300 ${activeCategory === category.id
+                  ? 'bg-green-600 text-white shadow-lg shadow-green-200 scale-105'
+                  : 'bg-gray-50 text-gray-500 hover:bg-gray-100'
                   }`}
               >
-                <category.icon className="text-sm" />
+                <category.icon className={activeCategory === category.id ? 'text-white' : 'text-gray-400'} />
                 {category.name}
               </button>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Courses Grid */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-gray-50 min-h-screen">
         <div className="container mx-auto px-4">
-          {filteredCourses.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatePresence mode='popLayout'>
               {filteredCourses.map((course) => (
-                <div
+                <motion.div
+                  layout
                   key={course.id}
-                  className={`card p-6 border-2 ${colorClasses[course.color].border} ${colorClasses[course.color].hover} transition-all duration-300 card-hover`}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  className="group"
                 >
-                  <div className={`w-14 h-14 rounded-xl ${colorClasses[course.color].bg} ${colorClasses[course.color].text} flex items-center justify-center mb-4`}>
-                    <course.icon className="text-2xl" />
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-gray-800 mb-1">{course.name}</h3>
-                  <p className={`text-sm ${colorClasses[course.color].text} font-medium mb-3`}>{course.fullName}</p>
-
-                  <p className="text-gray-600 mb-4 line-clamp-2">{course.description}</p>
-
-                  <div className="space-y-2 mb-6">
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
-                      <FaClock className={colorClasses[course.color].text} />
-                      <span><strong>Duration:</strong> {course.duration}</span>
+                  <div className={`h-full bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group flex flex-col`}>
+                    <div className="flex justify-between items-start mb-8">
+                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform duration-500 ${colorClasses[course.color].bg} ${colorClasses[course.color].text}`}>
+                        <course.icon />
+                      </div>
+                      <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${colorClasses[course.color].bg} ${colorClasses[course.color].text}`}>
+                        {course.category}
+                      </span>
                     </div>
-                    <div className="flex items-start gap-2 text-sm text-gray-500">
-                      <FaCheckCircle className={`${colorClasses[course.color].text} mt-0.5 flex-shrink-0`} />
-                      <span><strong>Eligibility:</strong> {course.eligibility}</span>
+
+                    <h3 className="text-2xl font-black text-gray-800 mb-3 tracking-tight group-hover:text-green-600 transition-colors">
+                      {course.name}
+                    </h3>
+                    <p className={`text-sm font-bold ${colorClasses[course.color].text} mb-4 line-clamp-1`}>{course.fullName}</p>
+
+                    <p className="text-gray-600 mb-8 font-medium leading-relaxed flex-grow line-clamp-3">
+                      {course.description}
+                    </p>
+
+                    <div className="space-y-3 mb-8">
+                      <div className="flex items-center gap-3 text-sm font-bold text-gray-700">
+                        <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center">
+                          <FaClock className="text-gray-400" />
+                        </div>
+                        <span>Duration: {course.duration}</span>
+                      </div>
+                      <div className="flex items-start gap-3 text-sm font-bold text-gray-700">
+                        <div className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center shrink-0">
+                          <FaCheckCircle className="text-green-500" />
+                        </div>
+                        <span className="leading-tight">Eligibility: {course.eligibility}</span>
+                      </div>
+                    </div>
+
+                    <div className="pt-6 border-t border-gray-50 flex items-center justify-between">
+                      <Link
+                        href="/contact"
+                        className={`inline-flex items-center gap-2 font-black uppercase tracking-widest text-xs transition-colors ${colorClasses[course.color].text} hover:opacity-80`}
+                      >
+                        Enquire Now <FaArrowRight className="text-[10px]" />
+                      </Link>
+                      <FaUsers className="text-gray-200 text-xl" />
                     </div>
                   </div>
-
-                  <Link
-                    href="/contact"
-                    className={`inline-flex items-center gap-2 font-semibold ${colorClasses[course.color].text} hover:underline`}
-                  >
-                    Enquire Now <FaArrowRight />
-                  </Link>
-                </div>
+                </motion.div>
               ))}
-            </div>
-          ) : (
-            <div className="text-center py-16">
-              <FaSearch className="text-6xl text-gray-300 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-gray-600 mb-2">No courses found</h3>
-              <p className="text-gray-500">Try adjusting your search or filter criteria</p>
-            </div>
+            </AnimatePresence>
+          </motion.div>
+
+          {filteredCourses.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-20"
+            >
+              <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <FaSearch className="text-3xl text-gray-400" />
+              </div>
+              <h3 className="text-3xl font-black text-gray-800 mb-2 tracking-tight">No Courses Found</h3>
+              <p className="text-gray-500 font-medium text-lg">Try adjusting your search or category filter</p>
+              <button
+                onClick={() => { setActiveCategory('all'); setSearchQuery(''); }}
+                className="mt-8 text-green-600 font-black uppercase tracking-widest text-sm hover:underline"
+              >
+                Clear all filters
+              </button>
+            </motion.div>
           )}
         </div>
       </section>
 
-
       {/* Why Choose Us */}
-      <section className="py-16 bg-gradient-to-br from-green-600 to-green-700 text-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Why Choose Rasi Foundation for Your Education?
-            </h2>
-          </div>
+      <section className="py-24 bg-gradient-to-br from-green-600 to-green-800 text-white overflow-hidden relative">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-24 left-24 w-96 h-96 bg-white rounded-full blur-[100px]"></div>
+          <div className="absolute bottom-24 right-24 w-96 h-96 bg-black rounded-full blur-[100px]"></div>
+        </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tighter">
+              Why Choose Rasi Foundation?
+            </h2>
+            <p className="text-white/80 text-lg font-medium">Expert guidance for your academic excellence</p>
+          </motion.div>
+
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+          >
             {[
               { icon: FaUsers, title: 'Expert Counselors', desc: 'Experienced team to guide you through every step' },
               { icon: FaGraduationCap, title: '100+ Partner Colleges', desc: 'Wide network of prestigious institutions' },
               { icon: FaCheckCircle, title: 'Complete Support', desc: 'From course selection to admission' },
             ].map((item, index) => (
-              <div key={index} className="text-center p-6 bg-white/10 rounded-2xl backdrop-blur-sm">
-                <item.icon className="text-4xl mx-auto mb-4 text-amber-300" />
-                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-white/80">{item.desc}</p>
-              </div>
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="text-center p-10 bg-white/10 rounded-[2rem] backdrop-blur-md border border-white/10 hover:bg-white/20 transition-all duration-500 group"
+              >
+                <div className="w-20 h-20 mx-auto mb-6 bg-white/10 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                  <item.icon className="text-4xl text-amber-300" />
+                </div>
+                <h3 className="text-xl font-black mb-3 uppercase tracking-tight">{item.title}</h3>
+                <p className="text-white/80 font-medium">{item.desc}</p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-              Need Help Choosing the Right Course?
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <h2 className="text-4xl md:text-6xl font-black text-gray-800 mb-8 tracking-tighter leading-none">
+              Need Help Choosing <br />The <span className="text-green-600 italic">Right Course?</span>
             </h2>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-xl text-gray-500 mb-12 font-medium">
               Our expert counselors are here to help you make the best decision for your career.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="btn-primary inline-flex items-center justify-center gap-2">
-                Get Free Counseling <FaArrowRight />
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link href="/contact" className="btn-primary flex items-center justify-center gap-3 px-10 py-5 rounded-2xl text-lg group">
+                Talk to Our Experts <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
               </Link>
-              <a href="tel:+919789446100" className="btn-secondary inline-flex items-center justify-center gap-2">
-                <FaPhone /> Call Now
+              <a href="tel:+919789446100" className="btn-outline flex items-center justify-center gap-3 px-10 py-5 rounded-2xl text-lg group">
+                Call Now <FaPhone className="group-hover:scale-110 transition-transform" />
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </Layout>

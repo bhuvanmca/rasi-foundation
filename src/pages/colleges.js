@@ -444,6 +444,7 @@ const districtColors = {
   'Erode District': 'from-blue-500 to-blue-600',
   'Coimbatore Zone': 'from-purple-500 to-purple-600',
   'Bengaluru Zone': 'from-indigo-500 to-indigo-600',
+  'Women Centric Colleges': 'from-pink-500 to-rose-600',
 };
 
 // Use Static Site Generation with Incremental Static Regeneration for faster loading
@@ -472,29 +473,31 @@ export async function getStaticProps() {
       return acc;
     }, {});
 
-    // Convert to array format
-    let collegesData = Object.keys(groupedColleges).map(district => ({
-      district,
-      colleges: groupedColleges[district],
-    }));
+    // MERGE logic: If DB has data, it overlays/augments fallbackData
+    // Create a map of districts from fallback for easy lookup
+    const dataMap = {};
+    fallbackData.forEach(d => {
+      dataMap[d.district] = [...d.colleges];
+    });
 
-    // If we have DB data but are missing Bengaluru Zone (which is only in fallback for now), add it
-    if (collegesData.length > 0) {
-      const hasBengaluru = collegesData.some(d => d.district === 'Bengaluru Zone');
-      if (!hasBengaluru) {
-        const bengaluruData = fallbackData.find(d => d.district === 'Bengaluru Zone');
-        if (bengaluruData) {
-          collegesData.push(bengaluruData);
-        }
-      }
-    }
+    // Overlay DB data
+    Object.keys(groupedColleges).forEach(district => {
+      // If the district exists in DB, we use DB data for that district
+      // BUT if the user just added ONE college, we might want to APPEND instead of REPLACE?
+      // For now, if a district has entries in DB, we use the DB as source of truth for THAT district.
+      dataMap[district] = groupedColleges[district];
+    });
+
+    const collegesData = Object.keys(dataMap).map(district => ({
+      district,
+      colleges: dataMap[district]
+    }));
 
     return {
       props: {
-        collegesData: collegesData.length > 0 ? collegesData : fallbackData,
+        collegesData: collegesData,
       },
-      // Revalidate every 60 seconds (ISR)
-      revalidate: 60,
+      revalidate: 10,
     };
   } catch (error) {
     console.error('Error fetching colleges:', error);
@@ -612,6 +615,12 @@ export default function Colleges({ collegesData }) {
       ]
     },
   ];
+
+  // Extract women-centric colleges from dynamic data for the modal
+  const dbWomenColleges = collegesData.find(d => d.district === 'Women Centric Colleges')?.colleges || [];
+
+  // Use DB data if available, otherwise use static fallback
+  const displayWomenColleges = dbWomenColleges.length > 0 ? dbWomenColleges : womenColleges;
 
 
   return (
@@ -850,7 +859,7 @@ export default function Colleges({ collegesData }) {
             <div className="p-6 overflow-y-auto max-h-[60vh]">
               <p className="text-sm text-gray-500 mb-4 text-center">Click on any college to get counseling</p>
               <div className="space-y-4">
-                {womenColleges.map((college, index) => (
+                {displayWomenColleges.map((college, index) => (
                   <Link
                     key={index}
                     href={`/contact?college=${encodeURIComponent(college.name)}`}
@@ -873,7 +882,7 @@ export default function Colleges({ collegesData }) {
                         <div className="mt-3">
                           <p className="text-xs text-gray-500 font-medium mb-2">📚 Departments Available:</p>
                           <div className="flex flex-wrap gap-2">
-                            {college.departments.map((dept, deptIndex) => (
+                            {(college.departments || []).map((dept, deptIndex) => (
                               <span
                                 key={deptIndex}
                                 className="inline-flex items-center text-xs bg-white text-purple-700 px-2 py-1 rounded-full border border-purple-200"
@@ -899,7 +908,7 @@ export default function Colleges({ collegesData }) {
               <div className="mt-6 text-center">
                 <span className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 px-4 py-2 rounded-full font-semibold">
                   <FaUniversity />
-                  Total: {womenColleges.length} Colleges
+                  Total: {displayWomenColleges.length} Colleges
                 </span>
               </div>
             </div>

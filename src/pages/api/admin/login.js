@@ -4,8 +4,8 @@ const JWT_SECRET = process.env.JWT_SECRET || 'rasi-foundation-admin-secret-key-2
 
 // Admin credentials (in production, use environment variables and hashed passwords)
 const ADMIN_USERS = [
-  { 
-    username: process.env.ADMIN_USERNAME || 'admin', 
+  {
+    username: process.env.ADMIN_USERNAME || 'bhuvan',
     password: process.env.ADMIN_PASSWORD || 'Rasi@2024',
     name: 'Administrator'
   }

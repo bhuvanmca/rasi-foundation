@@ -13,9 +13,9 @@ const SEO = ({
   const router = useRouter();
   const siteUrl = 'https://rasifoundation.com'; // Update with your actual domain
   const canonicalUrl = `${siteUrl}${router.asPath.split('?')[0]}`;
-  
-  const fullTitle = title === 'Home' 
-    ? 'RASI FOUNDATION - Career Guidance & Education Consultancy' 
+
+  const fullTitle = title === 'Home'
+    ? 'RASI FOUNDATION - Career Guidance & Education Consultancy'
     : `${title} | RASI FOUNDATION`;
 
   const defaultKeywords = 'career guidance, education consultancy, college admission, MBBS admission, engineering admission, MBA admission, law admission, NEET counseling, career counselor, Rasipuram, Tamil Nadu, Namakkal, India, medical college admission, engineering college admission';
@@ -95,17 +95,17 @@ const SEO = ({
       <meta name="description" content={description} />
       <meta name="keywords" content={allKeywords} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      
+
       {/* Canonical URL */}
       <link rel="canonical" href={canonicalUrl} />
-      
+
       {/* Robots */}
       {noIndex ? (
         <meta name="robots" content="noindex, nofollow" />
       ) : (
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       )}
-      
+
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={canonicalUrl} />
@@ -117,40 +117,40 @@ const SEO = ({
       <meta property="og:image:alt" content={title} />
       <meta property="og:site_name" content="Rasi Foundation" />
       <meta property="og:locale" content="en_IN" />
-      
+
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={canonicalUrl} />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`} />
-      
+
       {/* Additional Meta */}
       <meta name="author" content="Rasi Foundation" />
       <meta name="publisher" content="Rasi Foundation" />
       <meta name="theme-color" content="#dc2626" />
       <meta name="msapplication-TileColor" content="#dc2626" />
-      
+
       {/* Geo Tags for Local SEO */}
       <meta name="geo.region" content="IN-TN" />
       <meta name="geo.placename" content="Rasipuram, Tamil Nadu" />
-      
+
       {/* Language */}
       <meta httpEquiv="content-language" content="en-IN" />
       <link rel="alternate" hrefLang="en-IN" href={canonicalUrl} />
-      
+
       {/* Favicon */}
       <link rel="icon" href="/logo.png" />
       <link rel="apple-touch-icon" sizes="180x180" href="/logo.png" />
       <link rel="icon" type="image/png" sizes="32x32" href="/logo.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/logo.png" />
-      
+
       {/* Structured Data - Organization */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
-      
+
       {/* Structured Data - Breadcrumb */}
       {breadcrumbSchema && (
         <script
@@ -158,7 +158,7 @@ const SEO = ({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
         />
       )}
-      
+
       {/* Custom Structured Data */}
       {structuredData && (
         <script

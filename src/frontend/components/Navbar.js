@@ -130,8 +130,8 @@ const Navbar = () => {
                   key={link.path}
                   href={link.path}
                   className={`flex items-center justify-between py-4 px-6 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${isActive(link.path)
-                      ? 'bg-green-600 text-white'
-                      : 'text-gray-700 hover:bg-gray-50'
+                    ? 'bg-green-600 text-white'
+                    : 'text-gray-700 hover:bg-gray-50'
                     }`}
                   onClick={() => setIsOpen(false)}
                 >
