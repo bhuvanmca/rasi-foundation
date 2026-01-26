@@ -296,6 +296,5 @@ export default function AdminDashboard() {
   );
 }
 
-const FaPlusCircle = ({ className }) => (
-  <svg className={className} stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm144 272c0 8.8-7.2 16-16 16h-96v96c0 8.8-7.2 16-16 16h-32c-8.8 0-16-7.2-16-16v-96h-96c-8.8 0-16-7.2-16-16v-32c0-8.8 7.2-16 16-16h96v-96c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v96h96c8.8 0 16 7.2 16 16v32z"></path></svg>
-);
+
+
