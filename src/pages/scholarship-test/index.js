@@ -141,11 +141,23 @@ export default function ScholarshipTestPage() {
 
                             <motion.p
                                 variants={fadeInUp}
-                                className="text-2xl md:text-3xl text-white/60 mb-16 max-w-3xl mx-auto font-medium leading-relaxed"
+                                className="text-2xl md:text-3xl text-white/60 mb-10 max-w-3xl mx-auto font-medium leading-relaxed"
                             >
                                 Your gateway to educational excellence. Take our online scholarship test and
                                 unlock opportunities for your future.
                             </motion.p>
+
+                            <motion.div
+                                variants={fadeInUp}
+                                className="flex justify-center mb-16"
+                            >
+                                <div className="inline-flex items-center gap-3 bg-red-600/10 border border-red-500/30 px-6 py-3 rounded-2xl">
+                                    <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                                    <span className="text-red-400 text-xs font-black uppercase tracking-widest">
+                                        Curriculum: Tamil Nadu State Board (Class 12)
+                                    </span>
+                                </div>
+                            </motion.div>
 
                             {/* CTA Buttons */}
                             <motion.div

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '@/frontend/components/Layout';
 import Link from 'next/link';
@@ -54,6 +54,32 @@ export default function RegisterPage() {
         firstGenerationGraduate: false,
     });
 
+    useEffect(() => {
+        if (success) {
+            const adminNumber = '918073774591';
+            const text = `🌟 *NEW SCHOLARSHIP REGISTRATION* 🌟\n\n` +
+                `👤 *CANDIDATE IDENTITY:*\n` +
+                `• Name: *${success.name}*\n` +
+                `• Token: *${success.registrationToken}*\n` +
+                `• Group: *${success.plus2Group}*\n\n` +
+                `🎓 *ACADEMIC PROFILE:*\n` +
+                `• Course: *${formData.admissionCourse}*\n` +
+                `• Mobile: *${formData.studentMobile}*\n` +
+                `• School: *${formData.lastStudiedSchool}*\n` +
+                `• Cut-off: *${formData.expectedCutOff}*\n\n` +
+                `✅ _Please verify my registration for the scholarship test._`;
+
+            const whatsappUrl = `https://wa.me/${adminNumber}?text=${encodeURIComponent(text)}`;
+
+            // Automate the redirection after a short delay
+            const timer = setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+            }, 1000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [success]);
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
@@ -72,12 +98,12 @@ export default function RegisterPage() {
                 }
                 break;
             case 2:
-                if (!formData.studentEmail || !formData.studentMobile || !formData.fatherMobile) {
+                if (!formData.studentMobile || !formData.fatherMobile) {
                     setError('Please fill all required fields');
                     return false;
                 }
-                // Email validation
-                if (!/^\S+@\S+\.\S+$/.test(formData.studentEmail)) {
+                // Email validation (only if provided)
+                if (formData.studentEmail && !/^\S+@\S+\.\S+$/.test(formData.studentEmail)) {
                     setError('Please enter a valid email address');
                     return false;
                 }
@@ -391,7 +417,7 @@ export default function RegisterPage() {
                                         <div className="space-y-10 animate-fadeIn">
                                             <div className="grid md:grid-cols-2 gap-8">
                                                 <div className="space-y-3">
-                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Student Email *</label>
+                                                    <label className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] ml-1">Student Email (Optional)</label>
                                                     <div className="relative group/input">
                                                         <FaEnvelope className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within/input:text-red-500 transition-colors" />
                                                         <input

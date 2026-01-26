@@ -53,7 +53,6 @@ export default function AdminLayout({ children, title = 'Dashboard' }) {
     { name: 'Achievements', href: '/admin/achievements', icon: FaTrophy },
     { name: 'Announcements', href: '/admin/announcements', icon: FaBullhorn },
     { name: 'Scholarship Results', href: '/admin/scholarship-results', icon: FaAward },
-    { name: 'Practice Results', href: '/admin/practice-results', icon: FaClipboardList },
   ];
 
   const isActive = (href) => {

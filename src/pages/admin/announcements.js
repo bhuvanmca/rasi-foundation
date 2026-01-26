@@ -37,8 +37,8 @@ export default function AdminAnnouncements() {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (response.ok) {
-                const data = await response.json();
-                setAnnouncements(data);
+                const result = await response.json();
+                setAnnouncements(result.data || []);
             }
         } catch (error) {
             console.error('Failed to fetch announcements:', error);
@@ -128,8 +128,8 @@ export default function AdminAnnouncements() {
                         <div key={item._id} className="bg-white rounded-[2rem] border border-gray-100 p-6 flex items-center justify-between shadow-sm hover:shadow-md transition-all">
                             <div className="flex items-center gap-6">
                                 <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl ${item.type === 'alert' ? 'bg-red-100 text-red-600' :
-                                        item.type === 'warning' ? 'bg-amber-100 text-amber-600' :
-                                            'bg-indigo-100 text-indigo-600'
+                                    item.type === 'warning' ? 'bg-amber-100 text-amber-600' :
+                                        'bg-indigo-100 text-indigo-600'
                                     }`}>
                                     <FaBullhorn />
                                 </div>

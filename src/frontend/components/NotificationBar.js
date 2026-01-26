@@ -42,43 +42,66 @@ const NotificationBar = () => {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className={`w-full z-[60] relative overflow-hidden ${current.type === 'urgent' ? 'bg-red-600' : 'bg-slate-900'
-                    }`}
+                className="w-full z-[40] relative py-4 bg-transparent overflow-hidden"
             >
-                <div className="container mx-auto px-4 py-2 flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3 flex-1 overflow-hidden">
-                        <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center ${current.type === 'urgent' ? 'bg-white/20' : 'bg-red-500/20'
-                            }`}>
-                            <FaBullhorn className={current.type === 'urgent' ? 'text-white' : 'text-red-500'} />
+                <div className="max-w-6xl mx-auto px-2">
+                    <div className="bg-[#0f172a] shadow-[0_20px_50px_rgba(0,0,0,0.3)] rounded-full border border-white/5 flex items-center p-1.5 overflow-hidden relative group">
+                        {/* Static Badge */}
+                        <div className="flex-shrink-0 bg-gradient-to-r from-red-600 to-red-700 px-4 py-2 rounded-full flex items-center gap-2 shadow-lg shadow-red-600/20 ml-1">
+                            <div className="w-2 h-2 bg-white rounded-full animate-pulse shadow-[0_0_10px_white]"></div>
+                            <span className="text-white text-[10px] md:text-xs font-black uppercase tracking-tighter whitespace-nowrap">
+                                {current.type === 'alert' ? 'High Alert' : 'Live Placements'}
+                            </span>
                         </div>
 
-                        <motion.div
-                            key={currentIndex}
-                            initial={{ y: 20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            exit={{ y: -20, opacity: 0 }}
-                            className="flex-1 flex items-center gap-3 overflow-hidden"
-                        >
-                            <span className="text-white text-xs md:text-sm font-black uppercase tracking-widest whitespace-nowrap">
-                                {current.title}:
-                            </span>
-                            <span className="text-white/80 text-xs md:text-sm font-medium truncate">
-                                {current.content}
-                            </span>
-                        </motion.div>
-                    </div>
+                        {/* Separator */}
+                        <div className="w-px h-6 bg-white/10 mx-4 hidden md:block"></div>
 
-                    <div className="flex items-center gap-4">
-                        {current.link && (
-                            <Link href={current.link} className="flex-shrink-0 bg-white/10 hover:bg-white/20 text-white px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest flex items-center gap-2 transition-all">
-                                View <FaArrowRight />
-                            </Link>
-                        )}
+                        {/* Content Area */}
+                        <div className="flex-1 overflow-hidden">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={currentIndex}
+                                    initial={{ x: 50, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    exit={{ x: -50, opacity: 0 }}
+                                    transition={{ duration: 0.5, ease: "easeOut" }}
+                                    className="flex items-center gap-2"
+                                >
+                                    <span className="text-white font-black text-sm md:text-base tracking-tight whitespace-nowrap">
+                                        {current.title}
+                                    </span>
+                                    <span className="text-slate-400 text-xs md:text-sm font-medium">
+                                        {current.content}
+                                    </span>
+                                    <div className="w-4 h-4 bg-green-500/20 rounded-full flex items-center justify-center">
+                                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Right Legacy Info */}
+                        <div className="hidden lg:flex items-center gap-4 px-6 border-l border-white/10">
+                            <div className="flex flex-col items-end">
+                                <span className="text-white/40 text-[8px] font-black uppercase tracking-[0.2em] leading-none mb-1">Success Legacy</span>
+                                <span className="text-white text-[10px] font-bold">RASI FOUNDATION</span>
+                            </div>
+                            <div className="flex -space-x-2">
+                                {[1, 2, 3].map((i) => (
+                                    <div key={i} className="w-8 h-8 rounded-full border-2 border-[#0f172a] bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center text-[10px] font-black text-white shadow-xl">
+                                        {String.fromCharCode(64 + i)}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Close Button */}
                         <button
                             onClick={() => setIsVisible(false)}
-                            className="text-white/40 hover:text-white transition-colors"
+                            className="mr-3 w-8 h-8 rounded-full flex items-center justify-center text-white/20 hover:text-white hover:bg-white/5 transition-all"
                         >
-                            <FaTimes />
+                            <FaTimes className="text-sm" />
                         </button>
                     </div>
                 </div>

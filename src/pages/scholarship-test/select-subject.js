@@ -303,6 +303,10 @@ export default function SelectSubjectPage() {
                             <ul className="space-y-2 text-white/90">
                                 <li className="flex items-center gap-2">
                                     <FaCheckCircle className="text-green-300" />
+                                    Based on Class 12 TN State Board Syllabus
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <FaCheckCircle className="text-green-300" />
                                     Total Questions: 105 (35 per subject)
                                 </li>
                                 <li className="flex items-center gap-2">

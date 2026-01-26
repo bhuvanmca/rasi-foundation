@@ -32,7 +32,7 @@ export default async function handler(req, res) {
         // Validate required fields
         const requiredFields = [
             'name', 'dateOfBirth', 'fatherName', 'community', 'address',
-            'studentEmail', 'studentMobile', 'fatherMobile',
+            'studentMobile', 'fatherMobile',
             'admissionCourse', 'collegeName', 'plus2Group', 'plus2ExamNumber',
             'expectedCutOff', 'lastStudiedSchool'
         ];
@@ -47,17 +47,20 @@ export default async function handler(req, res) {
         }
 
         // Check if student already registered with same email or mobile
-        const existingStudent = await ScholarshipStudent.findOne({
-            $or: [
-                { studentEmail: studentEmail.toLowerCase() },
-                { studentMobile },
-            ],
-        });
+        const query = { studentMobile };
+        if (studentEmail && studentEmail.trim()) {
+            query.$or = [{ studentEmail: studentEmail.toLowerCase().trim() }, { studentMobile }];
+            delete query.studentMobile;
+        }
+
+        const existingStudent = await ScholarshipStudent.findOne(studentEmail && studentEmail.trim() ? query : { studentMobile });
 
         if (existingStudent) {
             return res.status(400).json({
                 success: false,
-                message: 'A student with this email or mobile number has already registered',
+                message: existingStudent.studentMobile === studentMobile
+                    ? 'A student with this mobile number has already registered'
+                    : 'A student with this email has already registered',
                 existingToken: existingStudent.registrationToken,
             });
         }
@@ -69,7 +72,7 @@ export default async function handler(req, res) {
             fatherName: fatherName.trim(),
             community,
             address: address.trim(),
-            studentEmail: studentEmail.toLowerCase().trim(),
+            studentEmail: studentEmail ? studentEmail.toLowerCase().trim() : undefined,
             studentMobile,
             fatherMobile,
             motherMobile: motherMobile || '',

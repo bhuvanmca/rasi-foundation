@@ -47,7 +47,6 @@ export default function Achievements() {
     spotlights: []
   });
   const [loading, setLoading] = useState(true);
-  const [activeFilter, setActiveFilter] = useState('all');
 
   useEffect(() => {
     fetchAchievements();
@@ -133,21 +132,6 @@ export default function Achievements() {
               Empowering thousands of dreams since 2010. Explore the journeys of students who transformed their potential into success.
             </motion.p>
 
-            {/* Filter Pills */}
-            <div className="flex flex-wrap justify-center gap-3">
-              {['all', 'success_story', 'placement', 'milestone', 'recognition'].map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-6 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all ${activeFilter === filter
-                    ? 'bg-gray-900 text-white shadow-xl scale-110'
-                    : 'bg-white text-gray-400 hover:text-gray-900 border border-gray-100'
-                    }`}
-                >
-                  {filter.replace('_', ' ')}
-                </button>
-              ))}
-            </div>
           </motion.div>
         </div>
       </section>
@@ -212,7 +196,7 @@ export default function Achievements() {
       )}
 
       {/* Stats Section */}
-      {(activeFilter === 'all' || activeFilter === 'stat') && (
+      {data.stats?.length > 0 && (
         <section className="py-20 bg-white overflow-hidden">
           <div className="container mx-auto px-4">
             <motion.div
@@ -248,7 +232,7 @@ export default function Achievements() {
       )}
 
       {/* Success Stories Grid */}
-      {(activeFilter === 'all' || activeFilter === 'success_story') && (
+      {data.success_stories?.length > 0 && (
         <section className="py-24 bg-gray-50 overflow-hidden">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
@@ -316,8 +300,45 @@ export default function Achievements() {
         </section>
       )}
 
+      {/* Recognitions Section */}
+      {data.recognitions?.length > 0 && (
+        <section className="py-24 bg-white overflow-hidden border-t">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <span className="text-amber-600 font-black uppercase tracking-[0.2em] text-xs">Recognitions</span>
+              <h2 className="text-4xl font-black text-gray-900 mt-2 tracking-tighter">Awards & Honors</h2>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {data.recognitions.map((item, index) => {
+                const Icon = recognitionIcons[index % recognitionIcons.length];
+                return (
+                  <motion.div
+                    key={item._id}
+                    variants={fadeInUp}
+                    className="bg-gray-50 p-8 rounded-[2.5rem] flex gap-6 items-center shadow-sm border border-gray-100 hover:shadow-xl hover:bg-white transition-all duration-500 group"
+                  >
+                    <div className={`w-20 h-20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-500 ${item.color === 'red' ? 'bg-red-50 text-red-600' :
+                      item.color === 'blue' ? 'bg-blue-50 text-blue-600' :
+                        item.color === 'green' ? 'bg-green-50 text-green-600' :
+                          'bg-amber-50 text-amber-600'
+                      }`}>
+                      <Icon className="text-3xl" />
+                    </div>
+                    <div>
+                      <span className="text-amber-600 font-black text-[10px] uppercase tracking-widest">{item.year}</span>
+                      <h4 className="text-xl font-black text-gray-900 mt-1 mb-2 leading-tight">{item.title}</h4>
+                      <p className="text-gray-500 font-medium text-sm">{item.description}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Placements Section */}
-      {(activeFilter === 'all' || activeFilter === 'placement') && (
+      {data.placements?.length > 0 && (
         <section className="py-24 bg-white overflow-hidden">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
@@ -353,7 +374,7 @@ export default function Achievements() {
       )}
 
       {/* Milestones / Journey Section */}
-      {(activeFilter === 'all' || activeFilter === 'milestone') && (
+      {data.milestones?.length > 0 && (
         <section className="py-24 bg-white overflow-hidden border-t">
           <div className="container mx-auto px-4">
             <div className="text-center mb-24">

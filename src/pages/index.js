@@ -22,7 +22,75 @@ import {
   FaFlask
 } from 'react-icons/fa';
 
+import { useState, useEffect } from 'react';
+
 export default function Home() {
+  const [data, setData] = useState({
+    stats: [
+      { icon: FaUserGraduate, number: '5000+', label: 'Students Guided', color: 'red' },
+      { icon: FaGraduationCap, number: '50+', label: 'Courses Offered', color: 'green' },
+      { icon: FaAward, number: '15+', label: 'Years Experience', color: 'amber' },
+      { icon: FaHandshake, number: '100+', label: 'Partner Colleges', color: 'blue' },
+    ],
+    testimonials: [
+      {
+        name: 'Priya Sharma',
+        course: 'MBBS Student',
+        text: 'Rasi Foundation helped me find the perfect medical college. Their guidance was invaluable!',
+        rating: 5
+      },
+      {
+        name: 'Karthik R.',
+        course: 'Engineering Graduate',
+        text: 'Professional and dedicated team. They made my admission process smooth and stress-free.',
+        rating: 5
+      },
+      {
+        name: 'Anitha M.',
+        course: 'MBA Student',
+        text: 'Excellent career counseling! They understood my goals and suggested the best options.',
+        rating: 5
+      }
+    ]
+  });
+
+  useEffect(() => {
+    fetchHomeData();
+  }, []);
+
+  const fetchHomeData = async () => {
+    try {
+      const response = await fetch('/api/achievements');
+      const result = await response.json();
+
+      if (result) {
+        const dynamicStats = result.stats && result.stats.length > 0
+          ? result.stats.map((s, idx) => ({
+            icon: data.stats[idx]?.icon || FaAward,
+            number: s.value,
+            label: s.title,
+            color: s.color || 'blue'
+          }))
+          : data.stats;
+
+        const dynamicTestimonials = result.success_stories && result.success_stories.length > 0
+          ? result.success_stories.slice(0, 3).map(s => ({
+            name: s.name,
+            course: s.course,
+            text: s.description,
+            rating: 5
+          }))
+          : data.testimonials;
+
+        setData({
+          stats: dynamicStats,
+          testimonials: dynamicTestimonials
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching home data:', error);
+    }
+  };
 
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
@@ -37,12 +105,6 @@ export default function Home() {
       }
     }
   };
-  const stats = [
-    { icon: FaUserGraduate, number: '5000+', label: 'Students Guided', color: 'red' },
-    { icon: FaGraduationCap, number: '50+', label: 'Courses Offered', color: 'green' },
-    { icon: FaAward, number: '15+', label: 'Years Experience', color: 'amber' },
-    { icon: FaHandshake, number: '100+', label: 'Partner Colleges', color: 'blue' },
-  ];
 
   const featuredCourses = [
     { icon: FaStethoscope, name: 'Medical Sciences', courses: ['MBBS', 'BDS', 'AYUSH', 'Para Medical'], color: 'red' },
@@ -52,27 +114,6 @@ export default function Home() {
     { icon: FaChalkboardTeacher, name: 'Education', courses: ['B.Ed', 'M.Ed', 'D.T.Ed', 'D.El.Ed'], color: 'amber' },
     { icon: FaFlask, name: 'Arts & Science', courses: ['BA', 'BSc', 'MA', 'MSc'], color: 'teal' },
     { icon: FaGlobe, name: 'Abroad Studies', courses: ['MBBS Abroad', 'Engineering', 'MBA', 'Masters'], color: 'indigo' },
-  ];
-
-  const testimonials = [
-    {
-      name: 'Priya Sharma',
-      course: 'MBBS Student',
-      text: 'Rasi Foundation helped me find the perfect medical college. Their guidance was invaluable!',
-      rating: 5
-    },
-    {
-      name: 'Karthik R.',
-      course: 'Engineering Graduate',
-      text: 'Professional and dedicated team. They made my admission process smooth and stress-free.',
-      rating: 5
-    },
-    {
-      name: 'Anitha M.',
-      course: 'MBA Student',
-      text: 'Excellent career counseling! They understood my goals and suggested the best options.',
-      rating: 5
-    }
   ];
 
   const colorClasses = {
@@ -353,7 +394,7 @@ export default function Home() {
             variants={staggerContainer}
             className="grid grid-cols-2 md:grid-cols-4 gap-8"
           >
-            {stats.map((stat, index) => (
+            {data.stats.map((stat, index) => (
               <motion.div
                 key={index}
                 variants={fadeInUp}
@@ -364,11 +405,19 @@ export default function Home() {
                     stat.color === 'amber' ? 'bg-amber-100 group-hover:bg-amber-600' :
                       'bg-blue-100 group-hover:bg-blue-600'
                   }`}>
-                  <stat.icon className={`text-3xl transition-colors duration-300 ${stat.color === 'red' ? 'text-red-600 group-hover:text-white' :
-                    stat.color === 'green' ? 'text-green-600 group-hover:text-white' :
-                      stat.color === 'amber' ? 'text-amber-600 group-hover:text-white' :
-                        'text-blue-600 group-hover:text-white'
-                    }`} />
+                  {typeof stat.icon === 'string' ? (
+                    <span className={`text-3xl transition-colors duration-300 ${stat.color === 'red' ? 'text-red-600 group-hover:text-white' :
+                      stat.color === 'green' ? 'text-green-600 group-hover:text-white' :
+                        stat.color === 'amber' ? 'text-amber-600 group-hover:text-white' :
+                          'text-blue-600 group-hover:text-white'
+                      }`}>{stat.icon}</span>
+                  ) : (
+                    <stat.icon className={`text-3xl transition-colors duration-300 ${stat.color === 'red' ? 'text-red-600 group-hover:text-white' :
+                      stat.color === 'green' ? 'text-green-600 group-hover:text-white' :
+                        stat.color === 'amber' ? 'text-amber-600 group-hover:text-white' :
+                          'text-blue-600 group-hover:text-white'
+                      }`} />
+                  )}
                 </div>
                 <h3 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">{stat.number}</h3>
                 <p className="text-gray-600">{stat.label}</p>
@@ -615,7 +664,7 @@ export default function Home() {
             variants={staggerContainer}
             className="grid md:grid-cols-3 gap-8"
           >
-            {testimonials.map((testimonial, index) => (
+            {data.testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
                 variants={fadeInUp}

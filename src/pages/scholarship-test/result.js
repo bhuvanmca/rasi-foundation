@@ -18,7 +18,8 @@ import {
     FaDna,
     FaClock,
     FaGraduationCap,
-    FaExclamationTriangle
+    FaExclamationTriangle,
+    FaWhatsapp
 } from 'react-icons/fa';
 
 export default function ResultPage() {
@@ -135,6 +136,30 @@ export default function ResultPage() {
 
     const { student, result: testResult } = result || {};
     const gradeInfo = getGrade(testResult?.percentage || 0);
+
+    const shareToWhatsApp = () => {
+        const adminNumber = '918073774591'; // WhatsApp format with country code
+        const text = `🌟 *RASI FOUNDATION SCHOLARSHIP RESULT* 🌟\n\n` +
+            `👤 *STUDENT IDENTITY:*\n` +
+            `• Name: *${student?.name}*\n` +
+            `• Reg Token: *${student?.registrationToken}*\n` +
+            `• Plus 2 Group: *${student?.plus2Group || 'N/A'}*\n\n` +
+            `🎓 *ACADEMIC INTEREST:*\n` +
+            `• Course: *${student?.course || 'N/A'}*\n` +
+            `• Target College: *${student?.college || 'N/A'}*\n\n` +
+            `📊 *EVALUATION SUMMARY:*\n` +
+            `• Total Questions: *${testResult?.totalQuestions}*\n` +
+            `• Attempted: *${testResult?.attemptedQuestions}*\n` +
+            `• Correct Answers: *${testResult?.correctAnswers}*\n\n` +
+            `🏆 *OFFICIAL SCORE:* *${testResult?.score} / ${testResult?.totalQuestions}*\n` +
+            `📈 *PERCENTAGE:* *${testResult?.percentage}%*\n` +
+            `🎖️ *MERIT GRADE:* *${gradeInfo.grade}*\n\n` +
+            `⏱️ *TIME TAKEN:* *${testResult?.timeTaken} Minutes*\n\n` +
+            `✅ *Authenticated by RASI Foundation Digital Portal*`;
+
+        const whatsappUrl = `https://wa.me/${adminNumber}?text=${encodeURIComponent(text)}`;
+        window.open(whatsappUrl, '_blank');
+    };
 
     return (
         <Layout
@@ -289,10 +314,10 @@ export default function ResultPage() {
                                                         <span className="font-bold text-lg text-gray-800">{subject.correct}</span>
                                                         <span className="text-gray-500">/{subject.total}</span>
                                                         <span className={`ml-2 px-2 py-1 rounded-full text-xs font-bold ${subject.percentage >= 70
-                                                                ? 'bg-green-100 text-green-700'
-                                                                : subject.percentage >= 40
-                                                                    ? 'bg-amber-100 text-amber-700'
-                                                                    : 'bg-red-100 text-red-700'
+                                                            ? 'bg-green-100 text-green-700'
+                                                            : subject.percentage >= 40
+                                                                ? 'bg-amber-100 text-amber-700'
+                                                                : 'bg-red-100 text-red-700'
                                                             }`}>
                                                             {subject.percentage}%
                                                         </span>
@@ -311,20 +336,28 @@ export default function ResultPage() {
                             </div>
                         </div>
 
-                        {/* Actions */}
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link
-                                href="/scholarship-test"
-                                className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-indigo-600 text-indigo-600 rounded-xl font-medium hover:bg-indigo-50 transition-colors"
+                                href="/"
+                                className="inline-flex items-center justify-center gap-2 px-6 py-4 bg-gray-100 text-gray-700 rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-gray-200 transition-all border border-gray-200"
                             >
                                 <FaHome />
-                                Back to Home
+                                Home
                             </Link>
+
+                            <button
+                                onClick={shareToWhatsApp}
+                                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#25D366] text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:shadow-[0_10px_30px_rgba(37,211,102,0.3)] transition-all hover:-translate-y-1"
+                            >
+                                <FaWhatsapp className="text-xl" />
+                                Send Result to WhatsApp
+                            </button>
+
                             <Link
                                 href="/contact"
-                                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg transition-all"
+                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:shadow-[0_10px_30px_rgba(0,0,0,0.2)] transition-all hover:-translate-y-1"
                             >
-                                Contact RASI Foundation
+                                Contact RASI
                                 <FaArrowRight />
                             </Link>
                         </div>

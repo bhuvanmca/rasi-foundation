@@ -30,7 +30,6 @@ const ScholarshipStudentSchema = new mongoose.Schema({
     // Contact Details
     studentEmail: {
         type: String,
-        required: [true, 'Please provide student email'],
         match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email'],
     },
     studentMobile: {

@@ -26,8 +26,8 @@ const Layout = ({
         structuredData={structuredData}
       />
       <div className="min-h-screen flex flex-col">
-        <NotificationBar />
         <Navbar />
+        <NotificationBar />
         <main className="flex-grow">{children}</main>
         <Footer />
         <FloatingButtons />

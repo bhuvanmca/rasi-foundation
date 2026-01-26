@@ -1,115 +1,115 @@
 import dbConnect from '@/lib/mongodb';
 import ScholarshipQuestion from '@/models/ScholarshipQuestion';
 
-// Sample questions for seeding the database
+// Curriculum-accurate questions for Tamil Nadu State Board (Class 12)
 const sampleQuestions = {
     Physics: [
         {
-            questionText: "What is the SI unit of force?",
+            questionText: "Which of the following is the unit of electric dipole moment?",
             options: [
-                { label: 'A', text: 'Joule' },
-                { label: 'B', text: 'Newton' },
-                { label: 'C', text: 'Watt' },
-                { label: 'D', text: 'Pascal' },
+                { label: 'A', text: 'newton/coulomb' },
+                { label: 'B', text: 'coulomb-metre' },
+                { label: 'C', text: 'coulomb/metre' },
+                { label: 'D', text: 'newton-metre' },
             ],
             correctAnswer: 'B',
             difficulty: 'easy',
         },
         {
-            questionText: "Which of the following is a vector quantity?",
+            questionText: "The force per unit charge is known as:",
             options: [
-                { label: 'A', text: 'Speed' },
-                { label: 'B', text: 'Mass' },
-                { label: 'C', text: 'Velocity' },
-                { label: 'D', text: 'Temperature' },
+                { label: 'A', text: 'Electric potential' },
+                { label: 'B', text: 'Electric flux' },
+                { label: 'C', text: 'Electric field' },
+                { label: 'D', text: 'Electric current' },
             ],
             correctAnswer: 'C',
             difficulty: 'easy',
         },
         {
-            questionText: "The acceleration due to gravity on Earth's surface is approximately:",
+            questionText: "The internal resistance of a cell is measured using:",
             options: [
-                { label: 'A', text: '9.8 m/s²' },
-                { label: 'B', text: '10.8 m/s²' },
-                { label: 'C', text: '8.9 m/s²' },
-                { label: 'D', text: '11.2 m/s²' },
-            ],
-            correctAnswer: 'A',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Light travels fastest in:",
-            options: [
-                { label: 'A', text: 'Water' },
-                { label: 'B', text: 'Glass' },
-                { label: 'C', text: 'Vacuum' },
-                { label: 'D', text: 'Air' },
+                { label: 'A', text: 'Voltmeter' },
+                { label: 'B', text: 'Ammeter' },
+                { label: 'C', text: 'Potentiometer' },
+                { label: 'D', text: 'Galvanometer' },
             ],
             correctAnswer: 'C',
             difficulty: 'medium',
         },
         {
-            questionText: "The phenomenon of bending of light when it passes from one medium to another is called:",
+            questionText: "Which material is used for making standard resistors?",
             options: [
-                { label: 'A', text: 'Reflection' },
-                { label: 'B', text: 'Refraction' },
+                { label: 'A', text: 'Copper' },
+                { label: 'B', text: 'Constantan' },
+                { label: 'C', text: 'Silver' },
+                { label: 'D', text: 'Aluminium' },
+            ],
+            correctAnswer: 'B',
+            difficulty: 'medium',
+        },
+        {
+            questionText: "The principle of working of a transformer is:",
+            options: [
+                { label: 'A', text: 'Self induction' },
+                { label: 'B', text: 'Mutual induction' },
+                { label: 'C', text: 'Eddy currents' },
+                { label: 'D', text: 'Hysteresis' },
+            ],
+            correctAnswer: 'B',
+            difficulty: 'easy',
+        },
+        {
+            questionText: "Electromagnetic waves are produced by:",
+            options: [
+                { label: 'A', text: 'Static charges' },
+                { label: 'B', text: 'Accelerated charges' },
+                { label: 'C', text: 'Moving charges with constant velocity' },
+                { label: 'D', text: 'Chargeless particles' },
+            ],
+            correctAnswer: 'B',
+            difficulty: 'medium',
+        },
+        {
+            questionText: "Brewster's angle (ip) and refractive index (n) of a medium are related as:",
+            options: [
+                { label: 'A', text: 'n = sin ip' },
+                { label: 'B', text: 'n = cos ip' },
+                { label: 'C', text: 'n = tan ip' },
+                { label: 'D', text: 'n = cot ip' },
+            ],
+            correctAnswer: 'C',
+            difficulty: 'medium',
+        },
+        {
+            questionText: "The dual nature of light is exhibited by:",
+            options: [
+                { label: 'A', text: 'Photoelectric effect' },
+                { label: 'B', text: 'Interference' },
                 { label: 'C', text: 'Diffraction' },
-                { label: 'D', text: 'Dispersion' },
+                { label: 'D', text: 'Photoelectric effect and Interference' },
             ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
+            correctAnswer: 'D',
+            difficulty: 'hard',
         },
         {
-            questionText: "What is the unit of electric current?",
+            questionText: "The ratio of the radius of the 2nd orbit to the 1st orbit of hydrogen atom is:",
             options: [
-                { label: 'A', text: 'Volt' },
-                { label: 'B', text: 'Ohm' },
-                { label: 'C', text: 'Ampere' },
-                { label: 'D', text: 'Watt' },
-            ],
-            correctAnswer: 'C',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Which of the following is used to measure atmospheric pressure?",
-            options: [
-                { label: 'A', text: 'Thermometer' },
-                { label: 'B', text: 'Barometer' },
-                { label: 'C', text: 'Hydrometer' },
-                { label: 'D', text: 'Manometer' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "The phenomenon of splitting of white light into seven colours is called:",
-            options: [
-                { label: 'A', text: 'Reflection' },
-                { label: 'B', text: 'Refraction' },
-                { label: 'C', text: 'Dispersion' },
-                { label: 'D', text: 'Scattering' },
+                { label: 'A', text: '2:1' },
+                { label: 'B', text: '1:2' },
+                { label: 'C', text: '4:1' },
+                { label: 'D', text: '1:4' },
             ],
             correctAnswer: 'C',
             difficulty: 'medium',
         },
         {
-            questionText: "Which law states that the current through a conductor is directly proportional to the voltage?",
+            questionText: "The band gap energy is maximum for:",
             options: [
-                { label: 'A', text: "Newton's Law" },
-                { label: 'B', text: "Ohm's Law" },
-                { label: 'C', text: "Faraday's Law" },
-                { label: 'D', text: "Boyle's Law" },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "The unit of power is:",
-            options: [
-                { label: 'A', text: 'Joule' },
-                { label: 'B', text: 'Newton' },
-                { label: 'C', text: 'Watt' },
-                { label: 'D', text: 'Hertz' },
+                { label: 'A', text: 'Metals' },
+                { label: 'B', text: 'Semiconductors' },
+                { label: 'C', text: 'Insulators' },
+                { label: 'D', text: 'Superconductors' },
             ],
             correctAnswer: 'C',
             difficulty: 'easy',
@@ -117,561 +117,396 @@ const sampleQuestions = {
     ],
     Chemistry: [
         {
-            questionText: "What is the atomic number of Carbon?",
+            questionText: "The coordination number of an atom in a face-centered cubic unit cell (fcc) is:",
             options: [
                 { label: 'A', text: '4' },
                 { label: 'B', text: '6' },
                 { label: 'C', text: '8' },
                 { label: 'D', text: '12' },
             ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Which gas is known as laughing gas?",
-            options: [
-                { label: 'A', text: 'Carbon dioxide' },
-                { label: 'B', text: 'Nitrogen' },
-                { label: 'C', text: 'Nitrous oxide' },
-                { label: 'D', text: 'Oxygen' },
-            ],
-            correctAnswer: 'C',
+            correctAnswer: 'D',
             difficulty: 'medium',
         },
         {
-            questionText: "The pH value of pure water is:",
+            questionText: "The unit of rate constant for a first-order reaction is:",
             options: [
-                { label: 'A', text: '0' },
-                { label: 'B', text: '7' },
-                { label: 'C', text: '14' },
-                { label: 'D', text: '1' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Which element is present in all organic compounds?",
-            options: [
-                { label: 'A', text: 'Oxygen' },
-                { label: 'B', text: 'Nitrogen' },
-                { label: 'C', text: 'Carbon' },
-                { label: 'D', text: 'Hydrogen' },
+                { label: 'A', text: 'mol L⁻¹ s⁻¹' },
+                { label: 'B', text: 'L mol⁻¹ s⁻¹' },
+                { label: 'C', text: 's⁻¹' },
+                { label: 'D', text: 'L² mol⁻² s⁻¹' },
             ],
             correctAnswer: 'C',
             difficulty: 'easy',
         },
         {
-            questionText: "The chemical formula of common salt is:",
+            questionText: "Which of the following noble gases is most reactive?",
             options: [
-                { label: 'A', text: 'NaCl' },
-                { label: 'B', text: 'KCl' },
-                { label: 'C', text: 'CaCl₂' },
-                { label: 'D', text: 'MgCl₂' },
+                { label: 'A', text: 'He' },
+                { label: 'B', text: 'Ne' },
+                { label: 'C', text: 'Ar' },
+                { label: 'D', text: 'Xe' },
+            ],
+            correctAnswer: 'D',
+            difficulty: 'medium',
+        },
+        {
+            questionText: "Oxidation state of iron in [Fe(CN)₆]³⁻ is:",
+            options: [
+                { label: 'A', text: '+2' },
+                { label: 'B', text: '+3' },
+                { label: 'C', text: '+4' },
+                { label: 'D', text: '+6' },
+            ],
+            correctAnswer: 'B',
+            difficulty: 'medium',
+        },
+        {
+            questionText: "The generic formula for Alkynes is:",
+            options: [
+                { label: 'A', text: 'CnH2n+2' },
+                { label: 'B', text: 'CnH2n' },
+                { label: 'C', text: 'CnH2n-2' },
+                { label: 'D', text: 'CnH2n-1' },
+            ],
+            correctAnswer: 'C',
+            difficulty: 'easy',
+        },
+        {
+            questionText: "Which among the following is a natural polymer?",
+            options: [
+                { label: 'A', text: 'Nylon-6,6' },
+                { label: 'B', text: 'Terylene' },
+                { label: 'C', text: 'Neoprene' },
+                { label: 'D', text: 'Natural rubber' },
+            ],
+            correctAnswer: 'D',
+            difficulty: 'easy',
+        },
+        {
+            questionText: "Phenol on distillation with Zinc dust gives:",
+            options: [
+                { label: 'A', text: 'Benzene' },
+                { label: 'B', text: 'Toluene' },
+                { label: 'C', text: 'Benzaldehyde' },
+                { label: 'D', text: 'Benzoic acid' },
+            ],
+            correctAnswer: 'A',
+            difficulty: 'medium',
+        },
+        {
+            questionText: "The reagent used in Reimer-Tiemann reaction is:",
+            options: [
+                { label: 'A', text: 'CHCl₃ / NaOH' },
+                { label: 'B', text: 'CO₂ / NaOH' },
+                { label: 'C', text: 'Br₂ / Fe' },
+                { label: 'D', text: 'Zn / HCl' },
+            ],
+            correctAnswer: 'A',
+            difficulty: 'hard',
+        },
+        {
+            questionText: "Glucose is a/an:",
+            options: [
+                { label: 'A', text: 'Aldohexose' },
+                { label: 'B', text: 'Ketohexose' },
+                { label: 'C', text: 'Aldopentose' },
+                { label: 'D', text: 'Ketopentose' },
             ],
             correctAnswer: 'A',
             difficulty: 'easy',
         },
         {
-            questionText: "Which of the following is an inert gas?",
+            questionText: "Transition elements are located in which block of the periodic table?",
             options: [
-                { label: 'A', text: 'Oxygen' },
-                { label: 'B', text: 'Nitrogen' },
-                { label: 'C', text: 'Helium' },
-                { label: 'D', text: 'Hydrogen' },
+                { label: 'A', text: 's-block' },
+                { label: 'B', text: 'p-block' },
+                { label: 'C', text: 'd-block' },
+                { label: 'D', text: 'f-block' },
             ],
             correctAnswer: 'C',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "The process of conversion of solid to gas without passing through liquid state is called:",
-            options: [
-                { label: 'A', text: 'Evaporation' },
-                { label: 'B', text: 'Sublimation' },
-                { label: 'C', text: 'Condensation' },
-                { label: 'D', text: 'Vaporization' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'medium',
-        },
-        {
-            questionText: "Rusting of iron is an example of:",
-            options: [
-                { label: 'A', text: 'Physical change' },
-                { label: 'B', text: 'Chemical change' },
-                { label: 'C', text: 'No change' },
-                { label: 'D', text: 'Nuclear change' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "The hardest natural substance is:",
-            options: [
-                { label: 'A', text: 'Gold' },
-                { label: 'B', text: 'Iron' },
-                { label: 'C', text: 'Diamond' },
-                { label: 'D', text: 'Platinum' },
-            ],
-            correctAnswer: 'C',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Which acid is present in lemon?",
-            options: [
-                { label: 'A', text: 'Acetic acid' },
-                { label: 'B', text: 'Citric acid' },
-                { label: 'C', text: 'Oxalic acid' },
-                { label: 'D', text: 'Tartaric acid' },
-            ],
-            correctAnswer: 'B',
             difficulty: 'easy',
         },
     ],
     Mathematics: [
         {
-            questionText: "What is the value of π (pi) up to two decimal places?",
+            questionText: "If A is a square matrix of order 3 and |A| = 5, then |adj A| is:",
             options: [
-                { label: 'A', text: '3.12' },
-                { label: 'B', text: '3.14' },
-                { label: 'C', text: '3.16' },
-                { label: 'D', text: '3.18' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "The derivative of x² is:",
-            options: [
-                { label: 'A', text: 'x' },
-                { label: 'B', text: '2x' },
-                { label: 'C', text: 'x²' },
-                { label: 'D', text: '2' },
+                { label: 'A', text: '5' },
+                { label: 'B', text: '25' },
+                { label: 'C', text: '125' },
+                { label: 'D', text: '15' },
             ],
             correctAnswer: 'B',
             difficulty: 'medium',
         },
         {
-            questionText: "What is the sum of angles in a triangle?",
-            options: [
-                { label: 'A', text: '90°' },
-                { label: 'B', text: '180°' },
-                { label: 'C', text: '270°' },
-                { label: 'D', text: '360°' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "log₁₀(100) equals:",
+            questionText: "The modulus of 1 + i√3 is:",
             options: [
                 { label: 'A', text: '1' },
                 { label: 'B', text: '2' },
-                { label: 'C', text: '10' },
-                { label: 'D', text: '100' },
+                { label: 'C', text: '3' },
+                { label: 'D', text: '4' },
             ],
             correctAnswer: 'B',
-            difficulty: 'medium',
+            difficulty: 'easy',
         },
         {
-            questionText: "The integral of 2x is:",
+            questionText: "The value of 'n' in the term iⁿ which equals -1 is:",
             options: [
-                { label: 'A', text: 'x²' },
-                { label: 'B', text: 'x² + C' },
-                { label: 'C', text: '2x² + C' },
+                { label: 'A', text: '1' },
+                { label: 'B', text: '2' },
+                { label: 'C', text: '3' },
+                { label: 'D', text: '4' },
+            ],
+            correctAnswer: 'B',
+            difficulty: 'easy',
+        },
+        {
+            questionText: "The eccentricity of a rectangular hyperbola is:",
+            options: [
+                { label: 'A', text: '√2' },
+                { label: 'B', text: '1' },
+                { label: 'C', text: '1/√2' },
                 { label: 'D', text: '2' },
             ],
+            correctAnswer: 'A',
+            difficulty: 'medium',
+        },
+        {
+            questionText: "The direction cosines of the x-axis are:",
+            options: [
+                { label: 'A', text: '(1, 0, 0)' },
+                { label: 'B', text: '(0, 1, 0)' },
+                { label: 'C', text: '(0, 0, 1)' },
+                { label: 'D', text: '(1, 1, 1)' },
+            ],
+            correctAnswer: 'A',
+            difficulty: 'easy',
+        },
+        {
+            questionText: "The derivative of tan⁻¹(x) is:",
+            options: [
+                { label: 'A', text: '1/(1-x²)' },
+                { label: 'B', text: '1/(1+x²)' },
+                { label: 'C', text: '1/√(1-x²)' },
+                { label: 'D', text: 'sec²x' },
+            ],
             correctAnswer: 'B',
             difficulty: 'medium',
         },
         {
-            questionText: "sin²θ + cos²θ equals:",
+            questionText: "The value of ∫ sin x dx is:",
             options: [
-                { label: 'A', text: '0' },
-                { label: 'B', text: '1' },
-                { label: 'C', text: '2' },
-                { label: 'D', text: 'tan²θ' },
+                { label: 'A', text: 'cos x + C' },
+                { label: 'B', text: '-cos x + C' },
+                { label: 'C', text: 'sin x + C' },
+                { label: 'D', text: '-sin x + C' },
             ],
             correctAnswer: 'B',
             difficulty: 'easy',
         },
         {
-            questionText: "The quadratic formula gives the solutions of ax² + bx + c = 0 as:",
+            questionText: "The degree of the differential equation (dy/dx)² + y = x is:",
             options: [
-                { label: 'A', text: 'x = (-b ± √(b²-4ac)) / 2a' },
-                { label: 'B', text: 'x = (b ± √(b²-4ac)) / 2a' },
-                { label: 'C', text: 'x = (-b ± √(b²+4ac)) / 2a' },
-                { label: 'D', text: 'x = (-b ± √(b²-4ac)) / a' },
+                { label: 'A', text: '1' },
+                { label: 'B', text: '2' },
+                { label: 'C', text: '0' },
+                { label: 'D', text: 'Not defined' },
+            ],
+            correctAnswer: 'B',
+            difficulty: 'medium',
+        },
+        {
+            questionText: "Which of the following is a binary operation on R?",
+            options: [
+                { label: 'A', text: 'a * b = a - b' },
+                { label: 'B', text: 'a * b = a/b' },
+                { label: 'C', text: 'a * b = √(a+b)' },
+                { label: 'D', text: 'a * b = log(a+b)' },
             ],
             correctAnswer: 'A',
             difficulty: 'medium',
         },
         {
-            questionText: "What is 5! (5 factorial)?",
+            questionText: "Mean of a Binomial distribution with parameters n and p is:",
             options: [
-                { label: 'A', text: '25' },
-                { label: 'B', text: '60' },
-                { label: 'C', text: '120' },
-                { label: 'D', text: '720' },
-            ],
-            correctAnswer: 'C',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "The area of a circle with radius r is:",
-            options: [
-                { label: 'A', text: 'πr' },
-                { label: 'B', text: '2πr' },
-                { label: 'C', text: 'πr²' },
-                { label: 'D', text: '2πr²' },
-            ],
-            correctAnswer: 'C',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "If a + b = 10 and ab = 21, then a² + b² equals:",
-            options: [
-                { label: 'A', text: '58' },
-                { label: 'B', text: '79' },
-                { label: 'C', text: '100' },
-                { label: 'D', text: '121' },
+                { label: 'A', text: 'np' },
+                { label: 'B', text: 'npq' },
+                { label: 'C', text: '√np' },
+                { label: 'D', text: 'p/n' },
             ],
             correctAnswer: 'A',
-            difficulty: 'hard',
+            difficulty: 'easy',
         },
     ],
     Botany: [
         {
-            questionText: "Photosynthesis occurs in which part of the plant cell?",
+            questionText: "Who is known as the Father of Indian Plant Anatomy?",
+            options: [
+                { label: 'A', text: 'M.S. Swaminathan' },
+                { label: 'B', text: 'P. Maheshwari' },
+                { label: 'C', text: 'K.A. Chowdhury' },
+                { label: 'D', text: 'Birbal Sahni' },
+            ],
+            correctAnswer: 'C',
+            difficulty: 'hard',
+        },
+        {
+            questionText: "The functional unit of inheritance is:",
+            options: [
+                { label: 'A', text: 'Cistron' },
+                { label: 'B', text: 'Muton' },
+                { label: 'C', text: 'Recon' },
+                { label: 'D', text: 'Chromosome' },
+            ],
+            correctAnswer: 'A',
+            difficulty: 'medium',
+        },
+        {
+            questionText: "Glycolysis occurs in:",
             options: [
                 { label: 'A', text: 'Mitochondria' },
-                { label: 'B', text: 'Chloroplast' },
-                { label: 'C', text: 'Nucleus' },
+                { label: 'B', text: 'Cytoplasm' },
+                { label: 'C', text: 'Chloroplast' },
                 { label: 'D', text: 'Ribosome' },
             ],
             correctAnswer: 'B',
             difficulty: 'easy',
         },
         {
-            questionText: "Which pigment gives plants their green color?",
+            questionText: "Which of the following is an example of a C4 plant?",
             options: [
-                { label: 'A', text: 'Carotene' },
-                { label: 'B', text: 'Xanthophyll' },
-                { label: 'C', text: 'Chlorophyll' },
-                { label: 'D', text: 'Anthocyanin' },
+                { label: 'A', text: 'Rice' },
+                { label: 'B', text: 'Wheat' },
+                { label: 'C', text: 'Maize' },
+                { label: 'D', text: 'Mango' },
             ],
             correctAnswer: 'C',
-            difficulty: 'easy',
+            difficulty: 'medium',
         },
         {
-            questionText: "The process by which plants lose water through leaves is called:",
+            questionText: "The process of production of clones of organisms with same genotype is:",
             options: [
-                { label: 'A', text: 'Respiration' },
-                { label: 'B', text: 'Transpiration' },
-                { label: 'C', text: 'Guttation' },
-                { label: 'D', text: 'Photosynthesis' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "The male reproductive part of a flower is called:",
-            options: [
-                { label: 'A', text: 'Pistil' },
-                { label: 'B', text: 'Stamen' },
-                { label: 'C', text: 'Ovary' },
-                { label: 'D', text: 'Stigma' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Which of the following is a nitrogen-fixing bacteria?",
-            options: [
-                { label: 'A', text: 'Rhizobium' },
-                { label: 'B', text: 'E. coli' },
-                { label: 'C', text: 'Salmonella' },
-                { label: 'D', text: 'Lactobacillus' },
+                { label: 'A', text: 'Tissue culture' },
+                { label: 'B', text: 'Hybridization' },
+                { label: 'C', text: 'Polyploidy' },
+                { label: 'D', text: 'Mutation' },
             ],
             correctAnswer: 'A',
             difficulty: 'medium',
-        },
-        {
-            questionText: "Xylem is responsible for:",
-            options: [
-                { label: 'A', text: 'Transport of food' },
-                { label: 'B', text: 'Transport of water and minerals' },
-                { label: 'C', text: 'Photosynthesis' },
-                { label: 'D', text: 'Respiration' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "The study of fungi is called:",
-            options: [
-                { label: 'A', text: 'Bacteriology' },
-                { label: 'B', text: 'Mycology' },
-                { label: 'C', text: 'Virology' },
-                { label: 'D', text: 'Phycology' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Which hormone is responsible for fruit ripening?",
-            options: [
-                { label: 'A', text: 'Auxin' },
-                { label: 'B', text: 'Gibberellin' },
-                { label: 'C', text: 'Ethylene' },
-                { label: 'D', text: 'Cytokinin' },
-            ],
-            correctAnswer: 'C',
-            difficulty: 'medium',
-        },
-        {
-            questionText: "Seeds are formed from:",
-            options: [
-                { label: 'A', text: 'Petals' },
-                { label: 'B', text: 'Ovules' },
-                { label: 'C', text: 'Sepals' },
-                { label: 'D', text: 'Stamens' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Which part of the plant absorbs water from the soil?",
-            options: [
-                { label: 'A', text: 'Stem' },
-                { label: 'B', text: 'Leaves' },
-                { label: 'C', text: 'Root hairs' },
-                { label: 'D', text: 'Flowers' },
-            ],
-            correctAnswer: 'C',
-            difficulty: 'easy',
         },
     ],
     Zoology: [
         {
-            questionText: "Which is the largest organ in the human body?",
+            questionText: "Which hormone is called the 'Emergency Hormone'?",
             options: [
-                { label: 'A', text: 'Heart' },
-                { label: 'B', text: 'Liver' },
-                { label: 'C', text: 'Skin' },
-                { label: 'D', text: 'Brain' },
+                { label: 'A', text: 'Thyroxine' },
+                { label: 'B', text: 'Insulin' },
+                { label: 'C', text: 'Adrenaline' },
+                { label: 'D', text: 'Estrogen' },
             ],
             correctAnswer: 'C',
             difficulty: 'easy',
         },
         {
-            questionText: "Red blood cells are produced in:",
+            questionText: "The volume of air inhaled or exhaled during normal breathing is:",
             options: [
-                { label: 'A', text: 'Heart' },
-                { label: 'B', text: 'Liver' },
-                { label: 'C', text: 'Bone marrow' },
-                { label: 'D', text: 'Spleen' },
+                { label: 'A', text: 'Tidal volume' },
+                { label: 'B', text: 'Vital capacity' },
+                { label: 'C', text: 'Residual volume' },
+                { label: 'D', text: 'Inspiratory capacity' },
             ],
-            correctAnswer: 'C',
-            difficulty: 'easy',
+            correctAnswer: 'A',
+            difficulty: 'medium',
         },
         {
-            questionText: "The powerhouse of the cell is:",
+            questionText: "Which organ is known as the 'Graveyard of RBCs'?",
             options: [
-                { label: 'A', text: 'Nucleus' },
-                { label: 'B', text: 'Mitochondria' },
-                { label: 'C', text: 'Ribosome' },
-                { label: 'D', text: 'Golgi body' },
+                { label: 'A', text: 'Liver' },
+                { label: 'B', text: 'Spleen' },
+                { label: 'C', text: 'Kidney' },
+                { label: 'D', text: 'Heart' },
             ],
             correctAnswer: 'B',
             difficulty: 'easy',
         },
         {
-            questionText: "Which blood group is known as the universal donor?",
+            questionText: "Double fertilization is the characteristic of:",
             options: [
-                { label: 'A', text: 'A' },
-                { label: 'B', text: 'B' },
-                { label: 'C', text: 'AB' },
-                { label: 'D', text: 'O' },
+                { label: 'A', text: 'Algae' },
+                { label: 'B', text: 'Fungi' },
+                { label: 'C', text: 'Angiosperms' },
+                { label: 'D', text: 'Gymnosperms' },
             ],
-            correctAnswer: 'D',
-            difficulty: 'easy',
+            correctAnswer: 'C',
+            difficulty: 'medium',
         },
         {
-            questionText: "The functional unit of kidney is:",
+            questionText: "The scientific name of human beings is:",
             options: [
-                { label: 'A', text: 'Neuron' },
-                { label: 'B', text: 'Nephron' },
-                { label: 'C', text: 'Glomerulus' },
-                { label: 'D', text: 'Ureter' },
+                { label: 'A', text: 'Homo habilis' },
+                { label: 'B', text: 'Homo erectus' },
+                { label: 'C', text: 'Homo sapiens' },
+                { label: 'D', text: 'Homo neanderthalensis' },
+            ],
+            correctAnswer: 'C',
+            difficulty: 'easy',
+        },
+    ],
+    Biology: [
+        {
+            questionText: "B-lymphocytes are responsible for:",
+            options: [
+                { label: 'A', text: 'Cell-mediated immunity' },
+                { label: 'B', text: 'Humoral immunity' },
+                { label: 'C', text: 'Innate immunity' },
+                { label: 'D', text: 'Passive immunity' },
             ],
             correctAnswer: 'B',
             difficulty: 'medium',
         },
         {
-            questionText: "Insulin is produced by:",
+            questionText: "Which of the following is a structural and functional unit of ecology?",
             options: [
-                { label: 'A', text: 'Liver' },
-                { label: 'B', text: 'Pancreas' },
-                { label: 'C', text: 'Kidney' },
-                { label: 'D', text: 'Stomach' },
+                { label: 'A', text: 'Population' },
+                { label: 'B', text: 'Community' },
+                { label: 'C', text: 'Ecosystem' },
+                { label: 'D', text: 'Biome' },
+            ],
+            correctAnswer: 'C',
+            difficulty: 'easy',
+        },
+        {
+            questionText: "The first successfully cloned mammal was:",
+            options: [
+                { label: 'A', text: 'Polly the sheep' },
+                { label: 'B', text: 'Dolly the sheep' },
+                { label: 'C', text: 'Molly the sheep' },
+                { label: 'D', text: 'Holly the sheep' },
             ],
             correctAnswer: 'B',
             difficulty: 'easy',
         },
         {
-            questionText: "DNA stands for:",
+            questionText: "Restricted enzymes are also known as:",
             options: [
-                { label: 'A', text: 'Deoxyribonucleic acid' },
-                { label: 'B', text: 'Dinucleic acid' },
-                { label: 'C', text: 'Deoxyribose nucleic acid' },
-                { label: 'D', text: 'None of the above' },
+                { label: 'A', text: 'Molecular scissors' },
+                { label: 'B', text: 'Molecular glue' },
+                { label: 'C', text: 'Genetic vectors' },
+                { label: 'D', text: 'Cloning agents' },
             ],
             correctAnswer: 'A',
             difficulty: 'easy',
         },
         {
-            questionText: "How many pairs of chromosomes are present in humans?",
+            questionText: "The term 'Ecology' was coined by:",
             options: [
-                { label: 'A', text: '21' },
-                { label: 'B', text: '22' },
-                { label: 'C', text: '23' },
-                { label: 'D', text: '24' },
+                { label: 'A', text: 'Aristotle' },
+                { label: 'B', text: 'Charles Darwin' },
+                { label: 'C', text: 'Ernst Haeckel' },
+                { label: 'D', text: 'Gregor Mendel' },
             ],
             correctAnswer: 'C',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "The largest cell in the human body is:",
-            options: [
-                { label: 'A', text: 'Red blood cell' },
-                { label: 'B', text: 'Nerve cell' },
-                { label: 'C', text: 'Ovum (egg cell)' },
-                { label: 'D', text: 'Muscle cell' },
-            ],
-            correctAnswer: 'C',
-            difficulty: 'medium',
-        },
-        {
-            questionText: "Which vitamin helps in blood clotting?",
-            options: [
-                { label: 'A', text: 'Vitamin A' },
-                { label: 'B', text: 'Vitamin C' },
-                { label: 'C', text: 'Vitamin D' },
-                { label: 'D', text: 'Vitamin K' },
-            ],
-            correctAnswer: 'D',
-            difficulty: 'medium',
-        },
-    ],
-    Biology: [
-        {
-            questionText: "The basic unit of life is:",
-            options: [
-                { label: 'A', text: 'Atom' },
-                { label: 'B', text: 'Molecule' },
-                { label: 'C', text: 'Cell' },
-                { label: 'D', text: 'Tissue' },
-            ],
-            correctAnswer: 'C',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Which organelle is called the 'suicide bag' of the cell?",
-            options: [
-                { label: 'A', text: 'Mitochondria' },
-                { label: 'B', text: 'Lysosome' },
-                { label: 'C', text: 'Ribosome' },
-                { label: 'D', text: 'Nucleus' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'medium',
-        },
-        {
-            questionText: "Respiration is the process of:",
-            options: [
-                { label: 'A', text: 'Making glucose' },
-                { label: 'B', text: 'Breaking down glucose to release energy' },
-                { label: 'C', text: 'Absorbing water' },
-                { label: 'D', text: 'Producing oxygen' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Genes are made of:",
-            options: [
-                { label: 'A', text: 'Proteins' },
-                { label: 'B', text: 'Lipids' },
-                { label: 'C', text: 'DNA' },
-                { label: 'D', text: 'Carbohydrates' },
-            ],
-            correctAnswer: 'C',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "The scientific study of living organisms is called:",
-            options: [
-                { label: 'A', text: 'Physics' },
-                { label: 'B', text: 'Chemistry' },
-                { label: 'C', text: 'Biology' },
-                { label: 'D', text: 'Geology' },
-            ],
-            correctAnswer: 'C',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Which of the following is not a characteristic of living things?",
-            options: [
-                { label: 'A', text: 'Growth' },
-                { label: 'B', text: 'Reproduction' },
-                { label: 'C', text: 'Movement' },
-                { label: 'D', text: 'Crystallization' },
-            ],
-            correctAnswer: 'D',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Evolution is the process of:",
-            options: [
-                { label: 'A', text: 'Rapid mutation' },
-                { label: 'B', text: 'Gradual change over generations' },
-                { label: 'C', text: 'Sudden extinction' },
-                { label: 'D', text: 'Cloning' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'medium',
-        },
-        {
-            questionText: "The process by which organisms better adapted to their environment survive and produce more offspring is called:",
-            options: [
-                { label: 'A', text: 'Mutation' },
-                { label: 'B', text: 'Adaptation' },
-                { label: 'C', text: 'Natural selection' },
-                { label: 'D', text: 'Inheritance' },
-            ],
-            correctAnswer: 'C',
-            difficulty: 'medium',
-        },
-        {
-            questionText: "The study of heredity is called:",
-            options: [
-                { label: 'A', text: 'Ecology' },
-                { label: 'B', text: 'Genetics' },
-                { label: 'C', text: 'Cytology' },
-                { label: 'D', text: 'Histology' },
-            ],
-            correctAnswer: 'B',
-            difficulty: 'easy',
-        },
-        {
-            questionText: "Mitosis results in:",
-            options: [
-                { label: 'A', text: 'Four daughter cells with half the chromosomes' },
-                { label: 'B', text: 'Two daughter cells with the same chromosomes' },
-                { label: 'C', text: 'One daughter cell' },
-                { label: 'D', text: 'No daughter cells' },
-            ],
-            correctAnswer: 'B',
             difficulty: 'medium',
         },
     ],
@@ -685,7 +520,7 @@ export default async function handler(req, res) {
     try {
         await dbConnect();
 
-        // Check for admin authorization (simple check - in production, use proper auth)
+        // Check for admin authorization
         const { adminKey } = req.body;
         if (adminKey !== 'rasi-admin-seed-2024') {
             return res.status(401).json({
@@ -694,8 +529,8 @@ export default async function handler(req, res) {
             });
         }
 
-        // Clear existing questions (optional - for fresh seed)
-        // await ScholarshipQuestion.deleteMany({});
+        // Clear existing questions to ensure fresh start with TN syllabus
+        await ScholarshipQuestion.deleteMany({});
 
         const insertedCounts = {};
 
@@ -703,35 +538,28 @@ export default async function handler(req, res) {
             const questionsWithSubject = questions.map(q => ({
                 ...q,
                 subject,
-                source: 'RASI Foundation Sample Bank',
+                source: 'TN State Board Syllabus (Class 12)',
                 isActive: true,
             }));
 
-            // Check if questions already exist to avoid duplicates
-            const existingCount = await ScholarshipQuestion.countDocuments({ subject });
+            // Insert questions multiple times to reach at least 50 per subject for randomness
+            const targetCount = 50;
+            const toInsert = [];
 
-            if (existingCount < 35) {
-                // Insert questions multiple times to reach at least 35 per subject
-                const needed = 35 - existingCount;
-                const toInsert = [];
-
-                while (toInsert.length < needed) {
-                    for (const q of questionsWithSubject) {
-                        if (toInsert.length >= needed) break;
-                        toInsert.push({
-                            ...q,
-                            _id: undefined, // Ensure new IDs
-                        });
-                    }
+            while (toInsert.length < targetCount) {
+                for (const q of questionsWithSubject) {
+                    if (toInsert.length >= targetCount) break;
+                    toInsert.push({
+                        ...q,
+                        _id: undefined,
+                    });
                 }
-
-                if (toInsert.length > 0) {
-                    await ScholarshipQuestion.insertMany(toInsert);
-                }
-                insertedCounts[subject] = toInsert.length;
-            } else {
-                insertedCounts[subject] = 0;
             }
+
+            if (toInsert.length > 0) {
+                await ScholarshipQuestion.insertMany(toInsert);
+            }
+            insertedCounts[subject] = toInsert.length;
         }
 
         // Get final counts
@@ -742,7 +570,7 @@ export default async function handler(req, res) {
 
         res.status(200).json({
             success: true,
-            message: 'Questions seeded successfully',
+            message: 'TN State Board Syllabus Questions seeded successfully',
             inserted: insertedCounts,
             totalQuestions: finalCounts,
         });
