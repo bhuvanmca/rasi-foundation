@@ -38,13 +38,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-6">
+            <Link href="/" className="inline-block mb-6 bg-white p-2 rounded-xl shadow-sm">
               <Image
                 src="/logo.png"
                 alt="RASI FOUNDATION - Career Guidance & Education Consultancy"
-                width={250}
-                height={55}
-                className="h-14 w-auto brightness-0 invert"
+                width={200}
+                height={50}
+                className="h-12 w-auto object-contain"
               />
             </Link>
             <p className="text-gray-400 mb-6 leading-relaxed">

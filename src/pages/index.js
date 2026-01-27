@@ -132,6 +132,7 @@ export default function Home() {
       description="Rasi Foundation - Premier career guidance & education consultancy in Tamil Nadu. Expert counseling for MBBS, Engineering, MBA, Law admissions. 5000+ students guided, 100+ partner colleges."
       keywords="NEET counseling, medical college admission Tamil Nadu, engineering admission guidance, MBA admission consultant, career counselor Rasipuram, Namakkal education consultancy"
     >
+      <PlacementTicker />
       {/* Hero Section */}
       <section className="relative min-h-[85vh] bg-gradient-hero overflow-hidden">
         {/* Background Pattern */}
@@ -382,7 +383,7 @@ export default function Home() {
         </div>
       </section>
 
-      <PlacementTicker />
+
 
       {/* Stats Section */}
       <section className="py-16 bg-white relative -mt-1">
