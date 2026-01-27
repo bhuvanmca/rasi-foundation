@@ -28,6 +28,7 @@ export default function AdminLayout({ children, title = 'Dashboard' }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    // Auth Check
     const token = localStorage.getItem('adminToken');
     const userData = localStorage.getItem('adminUser');
 
@@ -36,6 +37,39 @@ export default function AdminLayout({ children, title = 'Dashboard' }) {
     } else if (userData) {
       setUser(JSON.parse(userData));
     }
+
+    // Inactivity Timer
+    let inactivityTimer;
+
+    const resetTimer = () => {
+      if (inactivityTimer) clearTimeout(inactivityTimer);
+      // Set timer for 5 minutes (300,000 ms)
+      inactivityTimer = setTimeout(() => {
+        handleLogout();
+      }, 5 * 60 * 1000);
+    };
+
+    // Events to monitor for activity
+    const activityEvents = [
+      'mousedown', 'mousemove', 'keydown',
+      'scroll', 'touchstart', 'click'
+    ];
+
+    // Initialize timer
+    resetTimer();
+
+    // Add event listeners
+    activityEvents.forEach(event => {
+      document.addEventListener(event, resetTimer);
+    });
+
+    // Cleanup
+    return () => {
+      if (inactivityTimer) clearTimeout(inactivityTimer);
+      activityEvents.forEach(event => {
+        document.removeEventListener(event, resetTimer);
+      });
+    };
   }, [router]);
 
   const handleLogout = () => {
