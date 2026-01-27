@@ -77,13 +77,12 @@ export default function AdminLogin() {
 
           <div className="relative z-10 animate-float bg-white/20 backdrop-blur-xl p-12 rounded-[3.5rem] border border-white/30 shadow-2xl flex items-center justify-center">
             <Image
-              src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Technologist.png"
+              src="/admin-login.png"
               alt="Admin Access"
               width={220}
               height={220}
               className="w-full max-w-[180px] h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.3)]"
               priority
-              unoptimized
             />
           </div>
 
