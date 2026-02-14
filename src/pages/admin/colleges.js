@@ -24,6 +24,7 @@ const DISTRICTS = [
   'Coimbatore Zone',
   'Bengaluru Zone',
   'Women Centric Colleges',
+  'Well Connected Universities',
 ];
 
 const districtColors = {
@@ -33,6 +34,7 @@ const districtColors = {
   'Coimbatore Zone': 'from-purple-500 to-purple-600',
   'Bengaluru Zone': 'from-indigo-500 to-indigo-600',
   'Women Centric Colleges': 'from-pink-500 to-rose-600',
+  'Well Connected Universities': 'from-teal-500 to-cyan-600',
 };
 
 export default function AdminColleges() {
@@ -397,7 +399,7 @@ export default function AdminColleges() {
                     <tr>
                       <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">College Name</th>
                       <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Location</th>
-                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Code</th>
+                      <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">TNEA Code</th>
                       <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">Status</th>
                       <th className="text-right py-3 px-4 text-sm font-medium text-gray-600">Actions</th>
                     </tr>
@@ -537,14 +539,14 @@ export default function AdminColleges() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    College Code
+                    TNEA Code
                   </label>
                   <input
                     type="text"
                     value={formData.code}
                     onChange={(e) => setFormData({ ...formData, code: e.target.value })}
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                    placeholder="e.g., 2710"
+                    placeholder="e.g., 2607"
                   />
                 </div>
                 <div>

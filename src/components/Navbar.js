@@ -24,6 +24,7 @@ const Navbar = () => {
     { name: 'COLLEGES', path: '/colleges' },
     { name: 'SCHOLARSHIP', path: '/scholarship-test' },
     { name: 'ACHIEVEMENTS', path: '/achievements' },
+    { name: 'UPDATES', path: '/announcements' },
     { name: 'PAYMENT', path: '/payment' },
   ];
 

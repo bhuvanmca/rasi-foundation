@@ -445,6 +445,7 @@ const districtColors = {
   'Coimbatore Zone': 'from-purple-500 to-purple-600',
   'Bengaluru Zone': 'from-indigo-500 to-indigo-600',
   'Women Centric Colleges': 'from-pink-500 to-rose-600',
+  'Well Connected Universities': 'from-teal-500 to-cyan-600',
 };
 
 // Use Static Site Generation with Incremental Static Regeneration for faster loading
