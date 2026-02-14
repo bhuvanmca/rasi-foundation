@@ -1,6 +1,6 @@
 import Layout from '@/frontend/components/Layout';
 import WomenCollegesScroller from '@/components/WomenCollegesScroller';
-import PlacementTicker from '@/frontend/components/PlacementTicker';
+
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
@@ -132,7 +132,7 @@ export default function Home() {
       description="Rasi Foundation - Premier career guidance & education consultancy in Tamil Nadu. Expert counseling for MBBS, Engineering, MBA, Law admissions. 5000+ students guided, 100+ partner colleges."
       keywords="NEET counseling, medical college admission Tamil Nadu, engineering admission guidance, MBA admission consultant, career counselor Rasipuram, Namakkal education consultancy"
     >
-      <PlacementTicker />
+
       {/* Hero Section */}
       <section className="relative min-h-[85vh] bg-gradient-hero overflow-hidden">
         {/* Background Pattern */}
