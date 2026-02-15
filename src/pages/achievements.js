@@ -41,7 +41,6 @@ export default function Achievements() {
   const [data, setData] = useState({
     stats: [],
     milestones: [],
-    success_stories: [],
     recognitions: [],
     placements: [],
     spotlights: []
@@ -92,8 +91,8 @@ export default function Achievements() {
   return (
     <Layout
       title="Achievements"
-      description="Rasi Foundation achievements: 5000+ students guided, 100+ partner colleges, 15+ years excellence. Read success stories of students placed in top Medical, Engineering & Management colleges."
-      keywords="student success stories, education consultancy achievements, MBBS admission success, engineering placement stories, career guidance testimonials"
+      description="Rasi Foundation achievements: 5000+ students guided, 100+ partner colleges, 15+ years excellence. Explore our records of excellence and student placements in top colleges."
+      keywords="education consultancy achievements, MBBS admission success, engineering placement stories, career guidance milestones, education excellence"
     >
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-amber-50 via-white to-red-50 py-24 overflow-hidden relative">
@@ -231,74 +230,6 @@ export default function Achievements() {
         </section>
       )}
 
-      {/* Success Stories Grid */}
-      {data.success_stories?.length > 0 && (
-        <section className="py-24 bg-gray-50 overflow-hidden">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <span className="text-amber-600 font-black uppercase tracking-[0.2em] text-xs">Testimonials</span>
-              <h2 className="text-4xl font-black text-gray-900 mt-2 tracking-tighter">Student Journeys</h2>
-            </div>
-            <motion.div
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {data.success_stories.map((story) => (
-                <motion.div
-                  key={story._id}
-                  variants={fadeInUp}
-                  className="bg-white rounded-[2.5rem] p-10 border border-gray-100 hover:shadow-2xl transition-all duration-500 group relative"
-                >
-                  {story.isVerified && (
-                    <div className="absolute top-8 right-8 bg-blue-50 text-blue-600 px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-widest flex items-center gap-1 border border-blue-100">
-                      <FaCheckCircle className="text-[10px]" /> Verified Success
-                    </div>
-                  )}
-                  <FaQuoteLeft className="text-4xl text-gray-100 mb-8" />
-                  <p className="text-gray-600 italic mb-10 leading-relaxed font-medium text-lg">&quot;{story.description}&quot;</p>
-
-                  <div className="flex items-center justify-between mb-8">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-xl transition-all group-hover:scale-110 ${story.color === 'red' ? 'bg-red-500' :
-                        story.color === 'blue' ? 'bg-blue-500' :
-                          story.color === 'green' ? 'bg-green-500' :
-                            story.color === 'purple' ? 'bg-purple-500' :
-                              'bg-amber-500'
-                        }`}>
-                        {story.name?.charAt(0)}
-                      </div>
-                      <div>
-                        <h4 className="font-black text-gray-900 text-lg tracking-tight">{story.name}</h4>
-                        <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">{story.course}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-6 border-t border-gray-50">
-                    <button
-                      onClick={() => handleReact(story._id, story.reactions)}
-                      className="flex items-center gap-2 text-gray-400 hover:text-amber-500 transition-colors group/btn"
-                    >
-                      <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center group-hover/btn:bg-amber-50 group-active:scale-125 transition-all">
-                        <FaHeart className={story.reactions > 0 ? 'text-amber-500' : ''} />
-                      </div>
-                      <span className="text-xs font-black">{story.reactions || 0}</span>
-                    </button>
-                    {story.videoUrl && (
-                      <a href={story.videoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-red-600 font-black uppercase tracking-widest text-[10px] hover:translate-x-1 transition-transform">
-                        Watch Story <FaArrowRight />
-                      </a>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-      )}
 
       {/* Recognitions Section */}
       {data.recognitions?.length > 0 && (

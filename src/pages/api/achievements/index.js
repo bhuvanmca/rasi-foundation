@@ -21,7 +21,6 @@ export default async function handler(req, res) {
         const grouped = {
             stats: achievements.filter(a => a.type === 'stat'),
             milestones: achievements.filter(a => a.type === 'milestone'),
-            success_stories: achievements.filter(a => a.type === 'success_story'),
             recognitions: achievements.filter(a => a.type === 'recognition'),
             placements: achievements.filter(a => a.type === 'placement'),
             spotlights: achievements.filter(a => a.type === 'spotlight')

@@ -20,7 +20,7 @@ export default function AdminAchievements() {
     const [showModal, setShowModal] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
-        type: 'success_story',
+        type: 'milestone',
         title: '',
         description: '',
         name: '',
@@ -122,7 +122,7 @@ export default function AdminAchievements() {
 
     const resetForm = () => {
         setFormData({
-            type: 'success_story',
+            type: 'milestone',
             title: '',
             description: '',
             name: '',
@@ -144,8 +144,8 @@ export default function AdminAchievements() {
         <AdminLayout title="Manage Achievements">
             <div className="flex justify-between items-center mb-8">
                 <div>
-                    <h2 className="text-2xl font-black text-gray-900 tracking-tight">Success Stories</h2>
-                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Celebrate student milestones</p>
+                    <h2 className="text-2xl font-black text-gray-900 tracking-tight">Achievements</h2>
+                    <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Celebrate milestones & recognitions</p>
                 </div>
                 <button
                     onClick={() => { resetForm(); setShowModal(true); }}
@@ -237,7 +237,6 @@ export default function AdminAchievements() {
                                         onChange={(e) => setFormData({ ...formData, type: e.target.value })}
                                         className="w-full bg-gray-50 border border-gray-200 p-4 rounded-2xl outline-none focus:ring-2 focus:ring-red-500/20 font-bold text-gray-700"
                                     >
-                                        <option value="success_story">Success Story</option>
                                         <option value="milestone">Milestone</option>
                                         <option value="stat">Statistic</option>
                                         <option value="recognition">Recognition</option>
@@ -261,7 +260,7 @@ export default function AdminAchievements() {
 
                             <div className="grid grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Success Title</label>
+                                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Title</label>
                                     <input
                                         type="text"
                                         required
@@ -285,7 +284,7 @@ export default function AdminAchievements() {
 
                             <div className="grid grid-cols-2 gap-6">
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Student Name</label>
+                                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Name (Optional)</label>
                                     <input
                                         type="text"
                                         value={formData.name}
@@ -318,7 +317,7 @@ export default function AdminAchievements() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Description / Short Success Story</label>
+                                <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Description</label>
                                 <textarea
                                     rows="4"
                                     value={formData.description}

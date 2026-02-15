@@ -15,7 +15,6 @@ import {
   FaArrowRight,
   FaPhone,
   FaQuoteLeft,
-  FaStar,
   FaCheckCircle,
   FaGlobe,
   FaChalkboardTeacher,
@@ -31,26 +30,6 @@ export default function Home() {
       { icon: FaGraduationCap, number: '50+', label: 'Courses Offered', color: 'green' },
       { icon: FaAward, number: '15+', label: 'Years Experience', color: 'amber' },
       { icon: FaHandshake, number: '100+', label: 'Partner Colleges', color: 'blue' },
-    ],
-    testimonials: [
-      {
-        name: 'Priya Sharma',
-        course: 'MBBS Student',
-        text: 'Rasi Foundation helped me find the perfect medical college. Their guidance was invaluable!',
-        rating: 5
-      },
-      {
-        name: 'Karthik R.',
-        course: 'Engineering Graduate',
-        text: 'Professional and dedicated team. They made my admission process smooth and stress-free.',
-        rating: 5
-      },
-      {
-        name: 'Anitha M.',
-        course: 'MBA Student',
-        text: 'Excellent career counseling! They understood my goals and suggested the best options.',
-        rating: 5
-      }
     ]
   });
 
@@ -73,18 +52,8 @@ export default function Home() {
           }))
           : data.stats;
 
-        const dynamicTestimonials = result.success_stories && result.success_stories.length > 0
-          ? result.success_stories.slice(0, 3).map(s => ({
-            name: s.name,
-            course: s.course,
-            text: s.description,
-            rating: 5
-          }))
-          : data.testimonials;
-
         setData({
-          stats: dynamicStats,
-          testimonials: dynamicTestimonials
+          stats: dynamicStats
         });
       }
     } catch (error) {
@@ -643,54 +612,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-gray-50 overflow-hidden">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="text-red-600 font-semibold uppercase tracking-wider">Testimonials</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mt-2 mb-4">
-              What Our <span className="text-green-600">Students Say</span>
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="grid md:grid-cols-3 gap-8"
-          >
-            {data.testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                className="card p-8 group hover:border-green-500/30"
-              >
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <FaStar key={i} className="text-amber-400" />
-                  ))}
-                </div>
-                <p className="text-gray-600 italic mb-6 leading-relaxed group-hover:text-gray-800 transition-colors">&quot;{testimonial.text}&quot;</p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-green-500 rounded-full flex items-center justify-center text-white font-bold">
-                    {testimonial.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-800">{testimonial.name}</p>
-                    <p className="text-sm text-gray-500">{testimonial.course}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-white">
