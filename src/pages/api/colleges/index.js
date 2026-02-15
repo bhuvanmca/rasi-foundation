@@ -5,11 +5,11 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
       await dbConnect();
-      
+
       const colleges = await College.find({ isActive: true })
         .sort({ district: 1, order: 1, name: 1 })
         .lean();
-      
+
       // Group colleges by district
       const groupedColleges = colleges.reduce((acc, college) => {
         const district = college.district;
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
           _id: college._id,
           name: college.name,
           location: college.location,
-          code: college.code,
+          tneaCode: college.tneaCode,
           note: college.note,
         });
         return acc;

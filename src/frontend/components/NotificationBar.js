@@ -82,13 +82,27 @@ const NotificationBar = () => {
                                     transition={{ duration: 0.5, ease: "easeOut" }}
                                     className="flex items-center gap-2"
                                 >
-                                    <span className="text-white font-black text-sm md:text-base tracking-tight whitespace-nowrap">
-                                        {current.title}
-                                    </span>
-                                    <span className="text-slate-400 text-xs md:text-sm font-medium truncate hidden sm:inline">
-                                        {current.content}
-                                    </span>
-                                    <div className={`w-4 h-4 ${config.dot}/20 rounded-full flex items-center justify-center flex-shrink-0`}>
+                                    {current.link ? (
+                                        <Link href={current.link} className="flex items-center gap-2 group/msg">
+                                            <span className="text-white font-black text-sm md:text-base tracking-tight whitespace-nowrap group-hover/msg:underline underline-offset-4 decoration-white/30">
+                                                {current.title}
+                                            </span>
+                                            <span className="text-slate-400 text-xs md:text-sm font-medium truncate hidden sm:inline">
+                                                {current.content}
+                                            </span>
+                                            <FaArrowRight className="text-white/30 text-[10px] group-hover/msg:translate-x-1 transition-transform" />
+                                        </Link>
+                                    ) : (
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-white font-black text-sm md:text-base tracking-tight whitespace-nowrap">
+                                                {current.title}
+                                            </span>
+                                            <span className="text-slate-400 text-xs md:text-sm font-medium truncate hidden sm:inline">
+                                                {current.content}
+                                            </span>
+                                        </div>
+                                    )}
+                                    <div className={`w-4 h-4 ${config.dot.replace('bg-', 'bg-')}/20 rounded-full flex items-center justify-center flex-shrink-0 ml-2`}>
                                         <div className={`w-1.5 h-1.5 ${config.dot} rounded-full`}></div>
                                     </div>
                                 </motion.div>

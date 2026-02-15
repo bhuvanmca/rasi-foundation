@@ -20,13 +20,13 @@ async function handler(req, res) {
     }
   } else if (req.method === 'PUT' || req.method === 'PATCH') {
     try {
-      const { name, location, district, code, note, isActive, order, departments, website } = req.body;
+      const { name, location, district, tneaCode, note, isActive, order, departments, website } = req.body;
 
       const updateData = {};
       if (name !== undefined) updateData.name = name;
       if (location !== undefined) updateData.location = location;
       if (district !== undefined) updateData.district = district;
-      if (code !== undefined) updateData.code = code;
+      if (tneaCode !== undefined) updateData.tneaCode = tneaCode;
       if (note !== undefined) updateData.note = note;
       if (isActive !== undefined) updateData.isActive = isActive;
       if (order !== undefined) updateData.order = order;

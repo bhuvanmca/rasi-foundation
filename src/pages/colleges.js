@@ -955,10 +955,10 @@ export default function Colleges({ collegesData }) {
                     <FaMapMarkerAlt />
                     <span>{selectedCollege.location}</span>
                   </div>
-                  {selectedCollege.code && (
+                  {selectedCollege.tneaCode && (
                     <div className="flex items-center gap-1 text-white/80 text-sm mt-1">
                       <FaCode />
-                      <span>Code: {selectedCollege.code}</span>
+                      <span>TNEA Code: {selectedCollege.tneaCode}</span>
                     </div>
                   )}
                 </div>

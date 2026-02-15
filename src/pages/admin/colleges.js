@@ -50,7 +50,7 @@ export default function AdminColleges() {
     name: '',
     location: '',
     district: DISTRICTS[0],
-    code: '',
+    tneaCode: '',
     note: '',
     isActive: true,
     order: 0,
@@ -222,7 +222,7 @@ export default function AdminColleges() {
       name: college.name,
       location: college.location,
       district: college.district,
-      code: college.code || '',
+      tneaCode: college.tneaCode || '',
       note: college.note || '',
       isActive: college.isActive,
       order: college.order || 0,
@@ -251,7 +251,7 @@ export default function AdminColleges() {
       name: '',
       location: '',
       district: DISTRICTS[0],
-      code: '',
+      tneaCode: '',
       note: '',
       isActive: true,
       order: 0,
@@ -262,7 +262,7 @@ export default function AdminColleges() {
     const matchesSearch =
       college.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       college.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (college.code && college.code.toLowerCase().includes(searchQuery.toLowerCase()));
+      (college.tneaCode && college.tneaCode.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesDistrict = districtFilter === 'all' || college.district === districtFilter;
     return matchesSearch && matchesDistrict;
   });
@@ -422,10 +422,10 @@ export default function AdminColleges() {
                           </div>
                         </td>
                         <td className="py-3 px-4">
-                          {college.code ? (
+                          {college.tneaCode ? (
                             <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-700 px-2 py-1 rounded text-sm">
                               <FaCode className="text-xs" />
-                              {college.code}
+                              {college.tneaCode}
                             </span>
                           ) : (
                             <span className="text-gray-400">-</span>
@@ -543,8 +543,8 @@ export default function AdminColleges() {
                   </label>
                   <input
                     type="text"
-                    value={formData.code}
-                    onChange={(e) => setFormData({ ...formData, code: e.target.value })}
+                    value={formData.tneaCode}
+                    onChange={(e) => setFormData({ ...formData, tneaCode: e.target.value })}
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                     placeholder="e.g., 2607"
                   />

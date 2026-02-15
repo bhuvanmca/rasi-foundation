@@ -15,7 +15,7 @@ async function handler(req, res) {
     }
   } else if (req.method === 'POST') {
     try {
-      const { name, location, district, code, note, isActive, order } = req.body;
+      const { name, location, district, tneaCode, note, isActive, order } = req.body;
 
       if (!name || !location || !district) {
         return res.status(400).json({ message: 'Name, location, and district are required' });
@@ -25,7 +25,7 @@ async function handler(req, res) {
         name,
         location,
         district,
-        code: code || '',
+        tneaCode: tneaCode || '',
         note: note || '',
         isActive: isActive !== undefined ? isActive : true,
         order: order || 0,

@@ -145,13 +145,98 @@ const colleges = [
   { name: 'MVJ College of Engineering', location: 'Bengaluru', district: 'Bengaluru Zone' },
 
   // Women Centric Colleges
-  { name: 'Avinashilingam University for Women', location: 'Coimbatore', district: 'Women Centric Colleges' },
-  { name: 'Bharathiyar Institute of Engineering for Women', location: 'Attur', district: 'Women Centric Colleges' },
-  { name: 'Idhaya Engineering College for Women', location: 'Villupuram', district: 'Women Centric Colleges' },
-  { name: 'Mahendra Engineering College for Women', location: 'Tiruchengode', district: 'Women Centric Colleges' },
-  { name: 'Periyar Maniammai University', location: 'Vallam', district: 'Women Centric Colleges' },
-  { name: 'Sri Bharathi Engineering College for Women', location: 'Alangudi', district: 'Women Centric Colleges' },
-  { name: 'Vivekanandha College of Engineering for Women', location: 'Tiruchengode', district: 'Women Centric Colleges' },
+  {
+    name: 'Avinashilingam University for Women',
+    location: 'Coimbatore',
+    district: 'Women Centric Colleges',
+    departments: [
+      'B.E. Computer Science and Engineering',
+      'B.E. CSE (AI & ML)',
+      'B.E. CSE (IoT & Cyber Security)',
+      'B.E. Electronics and Communication Engineering',
+      'B.E. Electrical and Electronics Engineering',
+      'B.E. Civil Engineering',
+      'B.E. Biomedical Instrumentation',
+      'B.Tech. Food Processing Technology',
+      'B.Tech. Printing Technology'
+    ]
+  },
+  {
+    name: 'Bharathiyar Institute of Engineering for Women',
+    location: 'Attur',
+    district: 'Women Centric Colleges',
+    departments: [
+      'B.E. Computer Science and Engineering',
+      'B.E. Electronics and Communication Engineering',
+      'B.E. Electrical and Electronics Engineering',
+      'B.E. Mechanical Engineering',
+      'B.E. Civil Engineering'
+    ]
+  },
+  {
+    name: 'Idhaya Engineering College for Women',
+    location: 'Villupuram',
+    district: 'Women Centric Colleges',
+    departments: [
+      'B.E. Computer Science and Engineering',
+      'B.E. Electronics and Communication Engineering',
+      'B.E. Electrical and Electronics Engineering',
+      'B.E. Civil Engineering'
+    ]
+  },
+  {
+    name: 'Mahendra Engineering College for Women',
+    location: 'Tiruchengode',
+    district: 'Women Centric Colleges',
+    departments: [
+      'B.E. Computer Science and Engineering',
+      'B.E. Electronics and Communication Engineering',
+      'B.E. Electrical and Electronics Engineering',
+      'B.Tech. Information Technology'
+    ]
+  },
+  {
+    name: 'Periyar Maniammai University',
+    location: 'Vallam',
+    district: 'Women Centric Colleges',
+    departments: [
+      'B.E. Computer Science and Engineering',
+      'B.E. Electronics and Communication Engineering',
+      'B.E. Electrical and Electronics Engineering',
+      'B.E. Mechanical Engineering',
+      'B.E. Civil Engineering',
+      'B.Tech. Information Technology',
+      'B.Tech. Biotechnology'
+    ]
+  },
+  {
+    name: 'Sri Bharathi Engineering College for Women',
+    location: 'Alangudi',
+    district: 'Women Centric Colleges',
+    departments: [
+      'B.E. Computer Science and Engineering',
+      'B.E. Electronics and Communication Engineering',
+      'B.E. Electrical and Electronics Engineering',
+      'B.E. Civil Engineering'
+    ]
+  },
+  {
+    name: 'Vivekanandha College of Engineering for Women',
+    location: 'Tiruchengode',
+    district: 'Women Centric Colleges',
+    departments: [
+      'B.E. Computer Science and Engineering',
+      'B.E. CSE (AI & ML)',
+      'B.E. Electronics and Communication Engineering',
+      'B.E. Electrical and Electronics Engineering',
+      'B.E. Civil Engineering',
+      'B.E. Biomedical Engineering',
+      'B.Tech. Information Technology',
+      'B.Tech. Biotechnology',
+      'B.Tech. Artificial Intelligence & Data Science',
+      'B.Tech. Agricultural Engineering'
+    ]
+  },
 
   // Well Connected Universities
   { name: 'Sree Balaji Institute of Science & Technology', location: 'Chrompet, Chennai', district: 'Well Connected Universities', note: 'Deemed University – Direct Admission' },
