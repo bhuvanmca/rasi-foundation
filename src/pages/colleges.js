@@ -345,7 +345,7 @@ const fallbackData = [
       {
         name: 'Karpagam College of Engineering (Autonomous)',
         location: 'Coimbatore',
-        code: '2710',
+        tneaCode: '2710',
         departments: [
           'B.E. Computer Science and Engineering',
           'B.E. CSE (Cyber Security)',
@@ -363,7 +363,7 @@ const fallbackData = [
       {
         name: 'Karpagam Institute of Technology (Autonomous)',
         location: 'Coimbatore',
-        code: '2735',
+        tneaCode: '2735',
         departments: [
           'B.E. Computer Science and Engineering',
           'B.E. Electronics and Communication Engineering',
@@ -375,44 +375,44 @@ const fallbackData = [
         ]
       },
       { name: 'Karpagam Academy of Higher Education (KAHE – University)', location: 'Coimbatore' },
-      { name: 'Sree Sakthi Engineering College (Autonomous)', location: 'Karamadai', code: '2673' },
-      { name: 'Adithya Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2744' },
-      { name: 'PPG Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2753' },
-      { name: 'Rathinam Group of Institutions (Autonomous)', location: 'Coimbatore', code: '2329', note: 'R-Smart / Sunstone supported' },
-      { name: 'Dr. NGP Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2736' },
-      { name: 'KGISL Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2751' },
-      { name: 'Nehru Institute of Engineering and Technology (Autonomous)', location: 'Coimbatore', code: '2729' },
-      { name: 'Nehru Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2755' },
-      { name: 'Coimbatore Institute of Engineering & Technology (Autonomous)', location: 'Coimbatore', code: '2704' },
-      { name: 'RVS College of Engineering and Technology (Autonomous)', location: 'Coimbatore', code: '2731' },
-      { name: 'United Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2761' },
-      { name: 'Hindusthan College of Engineering and Technology (Autonomous)', location: 'Coimbatore', code: '2708' },
-      { name: 'Hindustan Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2740' },
-      { name: 'Akshaya College of Engineering and Technology (Autonomous)', location: 'Coimbatore', code: '2763' },
-      { name: 'INFO Institute of Engineering & Technology (Autonomous)', location: 'Coimbatore', code: '2732' },
-      { name: 'KIT – Kalaignar Karunanidhi Institute of Technology (Autonomous)', location: 'Coimbatore', code: '2750' },
-      { name: 'Dhanalakshmi Srinivasan College of Engineering (Autonomous)', location: 'Coimbatore', code: '2743' },
-      { name: 'Sri Ranganathar Institute of Engineering & Technology (Autonomous)', location: 'Athipalayam', code: '2342' },
-      { name: 'Study World College of Engineering', location: 'Coimbatore', code: '2770' },
-      { name: 'EASA College of Engineering and Technology (Autonomous)', location: 'Coimbatore', code: '2749' },
-      { name: 'Arjun College of Technology (Autonomous)', location: 'Coimbatore', code: '2367' },
-      { name: 'JCT College of Technology (Autonomous)', location: 'Coimbatore', code: '2762' },
-      { name: 'Pollachi Institute of Engineering & Technology', location: 'Coimbatore', code: '2354' },
-      { name: 'P.A. College of Engineering and Technology (Autonomous)', location: 'Pollachi', code: '2741' },
-      { name: 'SNS College of Technology (Autonomous)', location: 'Coimbatore', code: '2726' },
-      { name: 'SNS College of Engineering (Autonomous)', location: 'Coimbatore', code: '2734' },
-      { name: 'Sri Sai Ranganathan Engineering College', location: 'Thondamuthur', code: '2737' },
-      { name: 'Asian College of Engineering and Technology', location: 'Saravanampatti', code: '2338' },
-      { name: 'Vishnu Lakshmi College of Engineering and Technology', location: 'Coimbatore', code: '2368' },
-      { name: 'Dhaanish Ahmed Institute of Technology', location: 'Coimbatore', code: '2349' },
-      { name: 'VSB College of Engineering & Technical Campus', location: 'Coimbatore', code: '2357' },
-      { name: 'Park College of Engineering and Technology', location: 'Coimbatore', code: '2716' },
-      { name: 'Tamil Nadu College of Engineering', location: 'Coimbatore', code: '2721' },
-      { name: 'Sri Shakthi Institute of Engineering and Technology', location: 'L&T By-Pass', code: '2727' },
-      { name: 'Kathir College of Engineering', location: 'Coimbatore', code: '2745' },
-      { name: 'Suguna College of Engineering', location: 'Coimbatore', code: '2360' },
-      { name: 'CMS College of Engineering and Technology', location: 'Coimbatore', code: '2772' },
-      { name: 'Christ the King Engineering College', location: 'Karamadai', code: '2650' }
+      { name: 'Sree Sakthi Engineering College (Autonomous)', location: 'Karamadai', tneaCode: '2673' },
+      { name: 'Adithya Institute of Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2744' },
+      { name: 'PPG Institute of Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2753' },
+      { name: 'Rathinam Group of Institutions (Autonomous)', location: 'Coimbatore', tneaCode: '2329', note: 'R-Smart / Sunstone supported' },
+      { name: 'Dr. NGP Institute of Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2736' },
+      { name: 'KGISL Institute of Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2751' },
+      { name: 'Nehru Institute of Engineering and Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2729' },
+      { name: 'Nehru Institute of Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2755' },
+      { name: 'Coimbatore Institute of Engineering & Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2704' },
+      { name: 'RVS College of Engineering and Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2731' },
+      { name: 'United Institute of Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2761' },
+      { name: 'Hindusthan College of Engineering and Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2708' },
+      { name: 'Hindustan Institute of Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2740' },
+      { name: 'Akshaya College of Engineering and Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2763' },
+      { name: 'INFO Institute of Engineering & Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2732' },
+      { name: 'KIT – Kalaignar Karunanidhi Institute of Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2750' },
+      { name: 'Dhanalakshmi Srinivasan College of Engineering (Autonomous)', location: 'Coimbatore', tneaCode: '2743' },
+      { name: 'Sri Ranganathar Institute of Engineering & Technology (Autonomous)', location: 'Athipalayam', tneaCode: '2342' },
+      { name: 'Study World College of Engineering', location: 'Coimbatore', tneaCode: '2770' },
+      { name: 'EASA College of Engineering and Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2749' },
+      { name: 'Arjun College of Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2367' },
+      { name: 'JCT College of Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2762' },
+      { name: 'Pollachi Institute of Engineering & Technology', location: 'Coimbatore', tneaCode: '2354' },
+      { name: 'P.A. College of Engineering and Technology (Autonomous)', location: 'Pollachi', tneaCode: '2741' },
+      { name: 'SNS College of Technology (Autonomous)', location: 'Coimbatore', tneaCode: '2726' },
+      { name: 'SNS College of Engineering (Autonomous)', location: 'Coimbatore', tneaCode: '2734' },
+      { name: 'Sri Sai Ranganathan Engineering College', location: 'Thondamuthur', tneaCode: '2737' },
+      { name: 'Asian College of Engineering and Technology', location: 'Saravanampatti', tneaCode: '2338' },
+      { name: 'Vishnu Lakshmi College of Engineering and Technology', location: 'Coimbatore', tneaCode: '2368' },
+      { name: 'Dhaanish Ahmed Institute of Technology', location: 'Coimbatore', tneaCode: '2349' },
+      { name: 'VSB College of Engineering & Technical Campus', location: 'Coimbatore', tneaCode: '2357' },
+      { name: 'Park College of Engineering and Technology', location: 'Coimbatore', tneaCode: '2716' },
+      { name: 'Tamil Nadu College of Engineering', location: 'Coimbatore', tneaCode: '2721' },
+      { name: 'Sri Shakthi Institute of Engineering and Technology', location: 'L&T By-Pass', tneaCode: '2727' },
+      { name: 'Kathir College of Engineering', location: 'Coimbatore', tneaCode: '2745' },
+      { name: 'Suguna College of Engineering', location: 'Coimbatore', tneaCode: '2360' },
+      { name: 'CMS College of Engineering and Technology', location: 'Coimbatore', tneaCode: '2772' },
+      { name: 'Christ the King Engineering College', location: 'Karamadai', tneaCode: '2650' }
     ]
   },
   {
@@ -467,7 +467,7 @@ export async function getStaticProps() {
         _id: college._id.toString(),
         name: college.name,
         location: college.location,
-        code: college.code || '',
+        tneaCode: college.tneaCode || '',
         note: college.note || '',
         departments: college.departments || [],
       });
@@ -763,10 +763,10 @@ export default function Colleges({ collegesData }) {
                             <FaMapMarkerAlt className="text-xs text-red-500" />
                             <span>{college.location}</span>
                           </div>
-                          {college.code && (
+                          {college.tneaCode && (
                             <div className="flex items-center gap-1 text-gray-500 text-sm mt-1">
                               <FaCode className="text-xs text-blue-500" />
-                              <span>Code: <strong className="text-blue-600">{college.code}</strong></span>
+                              <span>TNEA Code: <strong className="text-blue-600">{college.tneaCode}</strong></span>
                             </div>
                           )}
                           {college.note && (
@@ -934,7 +934,7 @@ export default function Colleges({ collegesData }) {
           onClick={() => setSelectedCollege(null)}
         >
           <div
-            className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden animate-slideIn"
+            className="bg-white rounded-3xl shadow-2xl max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden animate-slideIn"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -966,7 +966,7 @@ export default function Colleges({ collegesData }) {
             </div>
 
             {/* Modal Body - Departments List */}
-            <div className="p-6">
+            <div className="p-6 overflow-y-auto flex-1" style={{ maxHeight: '60vh' }}>
               <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                 📚 Departments Available
                 <span className="text-sm font-normal text-gray-500">

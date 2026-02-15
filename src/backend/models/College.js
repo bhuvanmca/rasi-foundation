@@ -16,9 +16,9 @@ const CollegeSchema = new mongoose.Schema({
     required: [true, 'Please provide district'],
     maxlength: [100, 'District cannot be more than 100 characters'],
   },
-  code: {
+  tneaCode: {
     type: String,
-    maxlength: [20, 'Code cannot be more than 20 characters'],
+    maxlength: [20, 'TNEA Code cannot be more than 20 characters'],
   },
   note: {
     type: String,

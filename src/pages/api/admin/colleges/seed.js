@@ -136,6 +136,8 @@ const initialColleges = [
   { name: 'Chettinad University', location: 'Kelambakkam Road, OMR, Chennai', district: 'Well Connected Universities', note: 'Deemed University – Direct Admission' },
   { name: 'Dr. M.G.R University', location: 'Maduravoyal, Chennai', district: 'Well Connected Universities', note: 'Deemed University – Direct Admission' },
   { name: 'Bharath University', location: 'Selaiyur, Chennai', district: 'Well Connected Universities', note: 'Deemed University – Direct Admission' },
+  { name: 'Vellore Institute of Technology (VIT)', location: 'Vellore, Tamil Nadu', district: 'Well Connected Universities', note: 'Deemed University – NIRF Top-Ranked Private University' },
+  { name: 'Amrita Vishwa Vidyapeetham', location: 'Coimbatore, Tamil Nadu', district: 'Well Connected Universities', note: 'Deemed University – NIRF #8, NAAC A++' },
 ];
 
 async function handler(req, res) {
