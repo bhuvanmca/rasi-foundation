@@ -19,12 +19,13 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About Us', path: '/about' },
+    { name: 'About', path: '/about' },
     { name: 'Courses', path: '/courses' },
     { name: 'Colleges', path: '/colleges' },
     { name: 'Scholarship', path: '/scholarship-test' },
     { name: 'Achievements', path: '/achievements' },
     { name: 'Announcements', path: '/announcements' },
+    { name: 'Payment', path: '/payment' },
   ];
 
   const isActive = (path) => router.pathname === path;
@@ -75,12 +76,12 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation - Original Color Theme Integration */}
-            <div className="hidden md:flex items-center justify-center flex-1 gap-0.5 lg:gap-1">
+            <div className="hidden md:flex items-center justify-center flex-1 gap-0">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   href={link.path}
-                  className={`relative px-1.5 lg:px-2.5 py-2 text-[10px] lg:text-[11px] xl:text-[12px] font-bold uppercase tracking-wider transition-all duration-300 rounded-lg group whitespace-nowrap ${isActive(link.path)
+                  className={`relative px-1 lg:px-2 xl:px-3 py-2 text-[10px] lg:text-[11px] xl:text-[12px] font-bold uppercase tracking-wider transition-all duration-300 rounded-lg group whitespace-nowrap ${isActive(link.path)
                     ? 'bg-green-600 text-white shadow-md'
                     : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
                     }`}
@@ -92,15 +93,6 @@ const Navbar = () => {
 
             {/* Action Buttons */}
             <div className="flex items-center gap-2 lg:gap-3 relative z-[60] ml-2 flex-shrink-0">
-              <Link
-                href="/payment"
-                className={`hidden 2xl:flex items-center gap-2 px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${isActive('/payment')
-                  ? 'bg-green-600 text-white shadow-md'
-                  : 'bg-green-50 text-green-700 hover:bg-green-100'
-                  }`}
-              >
-                Payment
-              </Link>
               <Link
                 href="/contact"
                 className="hidden lg:flex items-center gap-2 bg-green-600 text-white px-3 lg:px-6 py-2.5 lg:py-3 rounded-xl text-[9px] lg:text-xs font-bold uppercase tracking-wider shadow-lg shadow-green-600/20 hover:bg-green-700 hover:-translate-y-0.5 transition-all whitespace-nowrap"
@@ -123,7 +115,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile menu overlay */}
         <div
           className={`fixed inset-0 z-[-1] bg-black/40 backdrop-blur-sm transition-opacity duration-500 md:hidden ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
             }`}
@@ -148,17 +140,6 @@ const Navbar = () => {
                   <FaChevronRight className={`text-[10px] ${isActive(link.path) ? 'text-white/60' : 'text-gray-300'}`} />
                 </Link>
               ))}
-              <Link
-                href="/payment"
-                className={`flex items-center justify-between py-4 px-6 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${isActive('/payment')
-                  ? 'bg-green-600 text-white'
-                  : 'text-gray-700 hover:bg-gray-50'
-                  }`}
-                onClick={() => setIsOpen(false)}
-              >
-                Payment
-                <FaChevronRight className={`text-[10px] ${isActive('/payment') ? 'text-white/60' : 'text-gray-300'}`} />
-              </Link>
             </div>
 
             <div className="mt-6 pt-6 border-t border-gray-100">
@@ -173,7 +154,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </nav>
+      </nav >
     </>
   );
 };
