@@ -25,7 +25,6 @@ const Navbar = () => {
     { name: 'Scholarship', path: '/scholarship-test' },
     { name: 'Achievements', path: '/achievements' },
     { name: 'Announcements', path: '/announcements' },
-    { name: 'Payment', path: '/payment' },
   ];
 
   const isActive = (path) => router.pathname === path;
@@ -59,7 +58,7 @@ const Navbar = () => {
         : 'bg-white shadow-sm py-4'
         }`}>
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-4 lg:gap-8">
             {/* Logo */}
             <Link href="/" className="flex items-center group relative z-[60]">
               <div className="relative h-12 md:h-16 lg:h-20 w-auto">
@@ -76,13 +75,13 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation - Original Color Theme Integration */}
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex items-center gap-1 lg:gap-2 min-w-0">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   href={link.path}
-                  className={`relative px-3 lg:px-4 py-2 text-[11px] lg:text-[12px] font-bold uppercase tracking-wider transition-all duration-300 rounded-lg group ${isActive(link.path)
-                    ? 'bg-green-600 text-white'
+                  className={`relative px-2 lg:px-3 py-2 text-[10px] lg:text-[12px] font-bold uppercase tracking-wider transition-all duration-300 rounded-lg group whitespace-nowrap ${isActive(link.path)
+                    ? 'bg-green-600 text-white shadow-md'
                     : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
                     }`}
                 >
@@ -91,11 +90,20 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Action Button */}
-            <div className="flex items-center gap-4 relative z-[60]">
+            {/* Action Buttons */}
+            <div className="flex items-center gap-2 lg:gap-3 relative z-[60] ml-auto flex-shrink-0">
+              <Link
+                href="/payment"
+                className={`hidden xl:flex items-center gap-2 px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${isActive('/payment')
+                  ? 'bg-green-600 text-white shadow-md'
+                  : 'bg-green-50 text-green-700 hover:bg-green-100'
+                  }`}
+              >
+                Payment
+              </Link>
               <Link
                 href="/contact"
-                className="hidden lg:flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider shadow-lg shadow-green-600/20 hover:bg-green-700 hover:-translate-y-0.5 transition-all"
+                className="hidden lg:flex items-center gap-2 bg-green-600 text-white px-4 lg:px-6 py-3 rounded-xl text-[10px] lg:text-xs font-bold uppercase tracking-wider shadow-lg shadow-green-600/20 hover:bg-green-700 hover:-translate-y-0.5 transition-all whitespace-nowrap"
               >
                 <FaGraduationCap className="text-sm" />
                 Find Your Course
@@ -140,6 +148,17 @@ const Navbar = () => {
                   <FaChevronRight className={`text-[10px] ${isActive(link.path) ? 'text-white/60' : 'text-gray-300'}`} />
                 </Link>
               ))}
+              <Link
+                href="/payment"
+                className={`flex items-center justify-between py-4 px-6 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${isActive('/payment')
+                  ? 'bg-green-600 text-white'
+                  : 'text-gray-700 hover:bg-gray-50'
+                  }`}
+                onClick={() => setIsOpen(false)}
+              >
+                Payment
+                <FaChevronRight className={`text-[10px] ${isActive('/payment') ? 'text-white/60' : 'text-gray-300'}`} />
+              </Link>
             </div>
 
             <div className="mt-6 pt-6 border-t border-gray-100">
