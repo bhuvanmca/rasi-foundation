@@ -75,12 +75,12 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation - Original Color Theme Integration */}
-            <div className="hidden md:flex items-center gap-1 lg:gap-2 min-w-0">
+            <div className="hidden md:flex items-center justify-center flex-1 gap-0.5 lg:gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   href={link.path}
-                  className={`relative px-2 lg:px-3 py-2 text-[10px] lg:text-[12px] font-bold uppercase tracking-wider transition-all duration-300 rounded-lg group whitespace-nowrap ${isActive(link.path)
+                  className={`relative px-1.5 lg:px-2.5 py-2 text-[10px] lg:text-[11px] xl:text-[12px] font-bold uppercase tracking-wider transition-all duration-300 rounded-lg group whitespace-nowrap ${isActive(link.path)
                     ? 'bg-green-600 text-white shadow-md'
                     : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
                     }`}
@@ -91,10 +91,10 @@ const Navbar = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex items-center gap-2 lg:gap-3 relative z-[60] ml-auto flex-shrink-0">
+            <div className="flex items-center gap-2 lg:gap-3 relative z-[60] ml-2 flex-shrink-0">
               <Link
                 href="/payment"
-                className={`hidden xl:flex items-center gap-2 px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${isActive('/payment')
+                className={`hidden 2xl:flex items-center gap-2 px-4 py-2 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${isActive('/payment')
                   ? 'bg-green-600 text-white shadow-md'
                   : 'bg-green-50 text-green-700 hover:bg-green-100'
                   }`}
@@ -103,7 +103,7 @@ const Navbar = () => {
               </Link>
               <Link
                 href="/contact"
-                className="hidden lg:flex items-center gap-2 bg-green-600 text-white px-4 lg:px-6 py-3 rounded-xl text-[10px] lg:text-xs font-bold uppercase tracking-wider shadow-lg shadow-green-600/20 hover:bg-green-700 hover:-translate-y-0.5 transition-all whitespace-nowrap"
+                className="hidden lg:flex items-center gap-2 bg-green-600 text-white px-3 lg:px-6 py-2.5 lg:py-3 rounded-xl text-[9px] lg:text-xs font-bold uppercase tracking-wider shadow-lg shadow-green-600/20 hover:bg-green-700 hover:-translate-y-0.5 transition-all whitespace-nowrap"
               >
                 <FaGraduationCap className="text-sm" />
                 Find Your Course
