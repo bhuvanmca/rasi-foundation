@@ -19,12 +19,29 @@ import {
     FaRedo,
     FaTimesCircle,
     FaQuestionCircle,
+    FaFlask,
+    FaCalculator,
+    FaLeaf,
+    FaDna,
 } from 'react-icons/fa';
 
 export default function PracticeTestPage() {
     const [stage, setStage] = useState('info'); // info, register, test, result
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [selectedSubject, setSelectedSubject] = useState('Physics');
+
+    // Subject config
+    const subjectConfig = {
+        Physics: { icon: FaAtom, color: 'from-blue-600 to-indigo-600', bg: 'bg-blue-50', border: 'border-blue-300', activeBorder: 'border-blue-600', ring: 'ring-blue-300', desc: 'Optics, Electrostatics, Magnetism, Nuclear Physics' },
+        Chemistry: { icon: FaFlask, color: 'from-green-600 to-emerald-600', bg: 'bg-green-50', border: 'border-green-300', activeBorder: 'border-green-600', ring: 'ring-green-300', desc: 'Organic, Inorganic, Physical Chemistry' },
+        Mathematics: { icon: FaCalculator, color: 'from-purple-600 to-violet-600', bg: 'bg-purple-50', border: 'border-purple-300', activeBorder: 'border-purple-600', ring: 'ring-purple-300', desc: 'Calculus, Matrices, Probability, Vectors' },
+        Botany: { icon: FaLeaf, color: 'from-emerald-600 to-teal-600', bg: 'bg-emerald-50', border: 'border-emerald-300', activeBorder: 'border-emerald-600', ring: 'ring-emerald-300', desc: 'Plant Biology, Genetics, Biotechnology' },
+        Zoology: { icon: FaDna, color: 'from-rose-600 to-pink-600', bg: 'bg-rose-50', border: 'border-rose-300', activeBorder: 'border-rose-600', ring: 'ring-rose-300', desc: 'Human Physiology, Evolution, Immunology' },
+        Biology: { icon: FaDna, color: 'from-amber-500 to-orange-600', bg: 'bg-amber-50', border: 'border-amber-300', activeBorder: 'border-amber-600', ring: 'ring-amber-300', desc: 'Combined Botany and Zoology topics' },
+    };
+    const currentConfig = subjectConfig[selectedSubject] || subjectConfig.Physics;
+    const SubjectIcon = currentConfig.icon;
 
     // Registration form
     const [formData, setFormData] = useState({
@@ -86,7 +103,7 @@ export default function PracticeTestPage() {
 
         setLoading(true);
         try {
-            const response = await fetch('/api/practice-test/questions?count=15');
+            const response = await fetch(`/api/practice-test/questions?count=15&subject=${selectedSubject}`);
             const data = await response.json();
 
             if (!response.ok) {
@@ -137,6 +154,7 @@ export default function PracticeTestPage() {
                     phone: formData.phone,
                     answers: answersArray,
                     timeTaken,
+                    subject: selectedSubject,
                 }),
             });
 
@@ -181,23 +199,55 @@ export default function PracticeTestPage() {
     if (stage === 'info') {
         return (
             <Layout
-                title="Practice Test - Physics"
-                description="Free physics practice test with questions from Half-Yearly Examination 2025"
+                title={`Practice Test - ${selectedSubject}`}
+                description={`Free ${selectedSubject} practice test with questions from Half-Yearly Examination 2025`}
             >
                 <section className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-16">
                     <div className="container mx-auto px-4">
                         <div className="max-w-4xl mx-auto">
                             {/* Header */}
                             <div className="text-center mb-12">
-                                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl mb-6 shadow-lg">
-                                    <FaAtom className="text-4xl text-white" />
+                                <div className={`inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r ${currentConfig.color} rounded-2xl mb-6 shadow-lg transition-all duration-500`}>
+                                    <SubjectIcon className="text-4xl text-white" />
                                 </div>
                                 <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-                                    Physics <span className="text-indigo-600">Practice Test</span>
+                                    Practice <span className="text-indigo-600">Test</span>
                                 </h1>
                                 <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                                    Test your physics knowledge with questions from Half-Yearly Examination 2025
+                                    Select a subject and test your knowledge with exam-style questions
                                 </p>
+                            </div>
+
+                            {/* Subject Selection */}
+                            <div className="bg-white rounded-2xl p-6 shadow-lg mb-8">
+                                <h3 className="text-lg font-bold text-gray-800 mb-4">Choose Your Subject</h3>
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                    {Object.entries(subjectConfig).map(([key, config]) => {
+                                        const Icon = config.icon;
+                                        const isSelected = selectedSubject === key;
+                                        return (
+                                            <button
+                                                key={key}
+                                                onClick={() => setSelectedSubject(key)}
+                                                className={`relative p-4 rounded-xl border-2 text-left transition-all duration-300 ${isSelected
+                                                    ? `${config.bg} ${config.activeBorder} ring-2 ring-offset-2 ${config.ring} shadow-md`
+                                                    : `${config.bg} ${config.border} hover:shadow-md cursor-pointer`
+                                                    }`}
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    <div className={`w-10 h-10 bg-gradient-to-r ${config.color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                                                        <Icon className="text-lg text-white" />
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <h4 className="font-bold text-gray-800 text-sm">{key}</h4>
+                                                        <p className="text-xs text-gray-500 truncate">{config.desc}</p>
+                                                    </div>
+                                                    {isSelected && <FaCheckCircle className="text-green-600 text-lg flex-shrink-0" />}
+                                                </div>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
                             </div>
 
                             {/* Features Grid */}
@@ -207,7 +257,7 @@ export default function PracticeTestPage() {
                                         <FaQuestionCircle className="text-2xl text-blue-600" />
                                     </div>
                                     <h3 className="text-lg font-bold text-gray-800 mb-2">15 Questions</h3>
-                                    <p className="text-gray-600">Carefully selected MCQ questions covering various physics topics</p>
+                                    <p className="text-gray-600">Carefully selected MCQ questions covering various topics</p>
                                 </div>
 
                                 <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
@@ -227,28 +277,14 @@ export default function PracticeTestPage() {
                                 </div>
                             </div>
 
-                            {/* Topics Covered */}
-                            <div className="bg-white rounded-2xl p-8 shadow-lg mb-8">
-                                <h3 className="text-xl font-bold text-gray-800 mb-4">Topics Covered</h3>
-                                <div className="flex flex-wrap gap-3">
-                                    {['Optics', 'Electrostatics', 'Magnetism', 'Current Electricity', 'AC Circuits',
-                                        'Electromagnetic Waves', 'Nuclear Physics', 'Semiconductors', 'Wave Optics',
-                                        'Photoelectric Effect', 'Quantum Physics'].map(topic => (
-                                            <span key={topic} className="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium">
-                                                {topic}
-                                            </span>
-                                        ))}
-                                </div>
-                            </div>
-
                             {/* Start Button */}
                             <div className="text-center">
                                 <button
                                     onClick={() => setStage('register')}
-                                    className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-lg font-bold rounded-2xl hover:shadow-xl transition-all transform hover:scale-105"
+                                    className={`inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r ${currentConfig.color} text-white text-lg font-bold rounded-2xl hover:shadow-xl transition-all transform hover:scale-105`}
                                 >
                                     <FaPlay />
-                                    Start Practice Test
+                                    Start {selectedSubject} Practice Test
                                 </button>
                             </div>
                         </div>
@@ -274,7 +310,7 @@ export default function PracticeTestPage() {
                                         <FaAtom className="text-2xl text-white" />
                                     </div>
                                     <h2 className="text-2xl font-bold text-gray-800">Enter Your Details</h2>
-                                    <p className="text-gray-600 mt-2">Start your physics practice test</p>
+                                    <p className="text-gray-600 mt-2">Start your {selectedSubject} practice test</p>
                                 </div>
 
                                 <div className="space-y-5">
@@ -370,7 +406,7 @@ export default function PracticeTestPage() {
         return (
             <>
                 <Head>
-                    <title>Practice Test | Physics</title>
+                    <title>Practice Test | {selectedSubject}</title>
                     <meta name="robots" content="noindex, nofollow" />
                 </Head>
 
@@ -380,11 +416,11 @@ export default function PracticeTestPage() {
                         <div className="container mx-auto px-4 py-3">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
-                                        <FaAtom className="text-white text-xl" />
+                                    <div className={`w-10 h-10 bg-gradient-to-r ${currentConfig.color} rounded-lg flex items-center justify-center`}>
+                                        <SubjectIcon className="text-white text-xl" />
                                     </div>
                                     <div className="hidden sm:block">
-                                        <h1 className="font-bold text-gray-800">Physics Practice Test</h1>
+                                        <h1 className="font-bold text-gray-800">{selectedSubject} Practice Test</h1>
                                         <p className="text-xs text-gray-500">{formData.studentName}</p>
                                     </div>
                                 </div>

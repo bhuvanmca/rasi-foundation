@@ -1,6 +1,18 @@
 import dbConnect from '@/lib/mongodb';
 import PracticeTestResult from '@/models/PracticeTestResult';
 import { physicsQuestions } from '@/data/practiceQuestions';
+import { chemistryQuestions } from '@/data/chemistryQuestions';
+import { mathematicsQuestions } from '@/data/mathematicsQuestions';
+import { botanyQuestions, zoologyQuestions } from '@/data/biologyQuestions';
+
+// Combined question map for all subjects
+const allQuestions = [
+    ...physicsQuestions,
+    ...chemistryQuestions,
+    ...mathematicsQuestions,
+    ...botanyQuestions,
+    ...zoologyQuestions,
+];
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -13,7 +25,8 @@ export default async function handler(req, res) {
             email,
             phone,
             answers,
-            timeTaken
+            timeTaken,
+            subject = 'Physics'
         } = req.body;
 
         // Validate required fields
@@ -26,7 +39,7 @@ export default async function handler(req, res) {
 
         // Create a map of questions for quick lookup
         const questionMap = {};
-        physicsQuestions.forEach(q => {
+        allQuestions.forEach(q => {
             questionMap[q.id] = q;
         });
 
@@ -70,7 +83,7 @@ export default async function handler(req, res) {
             studentName,
             email: email.toLowerCase(),
             phone: phone || '',
-            subject: 'Physics',
+            subject: subject,
             totalQuestions,
             correctAnswers: correctCount,
             wrongAnswers: wrongCount,
@@ -102,7 +115,7 @@ export default async function handler(req, res) {
                 resultId: practiceResult._id,
                 studentName,
                 email,
-                subject: 'Physics',
+                subject: subject,
                 totalQuestions,
                 correctAnswers: correctCount,
                 wrongAnswers: wrongCount,

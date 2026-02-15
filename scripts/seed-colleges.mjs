@@ -126,6 +126,33 @@ const colleges = [
   { name: 'CMS College of Engineering and Technology', location: 'Coimbatore', district: 'Coimbatore Zone', tneaCode: '2772' },
   { name: 'Christ the King Engineering College', location: 'Karamadai', district: 'Coimbatore Zone', tneaCode: '2650' },
 
+  // Bengaluru Zone
+  { name: 'Akash Group of Institutions', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'East Point College', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'Alliance University', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'Adithya Institute of Technology', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'SEA College of Engineering & Technology', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'T. John Group of Institutions', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'S-VYASA University', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'RR Institutions', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'Harsha Institutions', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'Atria Institute of Technology', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'Garden City University', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'Spurthy Institutions', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'Yenepoya University', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'Krupanidhi Group of Institutions', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'ISBR Bangalore', location: 'Bengaluru', district: 'Bengaluru Zone' },
+  { name: 'MVJ College of Engineering', location: 'Bengaluru', district: 'Bengaluru Zone' },
+
+  // Women Centric Colleges
+  { name: 'Avinashilingam University for Women', location: 'Coimbatore', district: 'Women Centric Colleges' },
+  { name: 'Bharathiyar Institute of Engineering for Women', location: 'Attur', district: 'Women Centric Colleges' },
+  { name: 'Idhaya Engineering College for Women', location: 'Villupuram', district: 'Women Centric Colleges' },
+  { name: 'Mahendra Engineering College for Women', location: 'Tiruchengode', district: 'Women Centric Colleges' },
+  { name: 'Periyar Maniammai University', location: 'Vallam', district: 'Women Centric Colleges' },
+  { name: 'Sri Bharathi Engineering College for Women', location: 'Alangudi', district: 'Women Centric Colleges' },
+  { name: 'Vivekanandha College of Engineering for Women', location: 'Tiruchengode', district: 'Women Centric Colleges' },
+
   // Well Connected Universities
   { name: 'Sree Balaji Institute of Science & Technology', location: 'Chrompet, Chennai', district: 'Well Connected Universities', note: 'Deemed University – Direct Admission' },
   { name: 'Dhanalakshmi Srinivasan University', location: 'Mamandur, Chengalpattu', district: 'Well Connected Universities', note: 'Deemed University – Direct Admission' },
