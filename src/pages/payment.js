@@ -106,7 +106,7 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES, upiVpa = '' 
         amount: orderData.order.amount,
         currency: orderData.order.currency,
         name: 'RASI Foundation',
-        description: PURPOSES.find(p => p.id === form.purpose)?.label || 'Payment',
+        description: purposes.find(p => p.id === form.purpose)?.label || 'Payment',
         image: '/logo.png',
         order_id: orderData.order.id,
         handler: async (response) => {
