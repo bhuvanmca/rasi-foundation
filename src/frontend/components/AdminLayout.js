@@ -19,7 +19,8 @@ import {
   FaClipboardList,
   FaAward,
   FaTrophy,
-  FaBullhorn
+  FaBullhorn,
+  FaIdCard,
 } from 'react-icons/fa';
 
 export default function AdminLayout({ children, title = 'Dashboard' }) {
@@ -83,6 +84,7 @@ export default function AdminLayout({ children, title = 'Dashboard' }) {
     { name: 'Contacts', href: '/admin/contacts', icon: FaEnvelope },
     { name: 'Enquiries', href: '/admin/enquiries', icon: FaUserGraduate },
     { name: 'Colleges', href: '/admin/colleges', icon: FaUniversity },
+    { name: 'Bio Data', href: '/admin/biodata', icon: FaIdCard },
     { name: 'Payments', href: '/admin/payments', icon: FaCreditCard },
     { name: 'Payment Settings', href: '/admin/payment-settings', icon: FaCog },
     { name: 'Achievements', href: '/admin/achievements', icon: FaTrophy },
