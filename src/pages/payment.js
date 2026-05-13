@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import Script from 'next/script';
-import Image from 'next/image';
 import {
   FaLock,
   FaCheckCircle,
@@ -172,12 +172,12 @@ export default function PaymentPage() {
               A confirmation has been sent to <span className="font-medium text-gray-600">{form.email}</span>
             </p>
 
-            <a
+            <Link
               href="/"
-              className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors"
+              className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors text-center"
             >
               Back to Home
-            </a>
+            </Link>
 
             <div className="mt-6 flex items-center justify-center gap-2 text-gray-400 text-xs">
               <FaShieldAlt />
@@ -386,7 +386,7 @@ export default function PaymentPage() {
                     <FaAngleLeft /> Back
                   </button>
                   <h2 className="text-xl font-bold text-gray-800 mb-1">Choose Payment Method</h2>
-                  <p className="text-sm text-gray-400 mb-6">Select how you'd like to pay ₹{amountNum.toLocaleString('en-IN')}</p>
+                  <p className="text-sm text-gray-400 mb-6">Select how you&apos;d like to pay ₹{amountNum.toLocaleString('en-IN')}</p>
                 </div>
 
                 {/* Tabs */}
@@ -440,7 +440,7 @@ export default function PaymentPage() {
                   {/* Net Banking Tab */}
                   {activeTab === 'netbanking' && (
                     <div className="space-y-4 pb-6">
-                      <p className="text-sm text-gray-500">Pay through your bank's internet banking portal.</p>
+                      <p className="text-sm text-gray-500">Pay through your bank&apos;s internet banking portal.</p>
                       <div className="grid grid-cols-2 gap-3">
                         {['SBI', 'HDFC Bank', 'ICICI Bank', 'Axis Bank', 'Kotak Bank', 'Other Banks'].map(bank => (
                           <div key={bank} className="border border-gray-200 rounded-xl p-3 text-sm text-gray-600 font-medium hover:border-blue-400 hover:bg-blue-50 cursor-pointer transition-all">
