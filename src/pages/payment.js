@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Script from 'next/script';
@@ -15,7 +15,7 @@ import {
 } from 'react-icons/fa';
 import { SiRazorpay } from 'react-icons/si';
 
-const DEFAULT_PURPOSES = [
+const FALLBACK_PURPOSES = [
   { id: 'counseling', label: 'Career Counseling Fee', amount: 0, isFixed: false },
   { id: 'admission', label: 'Admission Assistance Fee', amount: 0, isFixed: false },
   { id: 'scholarship_test', label: 'Scholarship Test Fee', amount: 0, isFixed: false },
@@ -31,13 +31,12 @@ const TABS = [
   { id: 'wallet', label: 'Wallet', icon: FaWallet },
 ];
 
-export default function PaymentPage() {
+export default function PaymentPage({ purposes = FALLBACK_PURPOSES }) {
   const [step, setStep] = useState('details'); // details | pay | success
   const [activeTab, setActiveTab] = useState('upi');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [paymentId, setPaymentId] = useState('');
-  const [purposes, setPurposes] = useState(DEFAULT_PURPOSES);
 
   const [form, setForm] = useState({
     name: '',
@@ -48,22 +47,6 @@ export default function PaymentPage() {
     studentName: '',
     notes: '',
   });
-
-  useEffect(() => {
-    fetch('/api/payment/settings')
-      .then(r => r.json())
-      .then(data => {
-        if (data.settings?.length) {
-          setPurposes(data.settings.map(s => ({
-            id: s.purpose,
-            label: s.label,
-            amount: s.amount,
-            isFixed: s.isFixed,
-          })));
-        }
-      })
-      .catch(() => {});
-  }, []);
 
   const handleChange = (e) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -554,4 +537,39 @@ function SummaryRow({ label, value }) {
       <p className="text-white text-sm font-medium truncate">{value || '—'}</p>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  try {
+    const dbConnect = (await import('@/backend/lib/mongodb')).default;
+    const PaymentSetting = (await import('@/backend/models/PaymentSetting')).default;
+
+    await dbConnect();
+
+    const count = await PaymentSetting.countDocuments();
+    if (count === 0) {
+      await PaymentSetting.insertMany([
+        { purpose: 'counseling', label: 'Career Counseling Fee', amount: 0, isFixed: false, isEnabled: true },
+        { purpose: 'admission', label: 'Admission Assistance Fee', amount: 0, isFixed: false, isEnabled: true },
+        { purpose: 'scholarship_test', label: 'Scholarship Test Fee', amount: 0, isFixed: false, isEnabled: true },
+        { purpose: 'course_fee', label: 'Course Fee', amount: 0, isFixed: false, isEnabled: true },
+        { purpose: 'donation', label: 'Donation', amount: 0, isFixed: false, isEnabled: true },
+        { purpose: 'other', label: 'Other Payment', amount: 0, isFixed: false, isEnabled: true },
+      ]);
+    }
+
+    const settings = await PaymentSetting.find({ isEnabled: true }).sort({ purpose: 1 }).lean();
+
+    const purposes = settings.map(s => ({
+      id: s.purpose,
+      label: s.label,
+      amount: s.amount,
+      isFixed: s.isFixed,
+    }));
+
+    return { props: { purposes } };
+  } catch (err) {
+    console.error('Failed to load payment settings:', err.message);
+    return { props: { purposes: [] } };
+  }
 }
