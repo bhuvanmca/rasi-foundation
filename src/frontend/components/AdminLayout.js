@@ -84,6 +84,7 @@ export default function AdminLayout({ children, title = 'Dashboard' }) {
     { name: 'Enquiries', href: '/admin/enquiries', icon: FaUserGraduate },
     { name: 'Colleges', href: '/admin/colleges', icon: FaUniversity },
     { name: 'Payments', href: '/admin/payments', icon: FaCreditCard },
+    { name: 'Payment Settings', href: '/admin/payment-settings', icon: FaCog },
     { name: 'Achievements', href: '/admin/achievements', icon: FaTrophy },
     { name: 'Announcements', href: '/admin/announcements', icon: FaBullhorn },
     { name: 'Scholarship Results', href: '/admin/scholarship-results', icon: FaAward },

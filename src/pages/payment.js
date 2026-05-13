@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Script from 'next/script';
@@ -15,13 +15,13 @@ import {
 } from 'react-icons/fa';
 import { SiRazorpay } from 'react-icons/si';
 
-const PURPOSES = [
-  { id: 'counseling', label: 'Career Counseling Fee' },
-  { id: 'admission', label: 'Admission Assistance Fee' },
-  { id: 'scholarship_test', label: 'Scholarship Test Fee' },
-  { id: 'course_fee', label: 'Course Fee' },
-  { id: 'donation', label: 'Donation' },
-  { id: 'other', label: 'Other Payment' },
+const DEFAULT_PURPOSES = [
+  { id: 'counseling', label: 'Career Counseling Fee', amount: 0, isFixed: false },
+  { id: 'admission', label: 'Admission Assistance Fee', amount: 0, isFixed: false },
+  { id: 'scholarship_test', label: 'Scholarship Test Fee', amount: 0, isFixed: false },
+  { id: 'course_fee', label: 'Course Fee', amount: 0, isFixed: false },
+  { id: 'donation', label: 'Donation', amount: 0, isFixed: false },
+  { id: 'other', label: 'Other Payment', amount: 0, isFixed: false },
 ];
 
 const TABS = [
@@ -37,6 +37,7 @@ export default function PaymentPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [paymentId, setPaymentId] = useState('');
+  const [purposes, setPurposes] = useState(DEFAULT_PURPOSES);
 
   const [form, setForm] = useState({
     name: '',
@@ -48,10 +49,38 @@ export default function PaymentPage() {
     notes: '',
   });
 
+  useEffect(() => {
+    fetch('/api/payment/settings')
+      .then(r => r.json())
+      .then(data => {
+        if (data.settings?.length) {
+          setPurposes(data.settings.map(s => ({
+            id: s.purpose,
+            label: s.label,
+            amount: s.amount,
+            isFixed: s.isFixed,
+          })));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const handleChange = (e) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
     setError('');
   };
+
+  const handlePurposeSelect = (purposeId) => {
+    const p = purposes.find(x => x.id === purposeId);
+    setForm(prev => ({
+      ...prev,
+      purpose: purposeId,
+      amount: p && p.amount > 0 ? String(p.amount) : prev.amount,
+    }));
+    setError('');
+  };
+
+  const selectedPurpose = purposes.find(p => p.id === form.purpose);
 
   const validate = () => {
     if (!form.name.trim()) return 'Please enter your name';
@@ -144,7 +173,7 @@ export default function PaymentPage() {
     }
   };
 
-  const purposeLabel = PURPOSES.find(p => p.id === form.purpose)?.label || '—';
+  const purposeLabel = purposes.find(p => p.id === form.purpose)?.label || '—';
   const amountNum = parseFloat(form.amount) || 0;
 
   if (step === 'success') {
@@ -261,11 +290,11 @@ export default function PaymentPage() {
                     <select
                       name="purpose"
                       value={form.purpose}
-                      onChange={handleChange}
+                      onChange={e => handlePurposeSelect(e.target.value)}
                       className="w-full border border-gray-200 rounded-xl px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
                     >
                       <option value="">Select purpose</option>
-                      {PURPOSES.map(p => (
+                      {purposes.map(p => (
                         <option key={p.id} value={p.id}>{p.label}</option>
                       ))}
                     </select>
@@ -283,8 +312,12 @@ export default function PaymentPage() {
                         onChange={handleChange}
                         placeholder="0.00"
                         min="1"
-                        className="w-full border border-gray-200 rounded-xl pl-8 pr-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+                        readOnly={selectedPurpose?.isFixed}
+                        className={`w-full border border-gray-200 rounded-xl pl-8 pr-10 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 ${selectedPurpose?.isFixed ? 'cursor-not-allowed opacity-70' : ''}`}
                       />
+                      {selectedPurpose?.isFixed && (
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-orange-500 font-medium">Fixed</span>
+                      )}
                     </div>
                   </div>
 
