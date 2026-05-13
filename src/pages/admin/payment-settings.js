@@ -9,10 +9,12 @@ import {
   FaToggleOn,
   FaToggleOff,
   FaInfoCircle,
+  FaMobileAlt,
 } from 'react-icons/fa';
 
 export default function PaymentSettings() {
   const [settings, setSettings] = useState([]);
+  const [upiVpa, setUpiVpa] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -25,14 +27,17 @@ export default function PaymentSettings() {
   const fetchSettings = async () => {
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch('/api/admin/payment-settings', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.ok) {
-        const data = await res.json();
+      const [payRes, siteRes] = await Promise.all([
+        fetch('/api/admin/payment-settings', { headers: { Authorization: `Bearer ${token}` } }),
+        fetch('/api/admin/site-settings', { headers: { Authorization: `Bearer ${token}` } }),
+      ]);
+      if (payRes.ok) {
+        const data = await payRes.json();
         setSettings(data.settings);
-      } else {
-        setError('Failed to load settings');
+      }
+      if (siteRes.ok) {
+        const data = await siteRes.json();
+        setUpiVpa(data.settings.upi_vpa || '');
       }
     } catch {
       setError('Failed to load settings');
@@ -49,19 +54,27 @@ export default function PaymentSettings() {
   };
 
   const handleSave = async () => {
+    if (!upiVpa.trim()) {
+      setError('UPI ID is required for QR code payments');
+      return;
+    }
     setSaving(true);
     setError('');
     try {
       const token = localStorage.getItem('adminToken');
-      const res = await fetch('/api/admin/payment-settings', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ settings }),
-      });
-      if (res.ok) {
+      const [payRes, siteRes] = await Promise.all([
+        fetch('/api/admin/payment-settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ settings }),
+        }),
+        fetch('/api/admin/site-settings', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ settings: { upi_vpa: upiVpa.trim() } }),
+        }),
+      ]);
+      if (payRes.ok && siteRes.ok) {
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
       } else {
@@ -106,6 +119,31 @@ export default function PaymentSettings() {
             Settings saved successfully.
           </div>
         )}
+
+        {/* UPI ID */}
+        <div className="bg-white rounded-2xl shadow-sm p-6 mb-6">
+          <h2 className="text-base font-bold text-gray-800 mb-1 flex items-center gap-2">
+            <FaMobileAlt className="text-blue-500" /> UPI ID for QR Code
+          </h2>
+          <p className="text-sm text-gray-500 mb-4">
+            This UPI ID is encoded in the QR code shown on the payment page. Customers scan it to pay directly via any UPI app.
+          </p>
+          <div className="flex gap-3 items-center max-w-md">
+            <input
+              type="text"
+              value={upiVpa}
+              onChange={e => { setUpiVpa(e.target.value); setSaved(false); }}
+              placeholder="e.g. 9876543210@paytm or name@okaxis"
+              className="flex-1 border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+            />
+          </div>
+          {upiVpa && (
+            <p className="text-xs text-green-600 mt-2 font-medium">✓ QR will use: {upiVpa}</p>
+          )}
+          {!upiVpa && (
+            <p className="text-xs text-red-500 mt-2">⚠ No UPI ID set — QR code will not work</p>
+          )}
+        </div>
 
         {/* Info banner */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 flex gap-3 mb-6 text-sm text-blue-700">

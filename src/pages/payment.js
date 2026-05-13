@@ -34,7 +34,7 @@ const TABS = [
   { id: 'wallet', label: 'Wallet', icon: FaWallet },
 ];
 
-export default function PaymentPage({ purposes = FALLBACK_PURPOSES }) {
+export default function PaymentPage({ purposes = FALLBACK_PURPOSES, upiVpa = '' }) {
   const [step, setStep] = useState('details'); // details | pay | success
   const [activeTab, setActiveTab] = useState('upi');
   const [loading, setLoading] = useState(false);
@@ -88,8 +88,7 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES }) {
     if (timerRef.current) clearInterval(timerRef.current);
 
     const ref = `RASI${Date.now()}${Math.floor(Math.random() * 1000)}`;
-    const vpa = process.env.NEXT_PUBLIC_UPI_VPA || '';
-    const link = `upi://pay?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent('RASI Foundation')}&am=${parseFloat(form.amount)}&cu=INR&tn=${encodeURIComponent(ref)}`;
+    const link = `upi://pay?pa=${encodeURIComponent(upiVpa)}&pn=${encodeURIComponent('RASI Foundation')}&am=${parseFloat(form.amount)}&cu=INR&tn=${encodeURIComponent(ref)}`;
 
     setUpiLink(link);
     setQrRef(ref);
@@ -650,6 +649,7 @@ export async function getServerSideProps() {
   try {
     const dbConnect = (await import('@/backend/lib/mongodb')).default;
     const PaymentSetting = (await import('@/backend/models/PaymentSetting')).default;
+    const SiteSetting = (await import('@/backend/models/SiteSetting')).default;
 
     await dbConnect();
 
@@ -665,7 +665,10 @@ export async function getServerSideProps() {
       ]);
     }
 
-    const settings = await PaymentSetting.find({ isEnabled: true }).sort({ purpose: 1 }).lean();
+    const [settings, upiSetting] = await Promise.all([
+      PaymentSetting.find({ isEnabled: true }).sort({ purpose: 1 }).lean(),
+      SiteSetting.findOne({ key: 'upi_vpa' }).lean(),
+    ]);
 
     const purposes = settings.map(s => ({
       id: s.purpose,
@@ -674,9 +677,9 @@ export async function getServerSideProps() {
       isFixed: s.isFixed,
     }));
 
-    return { props: { purposes } };
+    return { props: { purposes, upiVpa: upiSetting?.value || '' } };
   } catch (err) {
     console.error('Failed to load payment settings:', err.message);
-    return { props: { purposes: [] } };
+    return { props: { purposes: [], upiVpa: '' } };
   }
 }
