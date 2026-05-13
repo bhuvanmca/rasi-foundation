@@ -577,13 +577,27 @@ function SummaryRow({ label, value }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
+  const { ref } = context.query;
+
+  // Must come from bio data form
+  if (!ref) {
+    return { redirect: { destination: '/biodata', permanent: false } };
+  }
+
   try {
     const dbConnect = (await import('@/backend/lib/mongodb')).default;
     const PaymentSetting = (await import('@/backend/models/PaymentSetting')).default;
     const SiteSetting = (await import('@/backend/models/SiteSetting')).default;
+    const BioData = (await import('@/backend/models/BioData')).default;
 
     await dbConnect();
+
+    // Validate bio data ref
+    const bioRecord = await BioData.findById(ref).lean();
+    if (!bioRecord) {
+      return { redirect: { destination: '/biodata', permanent: false } };
+    }
 
     const count = await PaymentSetting.countDocuments();
     if (count === 0) {
@@ -612,6 +626,6 @@ export async function getServerSideProps() {
     return { props: { purposes, upiVpa: upiSetting?.value || '' } };
   } catch (err) {
     console.error('Failed to load payment settings:', err.message);
-    return { props: { purposes: [], upiVpa: '' } };
+    return { redirect: { destination: '/biodata', permanent: false } };
   }
 }

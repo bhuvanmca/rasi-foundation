@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   FaCheckCircle,
   FaChevronRight,
@@ -52,6 +53,7 @@ const INITIAL = {
 };
 
 export default function BioDataPage() {
+  const router = useRouter();
   const [form, setForm] = useState(INITIAL);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -116,6 +118,7 @@ export default function BioDataPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Submission failed');
       setSubmitted(true);
+      router.push(`/payment?ref=${data.id}`);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -133,24 +136,10 @@ export default function BioDataPage() {
               <FaCheckCircle className="text-5xl text-green-500" />
             </div>
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Bio Data Submitted!</h2>
-            <p className="text-gray-500 mb-8">
-              Thank you, <strong>{form.studentName}</strong>. Your bio data for{' '}
-              <strong>2026–27</strong> has been recorded successfully.
+            <p className="text-gray-500 mb-4">
+              Thank you, <strong>{form.studentName}</strong>. Redirecting you to the payment page...
             </p>
-            <div className="flex flex-col gap-3">
-              <Link
-                href="/payment"
-                className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition-colors text-center"
-              >
-                Proceed to Payment →
-              </Link>
-              <Link
-                href="/"
-                className="block w-full border border-gray-200 text-gray-600 hover:bg-gray-50 font-medium py-3 rounded-xl transition-colors text-center"
-              >
-                Back to Home
-              </Link>
-            </div>
+            <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
           </div>
         </div>
       </>
