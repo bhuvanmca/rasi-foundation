@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Script from 'next/script';
@@ -13,11 +12,8 @@ import {
   FaChevronRight,
   FaShieldAlt,
   FaAngleLeft,
-  FaMobileAlt as FaPhone,
 } from 'react-icons/fa';
-import { SiRazorpay, SiGooglepay, SiPhonepe, SiPaytm } from 'react-icons/si';
-
-const QRCode = dynamic(() => import('qrcode.react').then(m => m.QRCodeSVG), { ssr: false });
+import { SiRazorpay } from 'react-icons/si';
 
 const FALLBACK_PURPOSES = [
   { id: 'counseling', label: 'Career Counseling Fee', amount: 0, isFixed: false },
@@ -41,6 +37,14 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [paymentId, setPaymentId] = useState('');
+
+  // QR code state
+  const [qrImageUrl, setQrImageUrl] = useState('');
+  const [qrLoading, setQrLoading] = useState(false);
+  const [qrError, setQrError] = useState('');
+  const [qrExpiry, setQrExpiry] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(null);
+  const timerRef = useRef(null);
 
   const [form, setForm] = useState({
     name: '',
@@ -68,6 +72,63 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES }) {
   };
 
   const selectedPurpose = purposes.find(p => p.id === form.purpose);
+
+  // Fetch QR when entering UPI tab on pay step
+  useEffect(() => {
+    if (step === 'pay' && activeTab === 'upi') {
+      generateQR();
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [step, activeTab]);
+
+  const generateQR = async () => {
+    setQrLoading(true);
+    setQrError('');
+    setQrImageUrl('');
+    setTimeLeft(null);
+    if (timerRef.current) clearInterval(timerRef.current);
+
+    try {
+      const res = await fetch('/api/payment/create-qr', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: parseFloat(form.amount),
+          purpose: form.purpose,
+          description: purposeLabel,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to generate QR');
+
+      setQrImageUrl(data.qrImageUrl);
+      // 30 min countdown
+      const expiryTime = Date.now() + 30 * 60 * 1000;
+      setQrExpiry(expiryTime);
+      setTimeLeft(30 * 60);
+      timerRef.current = setInterval(() => {
+        const remaining = Math.max(0, Math.floor((expiryTime - Date.now()) / 1000));
+        setTimeLeft(remaining);
+        if (remaining === 0) {
+          clearInterval(timerRef.current);
+          setQrImageUrl('');
+          setQrError('QR expired. Click Refresh to generate a new one.');
+        }
+      }, 1000);
+    } catch (err) {
+      setQrError(err.message);
+    } finally {
+      setQrLoading(false);
+    }
+  };
+
+  const formatTime = (secs) => {
+    const m = Math.floor(secs / 60).toString().padStart(2, '0');
+    const s = (secs % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  };
 
   const validate = () => {
     if (!form.name.trim()) return 'Please enter your name';
@@ -431,34 +492,63 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES }) {
                   {/* UPI Tab */}
                   {activeTab === 'upi' && (
                     <div className="pb-6">
-                      <div className="flex flex-col md:flex-row gap-6 items-start">
-                        {/* QR Code */}
-                        <div className="flex flex-col items-center gap-3 shrink-0">
-                          <div className="bg-white border-2 border-gray-200 rounded-2xl p-4 shadow-sm">
-                            {amountNum > 0 ? (
-                              <QRCode
-                                value={`upi://pay?pa=${encodeURIComponent(process.env.NEXT_PUBLIC_UPI_VPA || 'rasifoundation@upi')}&pn=${encodeURIComponent('RASI Foundation')}&am=${amountNum}&cu=INR&tn=${encodeURIComponent(purposeLabel)}`}
-                                size={160}
-                                level="H"
-                                includeMargin={false}
+                      <div className="flex flex-col md:flex-row gap-8 items-start">
+
+                        {/* QR Code Panel */}
+                        <div className="flex flex-col items-center gap-3 shrink-0 w-full md:w-auto">
+                          <div className="bg-white border-2 border-gray-200 rounded-2xl p-4 shadow-sm relative">
+                            {qrLoading && (
+                              <div className="w-48 h-48 flex flex-col items-center justify-center text-gray-400 gap-3">
+                                <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                                <p className="text-xs">Generating QR...</p>
+                              </div>
+                            )}
+                            {!qrLoading && qrImageUrl && (
+                              <img
+                                src={qrImageUrl}
+                                alt="UPI QR Code"
+                                width={192}
+                                height={192}
+                                className="rounded-lg"
                               />
-                            ) : (
-                              <div className="w-40 h-40 flex flex-col items-center justify-center text-gray-400 text-center gap-2">
-                                <FaMobileAlt className="text-3xl" />
-                                <p className="text-xs">Enter amount to<br />generate QR</p>
+                            )}
+                            {!qrLoading && !qrImageUrl && !qrError && (
+                              <div className="w-48 h-48 flex flex-col items-center justify-center text-gray-400 gap-2">
+                                <FaMobileAlt className="text-4xl" />
+                                <p className="text-xs text-center">QR will appear here</p>
+                              </div>
+                            )}
+                            {!qrLoading && qrError && (
+                              <div className="w-48 h-48 flex flex-col items-center justify-center text-center gap-3 px-2">
+                                <p className="text-xs text-red-500">{qrError}</p>
+                                <button
+                                  onClick={generateQR}
+                                  className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700"
+                                >
+                                  Refresh QR
+                                </button>
                               </div>
                             )}
                           </div>
-                          <div className="text-center">
-                            <p className="text-xs font-semibold text-gray-700">Scan &amp; Pay</p>
-                            <p className="text-xs text-gray-400">Use any UPI app to scan</p>
+
+                          {/* Amount badge */}
+                          <div className="bg-blue-50 border border-blue-200 rounded-xl px-5 py-2 text-center">
+                            <p className="text-xs text-blue-500">Amount</p>
+                            <p className="text-xl font-bold text-blue-700">₹{amountNum.toLocaleString('en-IN')}</p>
                           </div>
-                          {amountNum > 0 && (
-                            <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-2 text-center">
-                              <p className="text-xs text-blue-500">Amount</p>
-                              <p className="text-lg font-bold text-blue-700">₹{amountNum.toLocaleString('en-IN')}</p>
+
+                          {/* Expiry timer */}
+                          {timeLeft !== null && timeLeft > 0 && (
+                            <div className={`flex items-center gap-1.5 text-xs font-medium ${timeLeft < 120 ? 'text-red-500' : 'text-gray-400'}`}>
+                              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse inline-block" />
+                              QR expires in {formatTime(timeLeft)}
                             </div>
                           )}
+
+                          <div className="text-center">
+                            <p className="text-xs font-semibold text-gray-700">Scan &amp; Pay</p>
+                            <p className="text-xs text-gray-400">Use phone camera or any UPI app</p>
+                          </div>
                         </div>
 
                         {/* Divider */}
@@ -475,28 +565,17 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES }) {
 
                         {/* UPI Apps */}
                         <div className="flex-1">
-                          <p className="text-sm text-gray-500 mb-3">Pay using your UPI app</p>
+                          <p className="text-sm text-gray-500 mb-3">Pay using your UPI app on this device</p>
                           <div className="grid grid-cols-2 gap-2">
-                            {[
-                              { name: 'Google Pay', color: 'bg-white', textColor: 'text-gray-700' },
-                              { name: 'PhonePe', color: 'bg-white', textColor: 'text-purple-700' },
-                              { name: 'Paytm', color: 'bg-white', textColor: 'text-blue-700' },
-                              { name: 'BHIM', color: 'bg-white', textColor: 'text-orange-700' },
-                              { name: 'Amazon Pay', color: 'bg-white', textColor: 'text-yellow-700' },
-                              { name: 'Other UPI', color: 'bg-white', textColor: 'text-gray-600' },
-                            ].map(app => (
-                              <div
-                                key={app.name}
-                                className={`${app.color} border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-medium ${app.textColor} hover:border-blue-400 hover:bg-blue-50 cursor-pointer transition-all flex items-center gap-2`}
-                              >
+                            {['Google Pay', 'PhonePe', 'Paytm', 'BHIM', 'Amazon Pay', 'Other UPI'].map(app => (
+                              <div key={app} className="border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-600 hover:border-blue-400 hover:bg-blue-50 cursor-pointer transition-all flex items-center gap-2">
                                 <FaMobileAlt className="text-base text-gray-400" />
-                                {app.name}
+                                {app}
                               </div>
                             ))}
                           </div>
-                          <p className="text-xs text-gray-400 mt-3 flex items-start gap-1">
-                            <span className="mt-0.5">ℹ️</span>
-                            Scan the QR with your phone camera or any UPI app, or click Pay below to open UPI on this device.
+                          <p className="text-xs text-gray-400 mt-4 leading-relaxed">
+                            Scan the QR code with your phone to pay from any UPI app. Each QR is unique and valid for 30 minutes.
                           </p>
                         </div>
                       </div>
