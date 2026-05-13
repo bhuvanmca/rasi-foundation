@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
 import Script from 'next/script';
@@ -12,8 +13,11 @@ import {
   FaChevronRight,
   FaShieldAlt,
   FaAngleLeft,
+  FaMobileAlt as FaPhone,
 } from 'react-icons/fa';
-import { SiRazorpay } from 'react-icons/si';
+import { SiRazorpay, SiGooglepay, SiPhonepe, SiPaytm } from 'react-icons/si';
+
+const QRCode = dynamic(() => import('qrcode.react').then(m => m.QRCodeSVG), { ssr: false });
 
 const FALLBACK_PURPOSES = [
   { id: 'counseling', label: 'Career Counseling Fee', amount: 0, isFixed: false },
@@ -426,14 +430,75 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES }) {
 
                   {/* UPI Tab */}
                   {activeTab === 'upi' && (
-                    <div className="space-y-4 pb-6">
-                      <p className="text-sm text-gray-500">Pay using any UPI app — Google Pay, PhonePe, Paytm, BHIM & more.</p>
-                      <div className="grid grid-cols-3 gap-3">
-                        {['Google Pay', 'PhonePe', 'Paytm', 'BHIM', 'Amazon Pay', 'Other UPI'].map(app => (
-                          <div key={app} className="border border-gray-200 rounded-xl p-3 text-center text-xs text-gray-600 font-medium hover:border-blue-400 hover:bg-blue-50 cursor-pointer transition-all">
-                            {app}
+                    <div className="pb-6">
+                      <div className="flex flex-col md:flex-row gap-6 items-start">
+                        {/* QR Code */}
+                        <div className="flex flex-col items-center gap-3 shrink-0">
+                          <div className="bg-white border-2 border-gray-200 rounded-2xl p-4 shadow-sm">
+                            {amountNum > 0 ? (
+                              <QRCode
+                                value={`upi://pay?pa=${encodeURIComponent(process.env.NEXT_PUBLIC_UPI_VPA || 'rasifoundation@upi')}&pn=${encodeURIComponent('RASI Foundation')}&am=${amountNum}&cu=INR&tn=${encodeURIComponent(purposeLabel)}`}
+                                size={160}
+                                level="H"
+                                includeMargin={false}
+                              />
+                            ) : (
+                              <div className="w-40 h-40 flex flex-col items-center justify-center text-gray-400 text-center gap-2">
+                                <FaMobileAlt className="text-3xl" />
+                                <p className="text-xs">Enter amount to<br />generate QR</p>
+                              </div>
+                            )}
                           </div>
-                        ))}
+                          <div className="text-center">
+                            <p className="text-xs font-semibold text-gray-700">Scan &amp; Pay</p>
+                            <p className="text-xs text-gray-400">Use any UPI app to scan</p>
+                          </div>
+                          {amountNum > 0 && (
+                            <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-2 text-center">
+                              <p className="text-xs text-blue-500">Amount</p>
+                              <p className="text-lg font-bold text-blue-700">₹{amountNum.toLocaleString('en-IN')}</p>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Divider */}
+                        <div className="hidden md:flex flex-col items-center gap-2 self-stretch justify-center">
+                          <div className="flex-1 w-px bg-gray-200" />
+                          <span className="text-xs text-gray-400 font-medium px-1">OR</span>
+                          <div className="flex-1 w-px bg-gray-200" />
+                        </div>
+                        <div className="md:hidden w-full flex items-center gap-2">
+                          <div className="flex-1 h-px bg-gray-200" />
+                          <span className="text-xs text-gray-400 font-medium">OR</span>
+                          <div className="flex-1 h-px bg-gray-200" />
+                        </div>
+
+                        {/* UPI Apps */}
+                        <div className="flex-1">
+                          <p className="text-sm text-gray-500 mb-3">Pay using your UPI app</p>
+                          <div className="grid grid-cols-2 gap-2">
+                            {[
+                              { name: 'Google Pay', color: 'bg-white', textColor: 'text-gray-700' },
+                              { name: 'PhonePe', color: 'bg-white', textColor: 'text-purple-700' },
+                              { name: 'Paytm', color: 'bg-white', textColor: 'text-blue-700' },
+                              { name: 'BHIM', color: 'bg-white', textColor: 'text-orange-700' },
+                              { name: 'Amazon Pay', color: 'bg-white', textColor: 'text-yellow-700' },
+                              { name: 'Other UPI', color: 'bg-white', textColor: 'text-gray-600' },
+                            ].map(app => (
+                              <div
+                                key={app.name}
+                                className={`${app.color} border border-gray-200 rounded-xl px-3 py-2.5 text-sm font-medium ${app.textColor} hover:border-blue-400 hover:bg-blue-50 cursor-pointer transition-all flex items-center gap-2`}
+                              >
+                                <FaMobileAlt className="text-base text-gray-400" />
+                                {app.name}
+                              </div>
+                            ))}
+                          </div>
+                          <p className="text-xs text-gray-400 mt-3 flex items-start gap-1">
+                            <span className="mt-0.5">ℹ️</span>
+                            Scan the QR with your phone camera or any UPI app, or click Pay below to open UPI on this device.
+                          </p>
+                        </div>
                       </div>
                     </div>
                   )}
