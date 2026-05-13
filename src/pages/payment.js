@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
+
+const QRCodeSVG = dynamic(() => import('qrcode.react').then(m => m.QRCodeSVG), { ssr: false });
 import Link from 'next/link';
 import Script from 'next/script';
 import {
@@ -39,10 +42,8 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES }) {
   const [paymentId, setPaymentId] = useState('');
 
   // QR code state
-  const [qrImageUrl, setQrImageUrl] = useState('');
-  const [qrLoading, setQrLoading] = useState(false);
-  const [qrError, setQrError] = useState('');
-  const [qrExpiry, setQrExpiry] = useState(null);
+  const [upiLink, setUpiLink] = useState('');
+  const [qrRef, setQrRef] = useState('');
   const [timeLeft, setTimeLeft] = useState(null);
   const timerRef = useRef(null);
 
@@ -83,45 +84,26 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES }) {
     };
   }, [step, activeTab]);
 
-  const generateQR = async () => {
-    setQrLoading(true);
-    setQrError('');
-    setQrImageUrl('');
-    setTimeLeft(null);
+  const generateQR = () => {
     if (timerRef.current) clearInterval(timerRef.current);
 
-    try {
-      const res = await fetch('/api/payment/create-qr', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount: parseFloat(form.amount),
-          purpose: form.purpose,
-          description: purposeLabel,
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to generate QR');
+    const ref = `RASI${Date.now()}${Math.floor(Math.random() * 1000)}`;
+    const vpa = process.env.NEXT_PUBLIC_UPI_VPA || '';
+    const link = `upi://pay?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent('RASI Foundation')}&am=${parseFloat(form.amount)}&cu=INR&tn=${encodeURIComponent(ref)}`;
 
-      setQrImageUrl(data.qrImageUrl);
-      // 30 min countdown
-      const expiryTime = Date.now() + 30 * 60 * 1000;
-      setQrExpiry(expiryTime);
-      setTimeLeft(30 * 60);
-      timerRef.current = setInterval(() => {
-        const remaining = Math.max(0, Math.floor((expiryTime - Date.now()) / 1000));
-        setTimeLeft(remaining);
-        if (remaining === 0) {
-          clearInterval(timerRef.current);
-          setQrImageUrl('');
-          setQrError('QR expired. Click Refresh to generate a new one.');
-        }
-      }, 1000);
-    } catch (err) {
-      setQrError(err.message);
-    } finally {
-      setQrLoading(false);
-    }
+    setUpiLink(link);
+    setQrRef(ref);
+
+    const expiryTime = Date.now() + 30 * 60 * 1000;
+    setTimeLeft(30 * 60);
+    timerRef.current = setInterval(() => {
+      const remaining = Math.max(0, Math.floor((expiryTime - Date.now()) / 1000));
+      setTimeLeft(remaining);
+      if (remaining === 0) {
+        clearInterval(timerRef.current);
+        generateQR(); // auto-refresh when expired
+      }
+    }, 1000);
   };
 
   const formatTime = (secs) => {
@@ -496,37 +478,18 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES }) {
 
                         {/* QR Code Panel */}
                         <div className="flex flex-col items-center gap-3 shrink-0 w-full md:w-auto">
-                          <div className="bg-white border-2 border-gray-200 rounded-2xl p-4 shadow-sm relative">
-                            {qrLoading && (
-                              <div className="w-48 h-48 flex flex-col items-center justify-center text-gray-400 gap-3">
-                                <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                                <p className="text-xs">Generating QR...</p>
-                              </div>
-                            )}
-                            {!qrLoading && qrImageUrl && (
-                              <img
-                                src={qrImageUrl}
-                                alt="UPI QR Code"
-                                width={192}
-                                height={192}
-                                className="rounded-lg"
+                          <div className="bg-white border-2 border-gray-200 rounded-2xl p-4 shadow-sm">
+                            {upiLink ? (
+                              <QRCodeSVG
+                                value={upiLink}
+                                size={192}
+                                level="H"
+                                includeMargin={false}
                               />
-                            )}
-                            {!qrLoading && !qrImageUrl && !qrError && (
-                              <div className="w-48 h-48 flex flex-col items-center justify-center text-gray-400 gap-2">
+                            ) : (
+                              <div className="w-48 h-48 flex flex-col items-center justify-center text-gray-300 gap-2">
                                 <FaMobileAlt className="text-4xl" />
-                                <p className="text-xs text-center">QR will appear here</p>
-                              </div>
-                            )}
-                            {!qrLoading && qrError && (
-                              <div className="w-48 h-48 flex flex-col items-center justify-center text-center gap-3 px-2">
-                                <p className="text-xs text-red-500">{qrError}</p>
-                                <button
-                                  onClick={generateQR}
-                                  className="text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg hover:bg-blue-700"
-                                >
-                                  Refresh QR
-                                </button>
+                                <p className="text-xs text-center text-gray-400">Loading QR...</p>
                               </div>
                             )}
                           </div>
