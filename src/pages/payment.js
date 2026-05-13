@@ -162,6 +162,21 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES, upiVpa = '' 
   const purposeLabel = purposes.find(p => p.id === form.purpose)?.label || '—';
   const amountNum = parseFloat(form.amount) || 0;
 
+  const openUpiApp = (appName) => {
+    if (!upiVpa) { handlePayment(); return; }
+    const ref = `RASI${Date.now()}`;
+    const params = `pa=${encodeURIComponent(upiVpa)}&pn=${encodeURIComponent('RASI Foundation')}&am=${amountNum}&cu=INR&tn=${encodeURIComponent(ref)}`;
+    const schemes = {
+      'Google Pay':   `tez://upi/pay?${params}`,
+      'PhonePe':      `phonepe://pay?${params}`,
+      'Paytm':        `paytmmp://upi/pay?${params}`,
+      'BHIM':         `upi://pay?${params}`,
+      'Amazon Pay':   `amazonpay://pay?${params}`,
+      'Other UPI':    `upi://pay?${params}`,
+    };
+    window.location.href = schemes[appName] || `upi://pay?${params}`;
+  };
+
   if (step === 'success') {
     return (
       <>
@@ -430,16 +445,34 @@ export default function PaymentPage({ purposes = FALLBACK_PURPOSES, upiVpa = '' 
                   {/* UPI Tab */}
                   {activeTab === 'upi' && (
                     <div className="pb-6">
-                      <p className="text-sm text-gray-500 mb-4">Pay using any UPI app — Google Pay, PhonePe, Paytm, BHIM &amp; more.</p>
+                      <p className="text-sm text-gray-500 mb-4">Tap an app to open it directly and pay.</p>
                       <div className="grid grid-cols-3 gap-3">
-                        {['Google Pay', 'PhonePe', 'Paytm', 'BHIM', 'Amazon Pay', 'Other UPI'].map(app => (
-                          <div key={app} className="border border-gray-200 rounded-xl p-3 text-center text-sm font-medium text-gray-600 hover:border-blue-400 hover:bg-blue-50 cursor-pointer transition-all flex flex-col items-center gap-1.5">
-                            <FaMobileAlt className="text-xl text-gray-400" />
-                            {app}
-                          </div>
+                        {[
+                          { name: 'Google Pay',  icon: '/icons/gpay.png' },
+                          { name: 'PhonePe',     icon: '/icons/phonepe.png' },
+                          { name: 'Paytm',       icon: '/icons/paytm.png' },
+                          { name: 'BHIM',        icon: '/icons/bhim.png' },
+                          { name: 'Amazon Pay',  icon: '/icons/amazonpay.png' },
+                          { name: 'Other UPI',   icon: null },
+                        ].map(app => (
+                          <button
+                            key={app.name}
+                            type="button"
+                            onClick={() => openUpiApp(app.name)}
+                            className="border border-gray-200 rounded-xl p-3 text-center text-sm font-medium text-gray-700 hover:border-blue-400 hover:bg-blue-50 active:scale-95 transition-all flex flex-col items-center gap-2"
+                          >
+                            {app.icon ? (
+                              <img src={app.icon} alt={app.name} className="w-8 h-8 object-contain" onError={e => { e.target.style.display='none'; }} />
+                            ) : (
+                              <FaMobileAlt className="text-2xl text-gray-400" />
+                            )}
+                            <span className="text-xs">{app.name}</span>
+                          </button>
                         ))}
                       </div>
-                      <p className="text-xs text-gray-400 mt-4">Click &quot;Pay&quot; below to complete your payment via Razorpay&apos;s secure checkout.</p>
+                      <p className="text-xs text-gray-400 mt-4">
+                        Or click <strong>Pay ₹{amountNum}</strong> below to choose any payment method via Razorpay.
+                      </p>
                     </div>
                   )}
 
