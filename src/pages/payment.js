@@ -599,18 +599,6 @@ export async function getServerSideProps(context) {
       return { redirect: { destination: '/biodata', permanent: false } };
     }
 
-    const count = await PaymentSetting.countDocuments();
-    if (count === 0) {
-      await PaymentSetting.insertMany([
-        { purpose: 'counseling', label: 'Career Counseling Fee', amount: 0, isFixed: false, isEnabled: true },
-        { purpose: 'admission', label: 'Admission Assistance Fee', amount: 0, isFixed: false, isEnabled: true },
-        { purpose: 'scholarship_test', label: 'Scholarship Test Fee', amount: 0, isFixed: false, isEnabled: true },
-        { purpose: 'course_fee', label: 'Course Fee', amount: 0, isFixed: false, isEnabled: true },
-        { purpose: 'donation', label: 'Donation', amount: 0, isFixed: false, isEnabled: true },
-        { purpose: 'other', label: 'Other Payment', amount: 0, isFixed: false, isEnabled: true },
-      ]);
-    }
-
     const [settings, upiSetting] = await Promise.all([
       PaymentSetting.find({ isEnabled: true }).sort({ purpose: 1 }).lean(),
       SiteSetting.findOne({ key: 'upi_vpa' }).lean(),
