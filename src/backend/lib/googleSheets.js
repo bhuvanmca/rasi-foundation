@@ -1,34 +1,34 @@
 export async function appendBioDataRow(record) {
-  const scriptUrl = process.env.GOOGLE_SCRIPT_URL;
-  if (!scriptUrl) return;
+  const url = process.env.SHEETDB_URL;
+  if (!url) return;
 
-  const row = [
-    new Date(record.createdAt).toLocaleString('en-IN'),
-    record.studentName,
-    record.dateOfBirth,
-    record.courseApplied,
-    record.collegeName,
-    record.quota,
-    record.fatherName,
-    record.community,
-    record.address,
-    record.studentMobile,
-    record.studentEmail,
-    record.aadhaarNumber,
-    record.fatherMobile,
-    record.motherMobile,
-    record.plusTwoGroup,
-    record.plusTwoExamNumber,
-    record.expectedCutOff,
-    record.lastSchoolAndPlace,
-    record.isGovtSchool ? 'Yes' : 'No',
-    record.isFirstGraduate ? 'Yes' : 'No',
-    (record.documents || []).join(', '),
-  ];
-
-  await fetch(scriptUrl, {
+  await fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify({ row }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      data: [{
+        'Date': new Date(record.createdAt).toLocaleString('en-IN'),
+        'Student Name': record.studentName,
+        'Date of Birth': record.dateOfBirth,
+        'Course Applied': record.courseApplied,
+        'College': record.collegeName,
+        'Quota': record.quota,
+        'Father Name': record.fatherName,
+        'Community': record.community,
+        'Address': record.address,
+        'Student Mobile': record.studentMobile,
+        'Student Email': record.studentEmail,
+        'Aadhaar': record.aadhaarNumber,
+        'Father Mobile': record.fatherMobile,
+        'Mother Mobile': record.motherMobile,
+        '+2 Group': record.plusTwoGroup,
+        'Exam Number': record.plusTwoExamNumber,
+        'Expected Cut-Off': record.expectedCutOff,
+        'Last School': record.lastSchoolAndPlace,
+        'Govt School': record.isGovtSchool ? 'Yes' : 'No',
+        'First Graduate': record.isFirstGraduate ? 'Yes' : 'No',
+        'Documents': (record.documents || []).join(', '),
+      }]
+    }),
   });
 }
