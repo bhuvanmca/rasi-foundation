@@ -8,8 +8,8 @@ export default async function handler(req, res) {
   await dbConnect();
 
   const required = [
-    'studentName', 'dateOfBirth', 'courseApplied', 'collegeName', 'quota',
-    'fatherName', 'community', 'address', 'studentMobile', 'studentEmail',
+    'studentName', 'dateOfBirth', 'courseApplied', 'admissionType', 'collegeName', 'quota',
+    'fatherName', 'motherName', 'community', 'address', 'studentMobile', 'studentEmail',
     'aadhaarNumber', 'fatherMobile', 'motherMobile', 'plusTwoGroup',
     'plusTwoExamNumber', 'expectedCutOff', 'lastSchoolAndPlace',
   ];

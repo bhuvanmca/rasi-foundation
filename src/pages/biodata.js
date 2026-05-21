@@ -12,7 +12,7 @@ import {
   FaFileAlt,
 } from 'react-icons/fa';
 
-const COURSES = [
+const UG_COURSES = [
   'B.E. Computer Science Engineering',
   'B.E. Electronics & Communication',
   'B.E. Mechanical Engineering',
@@ -33,6 +33,21 @@ const COURSES = [
   'Other',
 ];
 
+const PG_COURSES = [
+  'M.E. Computer Science Engineering',
+  'M.E. Electronics & Communication',
+  'M.Tech Information Technology',
+  'M.Tech Artificial Intelligence',
+  'MCA',
+  'MBA',
+  'M.Sc Computer Science',
+  'M.Sc Mathematics',
+  'M.Sc Chemistry',
+  'M.Sc Physics',
+  'M.Com',
+  'Other',
+];
+
 const COMMUNITIES = ['OC', 'BC', 'BCM', 'MBC', 'SC', 'ST', 'SCA'];
 
 const DOCUMENTS = [
@@ -43,8 +58,8 @@ const DOCUMENTS = [
 ];
 
 const INITIAL = {
-  studentName: '', dateOfBirth: '', courseApplied: '', collegeName: '',
-  quota: '', fatherName: '', community: '', address: '',
+  studentName: '', dateOfBirth: '', courseApplied: '', admissionType: '', collegeName: '',
+  quota: '', fatherName: '', motherName: '', community: '', subCaste: '', address: '',
   studentMobile: '', studentEmail: '', aadhaarNumber: '',
   fatherMobile: '', motherMobile: '',
   plusTwoGroup: '', plusTwoExamNumber: '', expectedCutOff: '',
@@ -77,9 +92,11 @@ export default function BioDataPage() {
     if (!form.studentName.trim()) return 'Student name is required';
     if (!form.dateOfBirth) return 'Date of birth is required';
     if (!form.courseApplied) return 'Course applied is required';
+    if (!form.admissionType) return 'Admission type is required';
     if (!form.collegeName.trim()) return 'College name is required';
     if (!form.quota) return 'Quota is required';
     if (!form.fatherName.trim()) return "Father's name is required";
+    if (!form.motherName.trim()) return "Mother's name is required";
     if (!form.community) return 'Community is required';
     if (!form.address.trim()) return 'Address is required';
     if (!/^[6-9]\d{9}$/.test(form.studentMobile)) return 'Enter a valid 10-digit student mobile number';
@@ -229,11 +246,23 @@ export default function BioDataPage() {
                     <Field label="Date of Birth" required>
                       <input type="date" value={form.dateOfBirth} onChange={e => set('dateOfBirth', e.target.value)} className={inputCls} />
                     </Field>
-                    <Field label="Course Applied" required>
+                    <Field label="Course / Branch Applied" required>
                       <select value={form.courseApplied} onChange={e => set('courseApplied', e.target.value)} className={inputCls}>
                         <option value="">Select course</option>
-                        {COURSES.map(c => <option key={c} value={c}>{c}</option>)}
+                        {(form.admissionType === 'PG' ? PG_COURSES : UG_COURSES).map(c => <option key={c} value={c}>{c}</option>)}
                       </select>
+                    </Field>
+                    <Field label="Admission Type" required>
+                      <div className="flex gap-4 mt-1 flex-wrap">
+                        {['UG', 'PG', 'Lateral Entry'].map(t => (
+                          <label key={t} className="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="admissionType" value={t} checked={form.admissionType === t}
+                              onChange={e => { set('admissionType', e.target.value); set('courseApplied', ''); }}
+                              className="accent-blue-600" />
+                            <span className="text-sm text-gray-700 font-medium">{t}</span>
+                          </label>
+                        ))}
+                      </div>
                     </Field>
                     <Field label="College Name" required>
                       <input type="text" value={form.collegeName} onChange={e => set('collegeName', e.target.value)}
@@ -254,11 +283,19 @@ export default function BioDataPage() {
                       <input type="text" value={form.fatherName} onChange={e => set('fatherName', e.target.value)}
                         placeholder="Father's full name" className={inputCls} />
                     </Field>
+                    <Field label="Mother's Name" required>
+                      <input type="text" value={form.motherName} onChange={e => set('motherName', e.target.value)}
+                        placeholder="Mother's full name" className={inputCls} />
+                    </Field>
                     <Field label="Community" required>
                       <select value={form.community} onChange={e => set('community', e.target.value)} className={inputCls}>
                         <option value="">Select community</option>
                         {COMMUNITIES.map(c => <option key={c} value={c}>{c}</option>)}
                       </select>
+                    </Field>
+                    <Field label="Sub Caste">
+                      <input type="text" value={form.subCaste} onChange={e => set('subCaste', e.target.value)}
+                        placeholder="Sub caste (if applicable)" className={inputCls} />
                     </Field>
                     <Field label="Full Address" required className="sm:col-span-2">
                       <textarea value={form.address} onChange={e => set('address', e.target.value)}
@@ -303,21 +340,21 @@ export default function BioDataPage() {
                     <FaBook className="text-blue-500 text-sm" /> Academic Details
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <Field label="+2 Group" required>
+                    <Field label="+2 Group / Diploma Branch / UG Branch" required>
                       <input type="text" value={form.plusTwoGroup} onChange={e => set('plusTwoGroup', e.target.value)}
-                        placeholder="e.g. Bio-Maths, CS-Maths" className={inputCls} />
+                        placeholder="e.g. Bio-Maths, CS-Maths, Computer Science" className={inputCls} />
                     </Field>
-                    <Field label="+2 Exam Number" required>
+                    <Field label="+2 Exam Number / Register Number" required>
                       <input type="text" value={form.plusTwoExamNumber} onChange={e => set('plusTwoExamNumber', e.target.value)}
                         placeholder="Register / Exam number" className={inputCls} />
                     </Field>
-                    <Field label="Expected Cut-Off (12th)" required>
+                    <Field label="Expected Cut-Off / Percentage / CGPA" required>
                       <input type="text" value={form.expectedCutOff} onChange={e => set('expectedCutOff', e.target.value)}
-                        placeholder="e.g. 185 or 196.25" className={inputCls} />
+                        placeholder="e.g. 185, 87%, or 8.5 CGPA" className={inputCls} />
                     </Field>
-                    <Field label="Last Studied School & Place" required>
+                    <Field label="Last Studied Institution & Place" required>
                       <input type="text" value={form.lastSchoolAndPlace} onChange={e => set('lastSchoolAndPlace', e.target.value)}
-                        placeholder="School name, City" className={inputCls} />
+                        placeholder="Institution name, City" className={inputCls} />
                     </Field>
                     <Field label="Govt School (6th–12th)?" required>
                       <div className="flex gap-4 mt-1">
