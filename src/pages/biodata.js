@@ -340,11 +340,11 @@ export default function BioDataPage() {
                     <FaBook className="text-blue-500 text-sm" /> Academic Details
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <Field label="+2 Group / Diploma Branch / UG Branch" required>
+                    <Field label="12th Group / Diploma Branch / UG Branch" required>
                       <input type="text" value={form.plusTwoGroup} onChange={e => set('plusTwoGroup', e.target.value)}
                         placeholder="e.g. Bio-Maths, CS-Maths, Computer Science" className={inputCls} />
                     </Field>
-                    <Field label="+2 Exam Number / Register Number" required>
+                    <Field label="12th Exam Number / Register Number" required>
                       <input type="text" value={form.plusTwoExamNumber} onChange={e => set('plusTwoExamNumber', e.target.value)}
                         placeholder="Register / Exam number" className={inputCls} />
                     </Field>
